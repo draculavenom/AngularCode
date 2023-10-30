@@ -12,7 +12,7 @@ import { LeftBarComponent } from './layout/left-bar/left-bar.component';
 import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { SecurityService } from './security/security.service';
-//456123: I need to import the forms to use it
+
 @NgModule({
   declarations: [
     AppComponent,

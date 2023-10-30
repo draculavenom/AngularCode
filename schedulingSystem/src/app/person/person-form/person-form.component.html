@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form #personForm="ngForm">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" [(ngModel)]="person.name">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" [(ngModel)]="person.lastName">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="typeOfUser">Type Of User</label>
+                            <input type="text" class="form-control" id="typeOfUser" name="typeOfUser" placeholder="Client" [(ngModel)]="person.typeOfUser">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Username" [(ngModel)]="person.username">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email" [(ngModel)]="person.email">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" [(ngModel)]="person.phoneNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date Of Birth</label>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" [(ngModel)]="person.dateOfBirth">
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <p style="color: red;">{{messages}}</p>
+                    </div>
+                    <div class="col-sm-1 mt-3">
+                        <a class="btn btn-success" (click)="onSave()">{{updateFlag ? "Update" : "Create"}}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
