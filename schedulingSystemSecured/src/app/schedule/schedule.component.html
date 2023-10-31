@@ -1,3 +1,22 @@
-Appointments:
-
-<a href="schedule/NewAppointment" class="btn btn-success">New Appointment</a>
+<div class="row">
+    <div class="col-sm-12">
+        <H2>Appointments:</H2>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <th scope="col">date</th>
+                <th scope="col">time</th>
+                <th scope="col">status</th>
+                <th scope="col"></th>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let appointment of appointments">
+                    <th scope="row">{{appointment.date}}</th>
+                    <td>{{appointment.time.substring(0, 5)}}</td>
+                    <td>{{appointment.status}}</td>
+                    <td><a href="schedule/appointment/{{appointment.id}}" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Change Appointment</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="schedule/appointment" class="btn btn-success">New Appointment</a>
+    </div>
+</div>

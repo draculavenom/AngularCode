@@ -42,4 +42,13 @@ export class SecurityService {
   public getToken(): string{
     return this.token;
   }
+
+  public getBearerToken(): string{
+    let token = sessionStorage.getItem('bearerToken');
+    let bearerToken = "";
+    if (token !== null){
+      bearerToken = token.split("\",\"")[0].split("\":\"")[1];
+    }
+    return bearerToken;
+  }
 }

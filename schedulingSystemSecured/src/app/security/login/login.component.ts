@@ -26,12 +26,13 @@ export class LoginComponent implements OnInit {
   public onSubmit(userData: UsersModel){
     this.securityService.loginUser(userData).subscribe(
       data => {
+        console.log(data);
         sessionStorage.setItem('bearerToken', data);
         this.responseMessage = "Authetication successful.";
         this.getUserDetails(data);
         location.reload();
       },
-      error => this.responseMessage = error.erorr
+      error => this.responseMessage = error.error
     );
   }
 

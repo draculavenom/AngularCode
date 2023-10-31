@@ -9,7 +9,7 @@ import { UsersModel } from './users.model';
 })
 export class UsersComponent implements OnInit {
 
-  user: UsersModel = new UsersModel(0,"",true);
+  user: UsersModel = new UsersModel(0,"",true,"something");
 
   constructor(private userService: UserService) { }
 
@@ -20,9 +20,11 @@ export class UsersComponent implements OnInit {
   public loadInfo(){
     this.userService.getUser().subscribe(data => {
       console.log(data);
-      this.user = new UsersModel(1,"",true);
+      //console.log(data.id);
+      this.user = new UsersModel(data.id,data.email,true,data.name,"", "", "", data.phoneNumber, data.dateOfBirth, data.managedBy);
     },
     error => console.log(error.erorr));
+    console.log(this.user);
   }
 
 }

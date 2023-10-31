@@ -15,6 +15,7 @@ import { SecurityService } from './security/security.service';
 import { PersonComponent } from './person/person.component';
 import { PersonFormComponent } from './person/person-form/person-form.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { AppointmentComponent } from './schedule/appointment/appointment.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ScheduleComponent } from './schedule/schedule.component';
     RegisterComponent,
     PersonComponent,
     PersonFormComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    AppointmentComponent
   ],
   imports: [
     BrowserModule,

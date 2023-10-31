@@ -6,6 +6,7 @@ import { RegisterComponent } from './security/register/register.component';
 import { PersonComponent } from './person/person.component';
 import { PersonFormComponent } from './person/person-form/person-form.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { AppointmentComponent } from './schedule/appointment/appointment.component';
 
 const routes: Routes = [
   { path: '', component: ScheduleComponent },
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'schedule', component: ScheduleComponent },
+  { path: 'schedule/appointment', component: AppointmentComponent },
+  { path: 'schedule/appointment/:id', component: AppointmentComponent },
   { path: 'person', component: PersonComponent },
   { path: 'person/create', component: PersonFormComponent },
   { path: 'person/:id', component: PersonFormComponent }
