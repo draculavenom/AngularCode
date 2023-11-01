@@ -1,0 +1,74 @@
+<div class="contianer">
+    <div class="row">
+        <div class="col-sm-12">
+            <form>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <label for="id">Id</label>
+                            </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" name="id" id="id" value="{{user.id}}" disabled/>
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="firstName">First Name</label>
+                            </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" name="firstName" id="firstName" [(ngModel)]="user.firstName" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="lastName">Last Name</label>
+                            </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" name="lastName" id="lastName" [(ngModel)]="user.lastName" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="email">Email</label>
+                            </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" name="email" id="email" [(ngModel)]="user.email" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="phoneNumber">Phone Number</label>
+                            </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" name="phoneNumber" id="phoneNumber" [(ngModel)]="user.phoneNumber" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="dateOfBirth">Date of Birth</label>
+                            </div>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" [(ngModel)]="user.dateOfBirth" />
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="managedBy">Managed By</label>
+                            </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" name="managedBy" id="managedBy" value="{{user.managedBy}}" disabled/>
+                        </div>
+                        <div class="col-sm-1">
+                            <label for="role">Role</label>
+                            </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" name="role" id="role" value="{{user.role}}" disabled/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <button *ngIf="user.id == 0" (click)="createUser()" class="btn btn-success">Create</button>
+                            <button *ngIf="user.id != 0" (click)="editUser()" class="btn btn-success">Edit</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <a href="/users" class="btn btn-danger">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" *ngIf="message != ''">
+        <div class="col-sm-12">
+            <div class="alert alert-{{messageType}}" role="alert">{{message}}</div>
+        </div>
+    </div>
+</div>

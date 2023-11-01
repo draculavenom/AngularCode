@@ -20,6 +20,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CancelDialogComponent } from './layout/cancel-dialog/cancel-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthGuard } from './security/auth.guard';
+import { UserComponent } from './users/user/user.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AuthGuard } from './security/auth.guard';
     PersonFormComponent,
     ScheduleComponent,
     AppointmentComponent,
-    CancelDialogComponent
+    CancelDialogComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

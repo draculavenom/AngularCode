@@ -8,10 +8,13 @@ import { PersonFormComponent } from './person/person-form/person-form.component'
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AppointmentComponent } from './schedule/appointment/appointment.component';
 import { AuthGuard } from './security/auth.guard';
+import { UserComponent } from './users/user/user.component';
 
 const routes: Routes = [
   { path: '', component: ScheduleComponent, canActivate: [AuthGuard]},
-  { path: 'user', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'user/:id', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard] },

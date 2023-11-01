@@ -6,7 +6,6 @@
                 <thead class="thead-dark">
                     <th scope="col">Id</th>
                     <th scope="col">email</th>
-                    <th scope="col">enabled</th>
                     <th scope="col">name</th>
                     <th scope="col">phoneNumber</th>
                     <th scope="col">dateOfBirth</th>
@@ -18,13 +17,12 @@
                     <tr *ngFor = "let u of users">
                         <th scope="row">{{u.id}}</th>
                         <td>{{u.email}}</td>
-                        <td>{{u.enabled}}</td>
                         <td>{{u.name}}</td>
                         <td>{{u.phoneNumber}}</td>
                         <td>{{u.dateOfBirth}}</td>
                         <td>{{u.managedBy}}</td>
                         <td>{{u.role}}</td>
-                        <td><a href="#" class="btn btn-success">Edit</a></td>
+                        <td><a *ngIf="u.role != 'ADMIN'" href="/user/{{u.id}}" class="btn btn-success">Edit</a></td>
                     </tr>
                 </tbody>
             </table>

@@ -31,11 +31,23 @@ export class UserService {
     return this.getUserByEmail(email);
   }
 
+  public getUserById(id: number): Observable<UsersModel>{
+    return this.http.get<UsersModel>('http://localhost:8080/api/v1/Users/' + id, {headers: this.headers, responseType: 'json'});
+  }
+
   public getUserByEmail(email: string): Observable<UsersModel>{
     return this.http.get<UsersModel>('http://localhost:8080/api/v1/Users/byEmail/' + email, {headers: this.headers, responseType: 'json'});
   }
 
   public getUsers(): Observable<UsersModel[]>{
     return this.http.get<UsersModel[]>('http://localhost:8080/api/v1/Users', {headers: this.headers, responseType: 'json'});
+  }
+
+  public createUser(user: UsersModel): Observable<UsersModel>{
+    return this.http.post<UsersModel>('http://localhost:8080/api/v1/Users', user, {headers: this.headers, responseType: 'json'});
+  }
+
+  public updateUser(user: UsersModel): Observable<UsersModel>{
+    return this.http.put<UsersModel>('http://localhost:8080/api/v1/Users', user, {headers: this.headers, responseType: 'json'});
   }
 }
