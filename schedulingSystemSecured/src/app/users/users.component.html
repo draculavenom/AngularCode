@@ -1,1 +1,33 @@
-<H1>Welcome {{user.name}}</H1>
+<div class="contianer">
+    <div class="row">
+        <div class="col-sm-12">
+            <H1>Welcome {{user.name}}</H1>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <th scope="col">Id</th>
+                    <th scope="col">email</th>
+                    <th scope="col">enabled</th>
+                    <th scope="col">name</th>
+                    <th scope="col">phoneNumber</th>
+                    <th scope="col">dateOfBirth</th>
+                    <th scope="col">managedBy</th>
+                    <th scope="col">role</th>
+                    <th scope="col"></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let u of users">
+                        <th scope="row">{{u.id}}</th>
+                        <td>{{u.email}}</td>
+                        <td>{{u.enabled}}</td>
+                        <td>{{u.name}}</td>
+                        <td>{{u.phoneNumber}}</td>
+                        <td>{{u.dateOfBirth}}</td>
+                        <td>{{u.managedBy}}</td>
+                        <td>{{u.role}}</td>
+                        <td><a href="#" class="btn btn-success">Edit</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

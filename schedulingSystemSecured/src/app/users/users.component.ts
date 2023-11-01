@@ -9,22 +9,25 @@ import { UsersModel } from './users.model';
 })
 export class UsersComponent implements OnInit {
 
-  user: UsersModel = new UsersModel(0,"",true,"something");
+  user: UsersModel = new UsersModel(0,"",true);
+  users: UsersModel[] = [];
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.loadInfo();
+    this.loadUserInfo();
+    this.loadUsersInfo();
   }
 
-  public loadInfo(){
+  public loadUserInfo(){
     this.userService.getUser().subscribe(data => {
-      console.log(data);
-      //console.log(data.id);
       this.user = new UsersModel(data.id,data.email,true,data.name,"", "", "", data.phoneNumber, data.dateOfBirth, data.managedBy);
     },
     error => console.log(error.erorr));
-    console.log(this.user);
+  }
+
+  public loadUsersInfo(){
+    this.userService.getUsers().subscribe(usersList => this.users = usersList, error => console.log(error.erorr));
   }
 
 }

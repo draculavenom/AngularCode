@@ -34,4 +34,8 @@ export class UserService {
   public getUserByEmail(email: string): Observable<UsersModel>{
     return this.http.get<UsersModel>('http://localhost:8080/api/v1/Users/byEmail/' + email, {headers: this.headers, responseType: 'json'});
   }
+
+  public getUsers(): Observable<UsersModel[]>{
+    return this.http.get<UsersModel[]>('http://localhost:8080/api/v1/Users', {headers: this.headers, responseType: 'json'});
+  }
 }

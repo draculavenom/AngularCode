@@ -9,8 +9,9 @@ export class UsersModel{
     phoneNumber: string;
     dateOfBirth: Date;
     managedBy: number;
+    role: string;
 
-    constructor (id: number, email: string, enabled: boolean, name?: string, firstName?: string, lastName?: string, password?: string, phoneNumber?: string, dateOfBirth?: Date, managedBy?: number){
+    constructor (id: number, email: string, enabled: boolean, name?: string, firstName?: string, lastName?: string, password?: string, phoneNumber?: string, dateOfBirth?: Date, managedBy?: number, role?: string){
         this.id = id;
         this.email = email;
         this.enabled = enabled;
@@ -42,5 +43,9 @@ export class UsersModel{
             this.managedBy = managedBy;
         else
             this.managedBy = 0;
+        if(role)
+            this.role = role;
+        else
+            this.role = "USER";
     }
 }
