@@ -35,6 +35,10 @@ export class AppointmentService {
     return this.http.put<AppointmentModel>("http://localhost:8080/api/v1/Appointments", appointmentData, {headers: this.headers, responseType: 'json'});
   }
 
+  public cancelAppointment(id: number): Observable<AppointmentModel>{
+    return this.http.delete<AppointmentModel>("http://localhost:8080/api/v1/Appointments/" + id, {headers: this.headers, responseType: 'json'});
+  }
+
   private updateHeaders(){
     this.headers["Authorization"] = "Bearer " + this.securityService.getBearerToken();
   }

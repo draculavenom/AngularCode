@@ -3,9 +3,10 @@
         <H2>Appointments:</H2>
         <table class="table table-striped">
             <thead class="thead-dark">
-                <th scope="col">date</th>
-                <th scope="col">time</th>
-                <th scope="col">status</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
                 <th scope="col"></th>
             </thead>
             <tbody>
@@ -13,7 +14,8 @@
                     <th scope="row">{{appointment.date}}</th>
                     <td>{{appointment.time.substring(0, 5)}}</td>
                     <td>{{appointment.status}}</td>
-                    <td><a href="schedule/appointment/{{appointment.id}}" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Change Appointment</a></td>
+                    <td><a href="schedule/appointment/{{appointment.id}}" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Change</a></td>
+                    <td><button type="button" (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-danger">Cancel</button></td>
                 </tr>
             </tbody>
         </table>

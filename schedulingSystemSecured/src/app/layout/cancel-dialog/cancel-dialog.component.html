@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xm-12">
+            <h1 mat-dialog-title>Are you sure you want to cancel?</h1>
+            <div mat-dialog-content></div>
+            <div mat-dialog-actions>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <button class="btn btn-primary" mat-button (click)="onNoClick()">No, return</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <button class="btn btn-danger" mat-button [mat-dialog-close]="data.id" cdkFocusInitial>Yes, cancel</button>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </div>
+</div>

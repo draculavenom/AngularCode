@@ -16,6 +16,9 @@ import { PersonComponent } from './person/person.component';
 import { PersonFormComponent } from './person/person-form/person-form.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AppointmentComponent } from './schedule/appointment/appointment.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CancelDialogComponent } from './layout/cancel-dialog/cancel-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -29,14 +32,17 @@ import { AppointmentComponent } from './schedule/appointment/appointment.compone
     PersonComponent,
     PersonFormComponent,
     ScheduleComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    CancelDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    MatDialogModule
   ],
   providers: [SecurityService],
   bootstrap: [AppComponent]
