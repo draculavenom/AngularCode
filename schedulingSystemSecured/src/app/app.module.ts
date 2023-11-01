@@ -19,6 +19,7 @@ import { AppointmentComponent } from './schedule/appointment/appointment.compone
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CancelDialogComponent } from './layout/cancel-dialog/cancel-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AuthGuard } from './security/auth.guard';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NoopAnimationsModule,
     MatDialogModule
   ],
-  providers: [SecurityService],
+  providers: [SecurityService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

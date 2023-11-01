@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2" *ngIf="username != ''">
             <nav class="nav flex-column">
                 <a class="nav-link active" aria-current="page" href="/user">{{username}}</a>
                 <a class="nav-link" aria-current="page" href="/schedule">Appointments</a>
@@ -8,6 +8,6 @@
         </div>
         <div class="col-md-10">
             <router-outlet></router-outlet>
-        </div>
+        </div> 
     </div>
 </div>

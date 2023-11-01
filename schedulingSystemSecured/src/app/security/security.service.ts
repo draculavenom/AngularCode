@@ -17,7 +17,7 @@ export class SecurityService {
 
   constructor(private http: HttpClient) {}
 
-  public isUserLoggedIn(){
+  public isUserLoggedIn(): boolean{
     this.token = sessionStorage.getItem('bearerToken');
     return !(this.token === null)
   }

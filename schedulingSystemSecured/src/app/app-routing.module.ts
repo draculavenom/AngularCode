@@ -7,15 +7,16 @@ import { PersonComponent } from './person/person.component';
 import { PersonFormComponent } from './person/person-form/person-form.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { AppointmentComponent } from './schedule/appointment/appointment.component';
+import { AuthGuard } from './security/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: ScheduleComponent },
-  { path: 'user', component: UsersComponent },
+  { path: '', component: ScheduleComponent, canActivate: [AuthGuard]},
+  { path: 'user', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'schedule', component: ScheduleComponent },
-  { path: 'schedule/appointment', component: AppointmentComponent },
-  { path: 'schedule/appointment/:id', component: AppointmentComponent },
+  { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard] },
+  { path: 'schedule/appointment', component: AppointmentComponent, canActivate: [AuthGuard] },
+  { path: 'schedule/appointment/:id', component: AppointmentComponent, canActivate: [AuthGuard] },
   { path: 'person', component: PersonComponent },
   { path: 'person/create', component: PersonFormComponent },
   { path: 'person/:id', component: PersonFormComponent }
