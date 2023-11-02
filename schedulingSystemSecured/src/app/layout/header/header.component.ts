@@ -25,9 +25,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
+    ///api/v1/auth/logout
+    this.securityService.logout().subscribe(answer => console.log(answer), error => console.log(error));
     sessionStorage.removeItem("userData");
     sessionStorage.removeItem("bearerToken");
     location.reload();
   }
-
 }

@@ -22,10 +22,16 @@
                         <td>{{u.dateOfBirth}}</td>
                         <td>{{u.managedBy}}</td>
                         <td>{{u.role}}</td>
-                        <td><a *ngIf="u.role != 'ADMIN'" href="/user/{{u.id}}" class="btn btn-success">Edit</a></td>
+                        <td><a *ngIf="u.role != 'ADMIN'" href="/user/{{u.id}}" class="btn btn-primary">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="/users/createManager" class="btn btn-success">Create a Manager</a>
+        </div>
+    </div>
+
 </div>

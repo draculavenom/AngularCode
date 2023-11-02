@@ -31,6 +31,15 @@ export class SecurityService {
     return this.http.post('http://localhost:8080/api/v1/auth/authenticate', userData, {headers: this.headers, responseType: 'text'});
   }
 
+  public logout(){
+    let headersWithToken = {
+      "content-type": "application/json",
+      "Accept": "*/*",
+      "Authorization": "Bearer " + this.getBearerToken()
+    };
+    return this.http.post('http://localhost:8080/api/v1/auth/logout', null, {headers: headersWithToken, responseType: 'text'});
+  }
+
   public getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);

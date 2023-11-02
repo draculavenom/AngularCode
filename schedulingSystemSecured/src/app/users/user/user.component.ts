@@ -30,14 +30,14 @@ export class UserComponent implements OnInit {
     this.userService.updateUser(this.user).subscribe(u => {
       this.user = u;
       this.updateMessage("updated");
-    }, error => this.errorMessage(error));
+    }, error => this.errorMessage(error.message));
   }
 
   public createUser(){
     this.userService.createUser(this.user).subscribe(u => {
       this.user = u;
       this.updateMessage("created");
-    }, error => this.errorMessage(error));
+    }, error => this.errorMessage(error.message));
   }
 
   public updateMessage(input: string){

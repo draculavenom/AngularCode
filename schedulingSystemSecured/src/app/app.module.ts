@@ -21,6 +21,7 @@ import { CancelDialogComponent } from './layout/cancel-dialog/cancel-dialog.comp
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthGuard } from './security/auth.guard';
 import { UserComponent } from './users/user/user.component';
+import { ManagerUserComponent } from './users/manager-user/manager-user.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { UserComponent } from './users/user/user.component';
     ScheduleComponent,
     AppointmentComponent,
     CancelDialogComponent,
-    UserComponent
+    UserComponent,
+    ManagerUserComponent
   ],
   imports: [
     BrowserModule,
