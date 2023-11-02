@@ -34,11 +34,4 @@ export class ManagerOptionsModel{
         else
             this.comments = "";
     }
-    /*private Integer id;
-	private String name;
-	private Integer managerId;
-	private Integer adminId;
-	private double ammountPaid;
-	private LocalDate activeDate;
-	private String comments; */
 }

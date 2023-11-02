@@ -3,34 +3,48 @@
     <form #userData = "ngForm" (ngSubmit)="onSubmit(userData.value)">
         <div class="row gx-5">
             <div class="col-sm-2">
-                <label for="username" class="p-3">Username</label>
+                <label for="email" class="p-3">Email</label>
             </div>
             <div class="col-sm-4">
-                <input type="text" id="username" name="username" placeholder="Username" class="form-control" ngModel/>
+                <input type="email" id="email" name="email" placeholder="Email" class="form-control" [(ngModel)]="user.email"/>
             </div>
             <div class="col-sm-2">
                 <label for="password" class="p-3">Password</label>
             </div>
             <div class="col-sm-4">
-                <input type="password" id="password" name="password" placeholder="Password" class="form-control" ngModel/>
+                <input type="password" id="password" name="password" placeholder="Password" class="form-control" [(ngModel)]="user.password"/>
             </div>
             <div class="col-sm-2">
                 <label for="name" class="p-3">First Name</label>
             </div>
             <div class="col-sm-4">
-                <input type="name" id="name" name="name" placeholder="First Name" class="form-control" ngModel/>
+                <input type="name" id="firstName" name="firstName" placeholder="First Name" class="form-control" [(ngModel)]="user.firstName"/>
             </div>
             <div class="col-sm-2">
                 <label for="lastName" class="p-3">Last Name</label>
             </div>
             <div class="col-sm-4">
-                <input type="lastName" id="lastName" name="lastName" placeholder="Last Name" class="form-control" ngModel/>
+                <input type="lastName" id="lastName" name="lastName" placeholder="Last Name" class="form-control" [(ngModel)]="user.lastName"/>
             </div>
             <div class="col-sm-2">
-                <label for="email" class="p-3">Email</label>
+                <label for="phoneNumber" class="p-3">Phone Number</label>
             </div>
             <div class="col-sm-4">
-                <input type="email" id="email" name="email" placeholder="Email" class="form-control" ngModel/>
+                <input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control" [(ngModel)]="user.phoneNumber"/>
+            </div>
+            <div class="col-sm-2">
+                <label for="dateOfBirth" class="p-3">Date Of Birth</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Date Of Birth" class="form-control" [ngModel]="user.dateOfBirth | date:'yyyy-MM-dd'" (ngModelChange)="user.dateOfBirth = $event"/>
+            </div>
+            <div class="col-sm-2">
+                <label for="managedBy" class="p-3">Company</label>
+            </div>
+            <div class="col-sm-4">
+                <select id="managedBy" name="managedBy" class="form-select" [(ngModel)]="user.managedBy">
+                    <option *ngFor="let managerOption of managerSelect" value="{{managerOption.managerId}}">{{managerOption.name}}</option>
+                </select>
             </div>
         </div>
         <div class="row">
