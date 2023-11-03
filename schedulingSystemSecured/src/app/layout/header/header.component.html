@@ -17,7 +17,7 @@
           <div *ngIf="username!=''">
             <a
               class="btn btn-dark px-3"
-              href="/user"
+              href="/user/{{user.id}}"
               role="button"
               >{{username}}</a>
               <a href="#" class="btn btn-dark" (click)="logout()">Logout</a>

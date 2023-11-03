@@ -32,13 +32,15 @@
                 <th scope="col">Status</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </thead>
             <tbody>
                 <tr *ngFor = "let appointment of appointments">
                     <th scope="row">{{appointment.date}}</th>
                     <td>{{appointment.time.substring(0, 5)}}</td>
                     <td>{{appointment.status}}</td>
-                    <td><a href="schedule/appointment/{{appointment.id}}" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Change</a></td>
+                    <td><button type="button" (click)="confirm(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Confirm</button></td>
+                    <td><button type="button" (click)="complete(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-success">Completed</button></td>
                     <td><button type="button" (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-danger">Cancel</button></td>
                 </tr>
             </tbody>

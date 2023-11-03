@@ -57,6 +57,10 @@ export class UserService {
     return this.http.put<UsersModel>('http://localhost:8080/api/v1/Users', user, {headers: this.headers, responseType: 'json'});
   }
 
+  public updateSelf(user: UsersModel): Observable<UsersModel>{
+    return this.http.put<UsersModel>('http://localhost:8080/api/v1/Users/self', user, {headers: this.headers, responseType: 'json'});
+  }
+
   public getManagerSelect(): Observable<ManagerOptionsModel[]>{
     return this.http.get<ManagerOptionsModel[]>('http://localhost:8080/api/v1/Manager/select', {headers: this.headersWithToken, responseType: 'json'});
   }

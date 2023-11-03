@@ -28,7 +28,7 @@ export class AppointmentService {
   }
 
   public getManagerAppointments(userId: number): Observable<AppointmentModel[]>{
-    return this.http.get<AppointmentModel[]>('http://localhost:8080/api/v1/Appointments/byUserId/' + userId, {headers: this.headers, responseType: 'json'});
+    return this.http.get<AppointmentModel[]>('http://localhost:8080/api/v1/Appointments/byManagerId/' + userId, {headers: this.headers, responseType: 'json'});
   }
 
   public createAppointment(appointmentData: AppointmentModel): Observable<AppointmentModel>{
@@ -41,6 +41,16 @@ export class AppointmentService {
 
   public cancelAppointment(id: number): Observable<AppointmentModel>{
     return this.http.delete<AppointmentModel>("http://localhost:8080/api/v1/Appointments/" + id, {headers: this.headers, responseType: 'json'});
+  }
+
+  public confirmAppointment(id: number): Observable<AppointmentModel>{
+    let data = {"status": "CONFIRMED", "id": id};
+    return this.http.put<AppointmentModel>("http://localhost:8080/api/v1/Appointments/updateStatus", data, {headers: this.headers, responseType: 'json'});
+  }
+
+  public completeAppointment(id: number): Observable<AppointmentModel>{
+    let data = {"status": "COMPLETED", "id": id};
+    return this.http.put<AppointmentModel>("http://localhost:8080/api/v1/Appointments/updateStatus", data, {headers: this.headers, responseType: 'json'});
   }
 
   private updateHeaders(){

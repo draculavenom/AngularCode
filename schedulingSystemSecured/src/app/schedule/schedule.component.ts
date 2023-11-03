@@ -31,7 +31,7 @@ export class ScheduleComponent implements OnInit {
       console.log(u);
       if(u.role == "USER")
         this.appointmentService.getAppointments(u.id).subscribe(a => a.forEach(ap => this.appointments.push(ap)));
-      else if(u.role == "USER")
+      else if(u.role == "MANAGER")
         this.appointmentService.getManagerAppointments(u.id).subscribe(a => a.forEach(ap => this.appointments.push(ap)));
     });
     
@@ -40,6 +40,22 @@ export class ScheduleComponent implements OnInit {
 
   public cancel(appointmentId: number){
     this.appointmentService.cancelAppointment(appointmentId).subscribe(a => {
+      let app = this.appointments.find(ap => ap.id == a.id)
+      if(app !== undefined)
+        app.status = a.status
+    });
+  }
+
+  public confirm(appointmentId: number){
+    this.appointmentService.confirmAppointment(appointmentId).subscribe(a => {
+      let app = this.appointments.find(ap => ap.id == a.id)
+      if(app !== undefined)
+        app.status = a.status
+    });
+  }
+
+  public complete(appointmentId: number){
+    this.appointmentService.completeAppointment(appointmentId).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
       if(app !== undefined)
         app.status = a.status
