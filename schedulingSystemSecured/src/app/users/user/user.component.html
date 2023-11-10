@@ -60,7 +60,8 @@
                             <button *ngIf="user.id != 0 && user.id == tokenId" (click)="editSelf()" class="btn btn-success">Edit</button>
                         </div>
                         <div class="col-sm-1">
-                            <a href="/users" class="btn btn-danger">Cancel</a>
+                            <a *ngIf="user.id != 0 && user.id != tokenId" href="/users" class="btn btn-danger">Cancel</a>
+                            <a *ngIf="user.id != 0 && user.id == tokenId" href="/" class="btn btn-danger">Cancel</a>
                         </div>
                     </div>
                 </div>

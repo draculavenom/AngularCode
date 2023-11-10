@@ -31,6 +31,10 @@ export class AppointmentService {
     return this.http.get<AppointmentModel[]>('http://localhost:8080/api/v1/Appointments/byManagerId/' + userId, {headers: this.headers, responseType: 'json'});
   }
 
+  public getAdminAppointments(userId: number): Observable<AppointmentModel[]>{
+    return this.http.get<AppointmentModel[]>('http://localhost:8080/api/v1/Appointments', {headers: this.headers, responseType: 'json'});
+  }
+
   public createAppointment(appointmentData: AppointmentModel): Observable<AppointmentModel>{
     return this.http.post<AppointmentModel>("http://localhost:8080/api/v1/Appointments", appointmentData, {headers: this.headers, responseType: 'json'});
   }

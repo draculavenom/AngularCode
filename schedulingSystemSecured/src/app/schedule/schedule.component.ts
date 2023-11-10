@@ -33,6 +33,8 @@ export class ScheduleComponent implements OnInit {
         this.appointmentService.getAppointments(u.id).subscribe(a => a.forEach(ap => this.appointments.push(ap)));
       else if(u.role == "MANAGER")
         this.appointmentService.getManagerAppointments(u.id).subscribe(a => a.forEach(ap => this.appointments.push(ap)));
+      else if(u.role == "ADMIN")
+        this.appointmentService.getAdminAppointments(u.id).subscribe(a => a.forEach(ap => this.appointments.push(ap)));
     });
     
     //it will be split in two, one to retrieve the userId from the user service, the second one to get the information of the appointments
