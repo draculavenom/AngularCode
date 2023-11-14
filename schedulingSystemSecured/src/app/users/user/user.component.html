@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-sm-1">
                             <label for="id">Id</label>
-                            </div>
+                        </div>
                         <div class="col-sm-5">
                             <input class="form-control" name="id" id="id" value="{{user.id}}" disabled/>
                         </div>
@@ -62,6 +62,9 @@
                         <div class="col-sm-1">
                             <a *ngIf="user.id != 0 && user.id != tokenId" href="/users" class="btn btn-danger">Cancel</a>
                             <a *ngIf="user.id != 0 && user.id == tokenId" href="/" class="btn btn-danger">Cancel</a>
+                        </div>
+                        <div class="col-sm-1" *ngIf="self.role == 'ADMIN'">
+                            <button (click)="openDialog(user.id)" class="btn btn-light">Change Password</button>
                         </div>
                     </div>
                 </div>

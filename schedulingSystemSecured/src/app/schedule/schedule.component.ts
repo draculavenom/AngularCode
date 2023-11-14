@@ -14,6 +14,7 @@ import { CancelDialogComponent } from '../layout/cancel-dialog/cancel-dialog.com
 export class ScheduleComponent implements OnInit {
   user: UsersModel = new UsersModel(0,"",false);
   appointments: AppointmentModel[] = [];
+  selectedDate: Date = new Date();
 
   constructor(
     private appointmentService: AppointmentService, 
@@ -72,6 +73,10 @@ export class ScheduleComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.cancel(result);
     });
+  }
+
+  public onSelect(event: Event){
+    console.log(event);
   }
 
 }

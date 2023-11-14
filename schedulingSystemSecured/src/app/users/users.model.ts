@@ -10,8 +10,9 @@ export class UsersModel{
     dateOfBirth: Date;
     managedBy: number;
     role: string;
+    passwordChange: boolean;
 
-    constructor (id: number, email: string, enabled: boolean, name?: string, firstName?: string, lastName?: string, password?: string, phoneNumber?: string, dateOfBirth?: Date, managedBy?: number, role?: string){
+    constructor (id: number, email: string, enabled: boolean, name?: string, firstName?: string, lastName?: string, password?: string, phoneNumber?: string, dateOfBirth?: Date, managedBy?: number, role?: string, passwordChange?: boolean){
         this.id = id;
         this.email = email;
         this.enabled = enabled;
@@ -47,5 +48,9 @@ export class UsersModel{
             this.role = role;
         else
             this.role = "USER";
+        if(passwordChange)
+            this.passwordChange = passwordChange;
+        else
+            this.passwordChange = false;
     }
 }

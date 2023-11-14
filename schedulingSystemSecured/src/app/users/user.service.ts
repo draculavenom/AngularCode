@@ -64,4 +64,12 @@ export class UserService {
   public getManagerSelect(): Observable<ManagerOptionsModel[]>{
     return this.http.get<ManagerOptionsModel[]>('http://localhost:8080/api/v1/Manager/select', {headers: this.headersWithToken, responseType: 'json'});
   }
+
+  public resetPassword(id: number){
+    return this.http.get<boolean>('http://localhost:8080/api/v1/Users/resetPassword/' + id, {headers: this.headers, responseType: 'json'});
+  }
+
+  public changePassword(user: UsersModel){
+    return this.http.put<UsersModel>('http://localhost:8080/api/v1/Users/passwordChange', user, {headers: this.headers, responseType: 'json'});
+  }
 }

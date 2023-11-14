@@ -18,10 +18,24 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { AppointmentComponent } from './schedule/appointment/appointment.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CancelDialogComponent } from './layout/cancel-dialog/cancel-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { AuthGuard } from './security/auth.guard';
 import { UserComponent } from './users/user/user.component';
 import { ManagerUserComponent } from './users/manager-user/manager-user.component';
+import { PasswordDialogComponent } from './layout/password-dialog/password-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import {MatNativeDateModule} from '@angular/material/core';
+import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +52,9 @@ import { ManagerUserComponent } from './users/manager-user/manager-user.componen
     AppointmentComponent,
     CancelDialogComponent,
     UserComponent,
-    ManagerUserComponent
+    ManagerUserComponent,
+    PasswordDialogComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +63,20 @@ import { ManagerUserComponent } from './users/manager-user/manager-user.componen
     FormsModule,
     ReactiveFormsModule,
     NoopAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatGridListModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatCardModule,
+    MatNativeDateModule
   ],
   providers: [SecurityService, AuthGuard],
   bootstrap: [AppComponent]

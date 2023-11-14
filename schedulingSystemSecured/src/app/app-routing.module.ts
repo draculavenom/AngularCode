@@ -10,6 +10,7 @@ import { AppointmentComponent } from './schedule/appointment/appointment.compone
 import { AuthGuard } from './security/auth.guard';
 import { UserComponent } from './users/user/user.component';
 import { ManagerUserComponent } from './users/manager-user/manager-user.component';
+import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', component: ScheduleComponent, canActivate: [AuthGuard]},
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard] },
   { path: 'schedule/appointment', component: AppointmentComponent, canActivate: [AuthGuard] },
   { path: 'schedule/appointment/:id', component: AppointmentComponent, canActivate: [AuthGuard] },
+  { path: 'resetPassword', component: ResetPasswordComponent},
   { path: 'person', component: PersonComponent },
   { path: 'person/create', component: PersonFormComponent },
   { path: 'person/:id', component: PersonFormComponent }

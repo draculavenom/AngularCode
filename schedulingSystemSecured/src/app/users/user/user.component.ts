@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { UsersModel } from '../users.model';
 import { SecurityService } from 'src/app/security/security.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PasswordDialogComponent } from 'src/app/layout/password-dialog/password-dialog.component';
 
 @Component({
   selector: 'app-user',
@@ -11,6 +13,7 @@ import { SecurityService } from 'src/app/security/security.service';
 })
 export class UserComponent implements OnInit {
   user: UsersModel = new UsersModel(0, "", false);
+  self: UsersModel = new UsersModel(0, "", false);
   message: string = "";
   messageType: string = "";
   tokenId: number = 0;
@@ -18,7 +21,8 @@ export class UserComponent implements OnInit {
   constructor(
     private userService: UserService, 
     private route: ActivatedRoute, 
-    private securityService: SecurityService
+    private securityService: SecurityService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +35,7 @@ export class UserComponent implements OnInit {
     let tokenInfo: any = {};
     if (token !== null){
       tokenInfo = this.securityService.getDecodedAccessToken(token);
-      this.userService.getUser().subscribe(u => this.user = u);
+      this.userService.getUser().subscribe(u => this.self = u);
       this.tokenId = tokenInfo.jti;
     }
   }
@@ -72,6 +76,20 @@ export class UserComponent implements OnInit {
   public errorMessage(error: string){
     this.message = error;
     this.messageType = "danger";
+  }
+
+  public resetPassword(userId: number){
+    this.userService.resetPassword(userId).subscribe(b => console.log(b));
+  }
+
+  openDialog(id: number): void {
+    const dialogRef = this.dialog.open(PasswordDialogComponent, {
+      data: {id: id},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.resetPassword(result);
+    });
   }
 
 }
