@@ -40,8 +40,8 @@
                     <td>{{appointment.time.substring(0, 5)}}</td>
                     <td>{{appointment.status}}</td>
                     <td><button type="button" (click)="confirm(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Confirm</button></td>
-                    <td><button type="button" (click)="complete(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-success">Completed</button></td>
-                    <td><button type="button" (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-danger">Cancel</button></td>
+                    <td><button type="button" (click)="complete(appointment.id)" *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" class="btn btn-success">Completed</button></td>
+                    <td><button type="button" (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" class="btn btn-danger">Cancel</button></td>
                 </tr>
             </tbody>
         </table>
