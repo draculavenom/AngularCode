@@ -11,6 +11,8 @@ import { AuthGuard } from './security/auth.guard';
 import { UserComponent } from './users/user/user.component';
 import { ManagerUserComponent } from './users/manager-user/manager-user.component';
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
+import { OnboardingComponent } from './security/onboarding/onboarding.component';
+import { ManagerUsersListComponent } from './users/manager-users-list/manager-users-list.component';
 
 const routes: Routes = [
   { path: '', component: ScheduleComponent, canActivate: [AuthGuard]},
@@ -26,7 +28,9 @@ const routes: Routes = [
   { path: 'resetPassword', component: ResetPasswordComponent},
   { path: 'person', component: PersonComponent },
   { path: 'person/create', component: PersonFormComponent },
-  { path: 'person/:id', component: PersonFormComponent }
+  { path: 'person/:id', component: PersonFormComponent },
+  { path: 'onboarding', component: OnboardingComponent },
+  { path: 'manager-users-list', component: ManagerUsersListComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

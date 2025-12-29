@@ -4,6 +4,7 @@ import { SecurityService } from '../security/security.service';
 import { UsersModel } from './users.model';
 import { Observable } from 'rxjs';
 import { ManagerOptionsModel } from './manager.options';
+import { UserDTO } from './manager-users-list/manager-user-list-model';
 
 @Injectable({
   providedIn: 'root'
@@ -72,4 +73,11 @@ export class UserService {
   public changePassword(user: UsersModel){
     return this.http.put<UsersModel>('http://localhost:8080/api/v1/Users/passwordChange', user, {headers: this.headers, responseType: 'json'});
   }
+
+  public getPersonsByManager(managerId: number): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(
+    'http://localhost:8080/api/v1/Manager/' + managerId + '/persons', 
+    { headers: this.headers, responseType: 'json' }
+  );
+}
 }

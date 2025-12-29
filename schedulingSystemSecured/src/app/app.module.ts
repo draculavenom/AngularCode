@@ -36,6 +36,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatNativeDateModule} from '@angular/material/core';
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
+import { OnboardingComponent } from './security/onboarding/onboarding.component';
+import { ManagerUsersListComponent } from './users/manager-users-list/manager-users-list.component';  
 
 @NgModule({
   declarations: [
@@ -54,7 +56,10 @@ import { ResetPasswordComponent } from './users/reset-password/reset-password.co
     UserComponent,
     ManagerUserComponent,
     PasswordDialogComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ManagerUsersListComponent,
+    OnboardingComponent
+
   ],
   imports: [
     BrowserModule,

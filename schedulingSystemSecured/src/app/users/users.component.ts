@@ -21,13 +21,15 @@ export class UsersComponent implements OnInit {
 
   public loadUserInfo(){
     this.userService.getUser().subscribe(data => {
-      this.user = new UsersModel(data.id,data.email,true,data.name,"", "", "", data.phoneNumber, data.dateOfBirth, data.managedBy);
+      this.user= data;
+      this.user = new UsersModel(data.id,data.email,true,data.name,"", "", "", data.phoneNumber, data.dateOfBirth, data.managedBy, data.role);
+      console.log("User loaded: ", this.user);
     },
-    error => console.log(error.erorr));
+    error => console.log(error.error));
   }
 
   public loadUsersInfo(){
-    this.userService.getUsers().subscribe(usersList => this.users = usersList, error => console.log(error.erorr));
+    this.userService.getUsers().subscribe(usersList => this.users = usersList, error => console.log(error.error));
   }
 
 }

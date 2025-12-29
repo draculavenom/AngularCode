@@ -1,12 +1,12 @@
-<div class="container" *ngIf="user?.role == 'ADMIN'">
+<div class="container" *ngIf="currentUser?.role == 'MANAGER'">
     <div class="row">
         <div class="col-sm-12">
-            <H1>Welcome {{user?.name}}</H1>
+            <H1>Welcome {{currentUser?.name}}</H1>
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <th scope="col">Id</th>
+                     <th scope="col">name</th>
                     <th scope="col">email</th>
-                    <th scope="col">name</th>
                     <th scope="col">phoneNumber</th>
                     <th scope="col">dateOfBirth</th>
                     <th scope="col">managedBy</th>
@@ -16,26 +16,21 @@
                 <tbody>
                     <tr *ngFor = "let u of users">
                         <th scope="row">{{u.id}}</th>
-                        <td>{{u.email}}</td>
                         <td>{{u.name}}</td>
+                        <td>{{u.email}}</td>
                         <td>{{u.phoneNumber}}</td>
                         <td>{{u.dateOfBirth}}</td>
                         <td>{{u.managedBy}}</td>
                         <td>{{u.role}}</td>
-                        <td><a *ngIf="u.role != 'ADMIN'" href="/user/{{u.id}}" class="btn btn-primary">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <a href="/users/createManager" class="btn btn-success">Create a Manager</a>
-        </div>
-    </div>
+
 
 </div>
-<div class="container" *ngIf="user?.role != 'ADMIN'">
+<div class="container" *ngIf="currentUser?.role != 'MANAGER'">
     <div class="row">
         <div class="col-sm-12">
             <h1>You don't have access to see this page</h1>
