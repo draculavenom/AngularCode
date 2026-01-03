@@ -36,8 +36,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatNativeDateModule} from '@angular/material/core';
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
-import { OnboardingComponent } from './security/onboarding/onboarding.component';
+import { OnboardingComponent } from './schedule/appointment/onboarding/onboarding.component';
 import { ManagerUsersListComponent } from './users/manager-users-list/manager-users-list.component';  
+import { OnboardingFinalComponent } from './schedule/appointment/onboarding-final/onboarding-final.component';    
+import { RegisterUserFinalComponent } from './security/register/register-userfinal.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ManagerUsersListComponent } from './users/manager-users-list/manager-us
     PasswordDialogComponent,
     ResetPasswordComponent,
     ManagerUsersListComponent,
-    OnboardingComponent
+    OnboardingComponent,
+    OnboardingFinalComponent,
+    RegisterUserFinalComponent
 
   ],
   imports: [

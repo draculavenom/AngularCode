@@ -11,8 +11,10 @@ import { AuthGuard } from './security/auth.guard';
 import { UserComponent } from './users/user/user.component';
 import { ManagerUserComponent } from './users/manager-user/manager-user.component';
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
-import { OnboardingComponent } from './security/onboarding/onboarding.component';
+import { OnboardingComponent } from './schedule/appointment/onboarding/onboarding.component';
 import { ManagerUsersListComponent } from './users/manager-users-list/manager-users-list.component';
+import { OnboardingFinalComponent } from './schedule/appointment/onboarding-final/onboarding-final.component';
+import { RegisterUserFinalComponent } from './security/register/register-userfinal.component';
 
 const routes: Routes = [
   { path: '', component: ScheduleComponent, canActivate: [AuthGuard]},
@@ -30,7 +32,9 @@ const routes: Routes = [
   { path: 'person/create', component: PersonFormComponent },
   { path: 'person/:id', component: PersonFormComponent },
   { path: 'onboarding', component: OnboardingComponent },
-  { path: 'manager-users-list', component: ManagerUsersListComponent, canActivate: [AuthGuard] }
+  { path: 'manager-users-list', component: ManagerUsersListComponent, canActivate: [AuthGuard] },
+  { path: 'onboarding-final', component: OnboardingFinalComponent },
+  { path: 'register-final', component: RegisterUserFinalComponent },
 ];
 
 @NgModule({
