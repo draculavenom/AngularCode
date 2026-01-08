@@ -109,5 +109,8 @@
       }
     }
   },
-  "defaultProject": "securityManagement"
+  "defaultProject": "securityManagement",
+  "cli": {
+    "analytics": "47a34b09-4ca9-486d-9677-f2217cb71d4b"
+  }
 }

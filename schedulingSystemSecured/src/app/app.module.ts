@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -40,6 +40,11 @@ import { OnboardingComponent } from './schedule/appointment/onboarding/onboardin
 import { ManagerUsersListComponent } from './users/manager-users-list/manager-users-list.component';  
 import { OnboardingFinalComponent } from './schedule/appointment/onboarding-final/onboarding-final.component';    
 import { RegisterUserFinalComponent } from './security/register/register-userfinal.component';
+import { ConfigService } from './services/config.service';
+
+export function initializeApp(configService: ConfigService) {
+  return () => configService.loadConfig();
+}
 
 @NgModule({
   declarations: [
@@ -87,7 +92,15 @@ import { RegisterUserFinalComponent } from './security/register/register-userfin
     MatCardModule,
     MatNativeDateModule
   ],
-  providers: [SecurityService, AuthGuard],
+  providers: [SecurityService, AuthGuard, 
+    ConfigService,
+     {
+    provide: APP_INITIALIZER,
+    useFactory: initializeApp,
+    deps: [ConfigService],
+    multi: true
+  },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

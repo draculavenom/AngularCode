@@ -6,7 +6,7 @@
       <a class="navbar-brand me-2" href="/">Home</a>
   
         <div class="d-flex align-items-center">
-          <div *ngIf="username==''">
+          <div *ngIf="!isLoggedIn">
             <a href="login" class="btn btn-primary px-3 me-2">
               Login
             </a>
@@ -14,12 +14,12 @@
               Sign up
             </a>
           </div>
-          <div *ngIf="username!=''">
+          <div *ngIf="isLoggedIn">
             <a
               class="btn btn-dark px-3"
               href="/user/{{user.id}}"
               role="button"
-              >{{username}}</a>
+              >{{ username || 'Loading...' }}</a>
               <a href="#" class="btn btn-dark" (click)="logout()">Logout</a>
           </div>
         </div>

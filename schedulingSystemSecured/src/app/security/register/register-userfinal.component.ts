@@ -33,6 +33,7 @@ export class RegisterUserFinalComponent implements OnInit {
     this.securityService.registerUser(this.user).subscribe({
       next: (data: any) => {
         sessionStorage.setItem('bearerToken', data);
+        this.securityService.updateAuthStatus(true);
         this.messageType = "success";
         this.messages = ["Please, now select the date and time for your first appointment."];
         setTimeout(() => {

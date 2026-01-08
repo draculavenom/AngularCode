@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   messageType = "";
   user: UsersModel = new UsersModel(0, "", true);
   managerSelect: ManagerOptionsModel[] = [new ManagerOptionsModel(0)];
+  showPassword = false;
 
   constructor(
       private securityService: SecurityService, 

@@ -11,11 +11,22 @@ import { UsersModel } from 'src/app/users/users.model';
 export class HeaderComponent implements OnInit {
   username: string = "";
   user: UsersModel = new UsersModel(0, "", false);
+  isLoggedIn: boolean = false;
 
   constructor(private securityService: SecurityService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.checkToken();
+    this.securityService.authStatus$.subscribe(loggedIn => {
+      this.isLoggedIn = loggedIn;
+      if (loggedIn) {
+        setTimeout(() => {
+        this.checkToken();
+      }, 0);
+      } else {
+        this.username = "";
+        this.user = new UsersModel(0, "", false);
+      }
+    });
   }
 
   private checkToken(){
@@ -24,7 +35,15 @@ export class HeaderComponent implements OnInit {
     if (token !== null){
       tokenInfo = this.securityService.getDecodedAccessToken(token);
       this.userService.getUser().subscribe(u => this.user = u);
-      this.username = tokenInfo.sub.toString();
+      if (tokenInfo && tokenInfo.sub) {
+        this.username = tokenInfo.sub.toString();
+      }
+      this.userService.getUser().subscribe({
+      next: (u) => {
+        this.user = u;
+      },
+      error: (err) => console.error("Error loading user", err)
+    });
     }
   }
 
