@@ -22,16 +22,13 @@ export class UserService {
 
     if (token) {
       try {
-        // Intentamos ver si es un JSON
         const parsed = JSON.parse(token);
         authHeader = "Bearer " + (parsed.access_token || parsed);
       } catch (e) {
-        // Si no es JSON, es el string directo
         authHeader = "Bearer " + token;
       }
     }
 
-    // IMPORTANTE: Solo agregar Authorization si el token existe
     const headersConfig: any = {
       'Content-Type': 'application/json',
       'Accept': '*/*'
@@ -48,13 +45,10 @@ export class UserService {
 
   public getUser(): Observable<UsersModel> {
     const token = sessionStorage.getItem('bearerToken');
-    // let tokenInfo = "";
     let email = "";
-    //let headers = new HttpHeaders();
     if (token) {
       try {
         const tokenObject = JSON.parse(token);
-        //const accessToken = tokenObject.access_token;
         const tokenInfo = this.securityService.getDecodedAccessToken(tokenObject.access_token);
         email = tokenInfo.sub.toString();
       } catch (error) {
