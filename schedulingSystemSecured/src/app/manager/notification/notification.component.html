@@ -1,0 +1,26 @@
+<div class="center-container">
+  <div *ngIf="isLoading; else content" class="loader">
+    Loading your preferences...
+  </div>
+
+  <ng-template #content>
+    <div class="notification-card">
+   
+      <h3>Notification Panel</h3>
+      <p>Configure whether you want the system to send you emails when a client schedules a new appointment with you.</p>
+
+      <label class="checkbox-container">
+        <input type="checkbox" [formControl]="wantsNotifications">
+        <span class="custom-checkbox"></span>
+        <span class="label-text">Receive email notifications</span>
+      </label>
+
+      <button 
+        (click)="savePreference()" 
+        class="btn-save"
+        [disabled]="wantsNotifications?.pristine">
+        Update Preferences
+      </button>
+    </div>
+  </ng-template>
+</div>

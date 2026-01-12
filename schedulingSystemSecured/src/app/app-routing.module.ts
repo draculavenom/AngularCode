@@ -15,6 +15,7 @@ import { OnboardingComponent } from './schedule/appointment/onboarding/onboardin
 import { ManagerUsersListComponent } from './users/manager-users-list/manager-users-list.component';
 import { OnboardingFinalComponent } from './schedule/appointment/onboarding-final/onboarding-final.component';
 import { RegisterUserFinalComponent } from './security/register/register-userfinal.component';
+import { NotificationComponent } from './manager/notification/notification.component';
 
 const routes: Routes = [
   { path: '', component: ScheduleComponent, canActivate: [AuthGuard]},
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'manager-users-list', component: ManagerUsersListComponent, canActivate: [AuthGuard] },
   { path: 'onboarding-final', component: OnboardingFinalComponent },
   { path: 'register-final', component: RegisterUserFinalComponent },
+  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

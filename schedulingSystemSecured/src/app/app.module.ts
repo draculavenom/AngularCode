@@ -41,6 +41,7 @@ import { ManagerUsersListComponent } from './users/manager-users-list/manager-us
 import { OnboardingFinalComponent } from './schedule/appointment/onboarding-final/onboarding-final.component';    
 import { RegisterUserFinalComponent } from './security/register/register-userfinal.component';
 import { ConfigService } from './services/config.service';
+import { NotificationComponent } from './manager/notification/notification.component';
 
 export function initializeApp(configService: ConfigService) {
   return () => configService.loadConfig();
@@ -67,7 +68,8 @@ export function initializeApp(configService: ConfigService) {
     ManagerUsersListComponent,
     OnboardingComponent,
     OnboardingFinalComponent,
-    RegisterUserFinalComponent
+    RegisterUserFinalComponent,
+    NotificationComponent
 
   ],
   imports: [

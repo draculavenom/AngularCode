@@ -6,7 +6,7 @@
                 <a class="nav-link " aria-current="page" routerLink="/user/{{user.id}}">{{username}}</a>
                 <a *ngIf="user?.role == 'ADMIN'" class="nav-link" aria-current="page" routerLink="/users">Manage Users</a>
                 <a *ngIf="user?.role == 'MANAGER'" class="nav-link" aria-current="page" routerLink="/manager-users-list/"> Users</a>
-
+                <a *ngIf="user?.role == 'MANAGER'" class="nav-link" aria-current="page" routerLink="/notification/">Notifications</a>
             </nav>
         </div>
         <div class="col-md-10">
