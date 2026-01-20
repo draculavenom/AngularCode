@@ -52,6 +52,7 @@
                         <div class="col-sm-5">
                             <input class="form-control" name="role" id="role" value="{{user.role}}" disabled/>
                         </div>
+                        
                         <div class="col-sm-12 my-3" *ngIf="user.role === 'MANAGER'">
                             <button type="button" class="btn btn-outline-info" (click)="showManagerFields = !showManagerFields">
                                 {{ showManagerFields ? 'Hide Payment Info' : 'Edit Payment ' }}

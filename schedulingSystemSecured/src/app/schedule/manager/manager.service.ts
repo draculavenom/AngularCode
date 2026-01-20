@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SecurityService } from 'src/app/security/security.service';
 import { ManagerOptionsModel } from 'src/app/users/manager.options';
+import { ConfigService } from '../../services/config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,12 @@ export class ManagerService {
     "Authorization": ""
   };
 
-  constructor(private http: HttpClient, private securityService: SecurityService) {
+  constructor(private http: HttpClient, private securityService: SecurityService, private configService: ConfigService) {
     this.updateHeaders();
   }
   
   public createManagerOptions(manager: ManagerOptionsModel): Observable<ManagerOptionsModel>{
-    return this.http.post<ManagerOptionsModel>('http://localhost:8080/api/v1/Manager', manager, {headers: this.headers, responseType: 'json'});
+    return this.http.post<ManagerOptionsModel>(`${this.configService.apiUrl}/Manager`, manager, {headers: this.headers, responseType: 'json'});
   }
 
   private updateHeaders(){

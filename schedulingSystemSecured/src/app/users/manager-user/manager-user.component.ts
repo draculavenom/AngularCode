@@ -14,6 +14,7 @@ export class ManagerUserComponent implements OnInit {
   managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
   messages: string[] = [];
   messageType = "";
+  companyName: string = "";
 
   constructor(private userService: UserService, private managerService: ManagerService) { }
 
@@ -30,18 +31,25 @@ export class ManagerUserComponent implements OnInit {
     this.userManager.password = "password";//456123 check what should be the password by default and create a method for the user to change it first time he logs in.
   }
 
-  public createUser(){
+public createUser(){
     if(this.validateForm()){
       this.userService.createUser(this.userManager).subscribe(u => {
         this.userManager = u;
-        this.managerOptions.managerId = u.id;
-        this.managerService.createManagerOptions(this.managerOptions).subscribe(m => {
-          this.managerOptions = m;
+        const managerData: any = {
+          managerId: u.id,
+          adminId: this.managerOptions.adminId,
+          ammountPaid: this.managerOptions.ammountPaid,
+          activeDate: this.managerOptions.activeDate,
+          comments: this.managerOptions.comments,
+          companyName: this.companyName 
+        };
+        this.managerService.createManagerOptions(managerData).subscribe(m => {
           this.updateMessage("created");
-        }, error => this.errorMessage(error.message));
-      }, error => this.errorMessage(error.message));
+        }, error => this.errorMessage("Error in ManagerOptions: " + error.message));
+
+      }, error => this.errorMessage("Error in User: " + error.message));
     }
-  }
+}
 
   public validateForm(): boolean{
     let ans = true;
@@ -85,6 +93,10 @@ export class ManagerUserComponent implements OnInit {
       ans = false;
       messages.push("The Comments can't be empty. ");
     }
+    if(this.companyName == ""){
+    ans = false;
+    messages.push("The Company Name can't be empty.");
+  }
     if(!ans)
       this.errorMessages(messages);
     return ans;
