@@ -1,0 +1,72 @@
+.main-layout {
+    background-color: #f4f7f6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-card {
+    min-width: 220px; 
+    max-width: 300px;
+    height: fit-content;
+    border-radius: 16px; 
+    position: sticky;   
+    top: 1.5rem;
+}
+
+.nav-link {
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 4px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.nav-link i {
+    font-size: 1.25rem;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-link.active {
+    background:  #004dc7 !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.nav-link:hover:not(.active) {
+    background-color: #fff;
+    color: #0d6efd;
+    transform: translateX(5px); 
+}
+
+.main-content-card {
+    border-radius: 16px;
+    height: auto;          
+    min-height: 75vh;     
+    display: block;
+    width: 100%;
+}
+.animate-fade {
+    animation: contentShow 0.4s ease-out forwards;
+}
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

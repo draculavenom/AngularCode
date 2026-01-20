@@ -52,6 +52,33 @@
                         <div class="col-sm-5">
                             <input class="form-control" name="role" id="role" value="{{user.role}}" disabled/>
                         </div>
+                        
+                        <div class="col-sm-12 my-3" *ngIf="user.role === 'MANAGER'">
+                            <button type="button" class="btn btn-outline-info" (click)="showManagerFields = !showManagerFields">
+                                {{ showManagerFields ? 'Hide Payment Info' : 'Edit Payment ' }}
+                            </button>
+                        </div>
+                        <ng-container *ngIf="showManagerFields && user.role === 'MANAGER'">
+                            <div class="col-sm-1"><label for="ammountPaid">Amount</label></div>
+                            <div class="col-sm-5 mb-2">
+                                <input type="number" class="form-control" name="ammountPaid" id="ammountPaid" [(ngModel)]="managerOptions.ammountPaid" />
+                            </div>
+                            <div class="col-sm-1"><label for="activeDate">Active Until</label></div>
+                            <div class="col-sm-5 mb-2">
+                                <input type="date" class="form-control" name="activeDate" id="activeDate" [ngModel]="managerOptions.activeDate | date:'yyyy-MM-dd'" (ngModelChange)="managerOptions.activeDate = $event"/>
+                            </div>
+
+                            <div class="col-sm-1"><label for="comments">Comments</label></div>
+                            <div class="col-sm-11 mb-2">
+                                <input type="text" class="form-control" name="comments" id="comments" [(ngModel)]="managerOptions.comments" />
+                            </div>
+                            <div class="col-sm-12 mb-4">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="saveManagerDetails()">
+                                    Save Only Manager Details
+                                </button>
+                                <hr>
+                            </div>
+                        </ng-container>
                     </div>
                     <div class="row">
                         <div class="col-sm-1">

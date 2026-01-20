@@ -5,6 +5,8 @@ import { UsersModel } from '../users.model';
 import { SecurityService } from 'src/app/security/security.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordDialogComponent } from 'src/app/layout/password-dialog/password-dialog.component';
+import { ManagerOptionsModel } from '../manager.options'; 
+import { ManagerService } from 'src/app/schedule/manager/manager.service';
 
 @Component({
   selector: 'app-user',
@@ -14,6 +16,10 @@ import { PasswordDialogComponent } from 'src/app/layout/password-dialog/password
 export class UserComponent implements OnInit {
   user: UsersModel = new UsersModel(0, "", false);
   self: UsersModel = new UsersModel(0, "", false);
+
+  managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
+  showManagerFields: boolean = false;
+
   message: string = "";
   messageType: string = "";
   tokenId: number = 0;
@@ -22,7 +28,8 @@ export class UserComponent implements OnInit {
     private userService: UserService, 
     private route: ActivatedRoute, 
     private securityService: SecurityService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private managerService: ManagerService
   ) { }
 
   ngOnInit(): void {
@@ -90,6 +97,20 @@ export class UserComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.resetPassword(result);
     });
+  }
+
+  public saveManagerDetails() {
+    if (this.user.id !== 0) {
+      this.managerOptions.managerId = this.user.id;
+      this.managerService.createManagerOptions(this.managerOptions).subscribe(m => {
+        this.managerOptions = m;
+        this.message = "Manager payment details added successfully";
+        this.messageType = "success";
+        this.showManagerFields = false; 
+      }, error => this.errorMessage(error.message));
+    } else {
+      this.errorMessage("You must create the user first before adding manager details.");
+    }
   }
 
 }

@@ -1,16 +1,50 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-2" *ngIf="isLoggedIn">
-            <nav class="nav flex-column">
-                <a class="nav-link active" aria-current="page" routerLink="/schedule">Appointments</a>
-                <a class="nav-link " aria-current="page" routerLink="/user/{{user.id}}">{{username}}</a>
-                <a *ngIf="user?.role == 'ADMIN'" class="nav-link" aria-current="page" routerLink="/users">Manage Users</a>
-                <a *ngIf="user?.role == 'MANAGER'" class="nav-link" aria-current="page" routerLink="/manager-users-list/"> Users</a>
-                <a *ngIf="user?.role == 'MANAGER'" class="nav-link" aria-current="page" routerLink="/notification/">Notifications</a>
-            </nav>
-        </div>
-        <div class="col-md-10">
-            <router-outlet></router-outlet>
+<div class="main-layout p-4">
+    <div class="container-fluid">
+        <div class="row g-4">
+            
+            <div class="col-auto" *ngIf="isLoggedIn">
+                <div class="card border-0 shadow-sm menu-card">
+                    <div class="card-body p-2">
+                        <nav class="nav flex-column">
+                            <a class="nav-link" routerLinkActive="active" routerLink="/schedule">
+                                <i class="bi bi-calendar-event me-3"></i>
+                                <span>Appointments</span>
+                            </a>
+                            <a class="nav-link" routerLinkActive="active" [routerLink]="['/user', user.id]">
+                                <i class="bi bi-person-circle me-3"></i>
+                                <span>{{username}}</span>
+                            </a>
+
+                            <hr class="my-2 mx-2 opacity-10" *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'">
+
+                            <a *ngIf="user?.role === 'ADMIN'" class="nav-link admin-link" routerLinkActive="active" routerLink="/users">
+                                <i class="bi bi-shield-lock me-3"></i>
+                                <span>Manage Users</span>
+                            </a>
+
+                            <ng-container *ngIf="user?.role === 'MANAGER'">
+                                <a class="nav-link" routerLinkActive="active" routerLink="/manager-users-list">
+                                    <i class="bi bi-people me-3"></i>
+                                    <span>Users</span>
+                                </a>
+                                <a class="nav-link" routerLinkActive="active" routerLink="/notification">
+                                    <i class="bi bi-bell me-3"></i>
+                                    <span>Notifications</span>
+                                </a>
+                            </ng-container>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <main class="col">
+                <div class="card border-0 shadow-sm p-4 ">
+                    <div class="animate-fade">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </main>
+
         </div>
     </div>
 </div>
