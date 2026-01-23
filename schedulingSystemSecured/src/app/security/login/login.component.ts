@@ -10,12 +10,13 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   responseMessage =  "";
+  isError = false;
 
   constructor(private securityService: SecurityService, private router: Router) { }
 
   ngOnInit(): void {
     if(this.checkToken())
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
   }
 
   private checkToken(){
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   public onSubmit(userData: UsersModel){
     this.securityService.loginUser(userData).subscribe(
       data => {
+        this.isError = false;
         sessionStorage.setItem('bearerToken', data);
         this.responseMessage = "Authentication successful.";
         this.getUserDetails(data);
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
         }, 1500);
       },
       error => {
+        this.isError = true;
         this.responseMessage =  "The username or password is incorrect. Please try again.";
         console.error(error);
       }
