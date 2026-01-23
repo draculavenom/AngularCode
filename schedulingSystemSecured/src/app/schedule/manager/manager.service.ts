@@ -21,7 +21,7 @@ export class ManagerService {
   }
   
   public createManagerOptions(manager: ManagerOptionsModel): Observable<ManagerOptionsModel>{
-    return this.http.post<ManagerOptionsModel>(`${this.configService.apiUrl}/Manager`, manager, {headers: this.headers, responseType: 'json'});
+    return this.http.post<ManagerOptionsModel>(`${this.configService.apiUrl}/api/v1/Manager`, manager, {headers: this.headers, responseType: 'json'});
   }
 
   private updateHeaders(){
