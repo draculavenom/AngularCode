@@ -34,5 +34,9 @@ export class ManagerOptionsModel{
             this.comments = comments;
         else
             this.comments = "";
+        if (nameCompany)
+            this.nameCompany = nameCompany;
+        else
+            this.nameCompany = "";
     }
 }

@@ -32,7 +32,7 @@ export class AppointmentService {
     return this.http.get<AppointmentModel[]>(`${this.configService.apiUrl}/api/v1/Appointments/byManagerId/${userId}`, {headers: this.headers, responseType: 'json'});
   }
 
-  public getAdminAppointments(userId: number): Observable<AppointmentModel[]>{
+  public getAdminAppointments(): Observable<AppointmentModel[]>{
     return this.http.get<AppointmentModel[]>(`${this.configService.apiUrl}/api/v1/Appointments`, {headers: this.headers, responseType: 'json'});
   }
 

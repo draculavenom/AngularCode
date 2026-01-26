@@ -1,12 +1,13 @@
 <div class="main-layout p-4">
     <div class="container-fluid">
         <div class="row g-4">
-            
+
             <div class="col-auto" *ngIf="isLoggedIn">
                 <div class="card border-0 shadow-sm menu-card">
                     <div class="card-body p-2">
                         <nav class="nav flex-column">
-                            <a class="nav-link" routerLinkActive="active" routerLink="/schedule">
+                            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{exact: true}">
                                 <i class="bi bi-calendar-event me-3"></i>
                                 <span>Appointments</span>
                             </a>
@@ -17,7 +18,8 @@
 
                             <hr class="my-2 mx-2 opacity-10" *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'">
 
-                            <a *ngIf="user?.role === 'ADMIN'" class="nav-link admin-link" routerLinkActive="active" routerLink="/users">
+                            <a *ngIf="user?.role === 'ADMIN'" class="nav-link admin-link" routerLinkActive="active"
+                                routerLink="/users">
                                 <i class="bi bi-shield-lock me-3"></i>
                                 <span>Manage Users</span>
                             </a>
@@ -32,6 +34,11 @@
                                     <span>Notifications</span>
                                 </a>
                             </ng-container>
+                            <a *ngIf="user?.role === 'ADMIN'" class="nav-link" routerLinkActive="active"
+                                routerLink="/manager-options">
+                                <i class="bi bi-card-list me-3"></i>
+                                <span>Manager Options</span>
+                            </a>
                         </nav>
                     </div>
                 </div>

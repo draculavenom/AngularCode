@@ -19,12 +19,28 @@ export class ManagerService {
   constructor(private http: HttpClient, private securityService: SecurityService, private configService: ConfigService) {
     this.updateHeaders();
   }
-  
-  public createManagerOptions(manager: ManagerOptionsModel): Observable<ManagerOptionsModel>{
-    return this.http.post<ManagerOptionsModel>(`${this.configService.apiUrl}/api/v1/Manager`, manager, {headers: this.headers, responseType: 'json'});
+
+  public createManagerOptions(manager: ManagerOptionsModel): Observable<ManagerOptionsModel> {
+    return this.http.post<ManagerOptionsModel>(`${this.configService.apiUrl}/api/v1/Manager`, manager, { headers: this.headers, responseType: 'json' });
   }
 
-  private updateHeaders(){
+  public getManagerOptions(managerId: number): Observable<ManagerOptionsModel[]> {
+    this.updateHeaders();
+    return this.http.get<ManagerOptionsModel[]>(`${this.configService.apiUrl}/api/v1/Manager/${managerId}/options`, { headers: this.headers });
+  }
+
+  public updateCompany(managerId: number, options: ManagerOptionsModel): Observable<any> {
+    this.updateHeaders();
+    const companyDto = { companyName: options.nameCompany || '' };
+    return this.http.put(`${this.configService.apiUrl}/api/v1/Manager/${managerId}/company`, companyDto, { headers: this.headers });
+  }
+
+  public getManagerFullData(managerId: number): Observable<any> {
+    this.updateHeaders();
+    return this.http.get<any>(`${this.configService.apiUrl}/api/v1/Manager/${managerId}`, { headers: this.headers });
+  }
+
+  private updateHeaders() {
     this.headers["Authorization"] = "Bearer " + this.securityService.getBearerToken();
   }
 }

@@ -1,3 +1,13 @@
+<div class="row mb-3">
+    <div class="col-sm-12 d-flex align-items-center">
+        <span>Show </span>
+        <select [(ngModel)]="pageSize" (change)="currentPage = 1" class="form-control mx-2" style="width: auto;">
+            <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{opt}}</option>
+        </select>
+        <span> records</span>
+    </div>
+</div>
+
 <div class="row" *ngIf="user.role == 'USER'">
     <div class="col-sm-12">
         <H2>Appointments:</H2>
@@ -10,7 +20,7 @@
                 <th scope="col"></th>
             </thead>
             <tbody>
-                <tr *ngFor = "let appointment of appointments">
+                <tr *ngFor = "let appointment of pagedAppointments">
                     <th scope="row">{{appointment.date}}</th>
                     <td>{{appointment.time.substring(0, 5)}}</td>
                     <td>{{appointment.status}}</td>
@@ -35,7 +45,7 @@
                 <th scope="col"></th>
             </thead>
             <tbody>
-                <tr *ngFor = "let appointment of appointments">
+                <tr *ngFor = "let appointment of pagedAppointments">
                     <th scope="row">{{appointment.date}}</th>
                     <td>{{appointment.time.substring(0, 5)}}</td>
                     <td>{{appointment.status}}</td>
@@ -55,15 +65,17 @@
                 <th scope="col">Date</th>
                 <th scope="col">Time</th>
                 <th scope="col">Status</th>
+                <th scope="col">Company</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
                 <th scope="col"></th>
             </thead>
             <tbody>
-                <tr *ngFor = "let appointment of appointments">
+                <tr *ngFor = "let appointment of pagedAppointments">
                     <th scope="row">{{appointment.date}}</th>
                     <td>{{appointment.time.substring(0, 5)}}</td>
                     <td>{{appointment.status}}</td>
+                    <td>{{ $any(appointment).companyName || 'N/A'}}</td>
                     <td><button type="button" (click)="confirm(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Confirm</button></td>
                     <td><button type="button" (click)="complete(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-success">Completed</button></td>
                     <td><button type="button" (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-danger">Cancel</button></td>
@@ -74,5 +86,26 @@
             <mat-calendar #calendar [(selected)] = "selectedDate">
             </mat-calendar>
         </mat-card>-->
+    </div>
+    
+</div>
+
+ <div class="row mt-3" *ngIf="totalPages > 1">
+    <div class="col-sm-12">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="page-link" (click)="goToPage(1)" style="cursor: pointer;">First</a>
+                </li>
+
+                <li class="page-item" *ngFor="let page of visiblePages" [class.active]="currentPage === page">
+                    <a class="page-link" (click)="goToPage(page)" style="cursor: pointer;">{{page}}</a>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                    <a class="page-link" (click)="goToPage(totalPages)" style="cursor: pointer;">Last</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>

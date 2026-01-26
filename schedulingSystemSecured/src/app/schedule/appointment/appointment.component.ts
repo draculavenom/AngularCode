@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentModel } from './appointment.model';
 import { UserService } from 'src/app/users/user.service';
 import { AppointmentService } from './appointment.service';
+
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -14,6 +15,7 @@ export class AppointmentComponent implements OnInit {
   errorMessage = "";
   minDate: string = new Date().toISOString().split('T')[0];
   existingAppointments: AppointmentModel[] = [];
+  
     allTimes: string[] = [
     '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
     '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
@@ -26,9 +28,8 @@ export class AppointmentComponent implements OnInit {
     private appointmentService: AppointmentService,
     private router: Router,
     private route: ActivatedRoute
-  ) {    
-   }
-   
+  ) { }
+
   ngOnInit(): void {
     this.defineAppointment();
   }
@@ -38,7 +39,6 @@ export class AppointmentComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userService.getUser().subscribe(u => {
         this.appointment.userId = u.id;
-
         this.appointmentService.getAppointments(u.id).subscribe(list => {
           this.existingAppointments = list;
         });
