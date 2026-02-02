@@ -1,77 +1,69 @@
-<div class="row">
-  <div class="col-sm-12">
-    <form>
-      <div class="form-group">
-        <label for="id"></label>
-        <input
-          class="form-control"
-          type="hidden"
-          name="id"
-          id="id"
-          placeHolder=""
-        />
-        <label for="userId"></label>
-        <input
-          class="form-control"
-          type="hidden"
-          name="userId"
-          id="userId"
-          placeHolder=""
-        />
-        <label for="date">Date</label>
-        <input
-          class="form-control"
-          type="date"
-          name="date"
-          id="date"
-          [min]="minDate"
-          [ngModel]="appointment.date | date : 'yyyy-MM-dd': 'UTC'"
-          (ngModelChange)="appointment.date = $event"
-        />
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="appointment-card">
+      <div class="card-header-custom">
+        <h3>Programar Cita</h3>
+        <p>Selecciona la fecha y hora que mejor te convenga.</p>
       </div>
-      <div class="form-group">
-        <label for="time">Time</label>
-        <select
-          class="form-control"
-          name="time"
-          id="time"
-          [(ngModel)]="appointment.time"
-        >
-          <option value="">Select the time</option>
-          <option *ngFor="let t of filteredTimes" [value]="t">{{ t }}</option>
-        </select>
 
-        <div *ngIf="filteredTimes.length === 0" class="text-danger small mt-1">
-          No available slots for this day. Please select another date.
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="status">Status: </label>
-        <label for="status">{{ appointment.status }}</label>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-sm-2">
-            <button class="btn btn-success" (click)="schedule()">
-              Schedule
-            </button>
+      <form class="appointment-form">
+        <input type="hidden" name="id" id="id">
+        <input type="hidden" name="userId" id="userId">
+
+        <div class="form-section">
+          <div class="mb-4">
+            <label for="date" class="form-label">Fecha del servicio</label>
+            <div class="input-group-custom">
+              <input
+                class="form-control custom-input"
+                type="date"
+                name="date"
+                id="date"
+                [min]="minDate"
+                [ngModel]="appointment.date | date : 'yyyy-MM-dd': 'UTC'"
+                (ngModelChange)="appointment.date = $event"
+              />
+            </div>
           </div>
-          <div class="col-sm-2">
-            <a href="/schedule" class="btn btn-danger">Cancel</a>
+
+          <div class="mb-4">
+            <label for="time" class="form-label">Horario disponible</label>
+            <select
+              class="form-select custom-input"
+              name="time"
+              id="time"
+              [(ngModel)]="appointment.time"
+            >
+              <option value="">Selecciona una hora</option>
+              <option *ngFor="let t of filteredTimes" [value]="t">{{ t }}</option>
+            </select>
+            
+            <div *ngIf="filteredTimes.length === 0" class="error-msg">
+              <i class="bi bi-exclamation-circle"></i> No hay turnos para este día.
+            </div>
+          </div>
+
+          <div class="status-badge-container mb-4">
+            <span class="status-label">Estado actual:</span>
+            <span class="badge-appointment shadow-sm">{{ appointment.status }}</span>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div
-            *ngIf="errorMessage != ''"
-            class="alert alert-danger"
-            role="alert"
-          >
-            {{ errorMessage }}
-          </div>
+
+        <div class="form-actions d-flex gap-3">
+          <button class="btn btn-primary-appointment w-100" (click)="schedule()">
+            <i class="bi bi-check-circle"></i> Confirmar Cita
+          </button>
+          <a href="/schedule" class="btn btn-outline-appointment w-100">
+            <i class="bi bi-x-circle"></i> Cancelar</a>
         </div>
-      </div>
-    </form>
+        <div *ngIf="successMessage" class="alert alert-success mt-3" role="alert"> 
+          <i class="bi bi-check-circle"></i> {{ successMessage }}
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-custom-danger mt-4" role="alert">
+          <i class="bi bi-exclamation-triangle-fill"></i> {{ errorMessage }}
+        </div>
+      </form>
+    </div>
   </div>
 </div>

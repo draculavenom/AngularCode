@@ -1,0 +1,96 @@
+
+.appointment-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f2f5;
+}
+
+.card-header-custom h3 {
+    color: #1a202c;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.card-header-custom p {
+    color: #718096;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.custom-input {
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    outline: none;
+}
+
+.badge-appointment {
+    background: #f7fafc;
+    color: #4a5568;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: 1px solid #edf2f7;
+}
+
+.btn-primary-appointment {
+    background-color: #004dc7;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.btn-primary-appointment:hover {
+    background-color: #043b94;
+    transform: translateY(-1px);
+}
+
+.btn-outline-appointment {
+    border: 2px solid #9a1801;
+    color: #b23309;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    background: transparent;
+}
+
+.btn-outline-appointment:hover {
+    background: #fcf8f8;
+    color: #9d2a2a;
+}
+
+.error-msg {
+    color: #e53e3e;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.alert-custom-danger {
+    background-color: #fff5f5;
+    border: 1px solid #feb2b2;
+    color: #c53030;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,191 @@
+<!-- Código del calendario con citas para el manager -->
+<div class="calendar-wrapper animate-fade container-fluid py-4 bg-light min-vh-100" *ngIf="user.role == 'MANAGER'">
+  <div class="row g-4">
+    <div class="col-xl-7 col-lg-6">
+      <div class="card border-0 shadow-sm rounded-4 calendar-card">
+        <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="fw-bold mb-0 text-dark">Scheduling</h5>
+            <p class="text-muted small mb-0">
+              Appointment and availability management
+            </p>
+          </div>
+          <button mat-flat-button [style.background-color]="'#004dc7'" style="color: white;" class="rounded-3"
+            (click)="resetFilter()">
+            <i class="bi bi-calendar-check me-2"></i>Today
+          </button>
+        </div>
+        <div class="card-body p-2" *ngIf="allAppointments.length > 0; else loadingTemplate">
+          <mat-calendar #calendar [(selected)]="selectedDate" [dateClass]="dateClass"
+            (selectedChange)="onDateChange($event)" class="improved-calendar w-100">
+          </mat-calendar>
+        </div>
+        <ng-template #loadingTemplate>
+          <div class="p-5 text-center text-muted">
+            <div class="spinner-border spinner-border-sm me-2 text-primary"></div>
+            <span>Loading schedule...</span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="col-xl-5 col-lg-6">
+      <div class="d-flex align-items-center mb-3">
+        <div class="calendar-icon-box me-3">
+          <span class="text-uppercase small fw-bold text-muted d-block">
+            {{ selectedDate | date: "MMM" }}</span>
+          <span class="h4 fw-bold d-block mb-0">{{ selectedDate | date: "dd" }}</span>
+        </div>
+        <div>
+          <h5 class="fw-bold mb-0 text-dark">Today's Activities</h5>
+          <span class="badge bg-primary-subtle text-primary rounded-pill">
+            {{ appointments.length }} appointments</span>
+        </div>
+      </div>
+
+      <div class="scroll-list custom-scrollbar">
+        <div *ngIf="appointments.length === 0" class="empty-state shadow-sm">
+          <i class="bi bi-calendar-x mb-2 text-muted"></i>
+          <p class="mb-0 fw-medium">No scheduled appointments</p>
+        </div>
+        <div *ngFor="let appo of appointments" class="appointment-card border-0 shadow-sm mb-3 bg-white"
+          [ngClass]="'status-border-' + appo.status.toLowerCase()">
+          <div class="p-3">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="d-flex align-items-center">
+                <div class="time-badge me-3">
+                  {{ appo.time.substring(0, 5) }}
+                </div>
+                <div>
+                  <span class="status-pill" [ngClass]="'status-' + appo.status.toLowerCase()">
+                    {{ appo.status }}
+                  </span>
+                </div>
+              </div>
+              <i class="bi bi-three-dots-vertical text-muted"></i>
+            </div>
+
+            <div *ngIf="appo.status === 'CANCELLED'" class="cancel-alert">
+              <i class="bi bi-info-circle me-2"></i>This appointment has been cancelled
+            </div>
+
+            <div class="d-flex gap-2 mt-3 pt-3 border-top">
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="confirm(appo.id)"
+                class="btn btn-sm btn-cal-success flex-grow-1"> Confirm
+              </button>
+
+              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="complete(appo.id)"
+                class="btn btn-sm btn-cal-info flex-grow-1">
+                Completed
+              </button>
+
+              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="openDialog(appo.id)"
+                class="btn btn-sm btn-cal-outline-danger">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Código del calendario con citas para el administrador-->
+<div class="calendar-wrapper animate-fade container-fluid py-4 bg-light min-vh-100" *ngIf="user.role == 'ADMIN'">
+  <div class="row g-4">
+    <div class="col-xl-7 col-lg-6">
+      <div class="card border-0 shadow-sm rounded-4 calendar-card">
+        <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="fw-bold mb-0 text-dark">Scheduling</h5>
+            <p class="text-muted small mb-0">
+              Appointment and availability management
+            </p>
+          </div>
+          <button mat-flat-button [style.background-color]="'#004dc7'" style="color: white;" class="rounded-3"
+            (click)="resetFilter()">
+            <i class="bi bi-calendar-check me-2"></i>Today
+          </button>
+        </div>
+        <div class="card-body p-2" *ngIf="allAppointments.length > 0; else loadingTemplate">
+          <mat-calendar #calendar [(selected)]="selectedDate" [dateClass]="dateClass"
+            (selectedChange)="onDateChange($event)" class="improved-calendar w-100">
+          </mat-calendar>
+        </div>
+        <ng-template #loadingTemplate>
+          <div class="p-5 text-center text-muted">
+            <div class="spinner-border spinner-border-sm me-2 text-primary"></div>
+            <span>Loading schedule...</span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="col-xl-5 col-lg-6">
+      <div class="d-flex align-items-center mb-3">
+        <div class="calendar-icon-box me-3">
+          <span class="text-uppercase small fw-bold text-muted d-block">
+            {{ selectedDate | date: "MMM" }}</span>
+          <span class="h4 fw-bold d-block mb-0">{{ selectedDate | date: "dd" }}</span>
+        </div>
+        <div>
+          <h5 class="fw-bold mb-0 text-dark">Today's Activities</h5>
+          <span class="badge bg-primary-subtle text-primary rounded-pill">
+            {{ appointments.length }} appointments</span>
+        </div>
+      </div>
+
+      <div class="scroll-list custom-scrollbar">
+        <div *ngIf="appointments.length === 0" class="empty-state shadow-sm">
+          <i class="bi bi-calendar-x mb-2 text-muted"></i>
+          <p class="mb-0 fw-medium">No scheduled appointments</p>
+        </div>
+        <div *ngFor="let appo of appointments" class="appointment-card border-0 shadow-sm mb-3 bg-white"
+          [ngClass]="'status-border-' + appo.status.toLowerCase()">
+          <div class="p-3">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="d-flex align-items-center">
+                <div class="time-badge me-3">
+                  {{ appo.time.substring(0, 5) }}
+                </div>
+
+                <div>
+                  <div *ngIf="user?.role === 'ADMIN'" class="company-name">
+                    <i class="bi bi-building me-1"></i>
+                    {{ $any(appo).companyName || "Without Company" }}
+                  </div>
+
+                  <span class="status-pill" [ngClass]="'status-' + appo.status.toLowerCase()">
+                    {{ appo.status }}
+                  </span>
+                </div>
+              </div>
+              <i class="bi bi-three-dots-vertical text-muted"></i>
+            </div>
+
+            <div *ngIf="appo.status === 'CANCELLED'" class="cancel-alert">
+              <i class="bi bi-info-circle me-2"></i>This appointment has been cancelled
+            </div>
+
+            <div class="d-flex gap-2 mt-3 pt-3 border-top">
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="confirm(appo.id)"
+                class="btn btn-sm btn-cal-success flex-grow-1"> Confirm
+              </button>
+
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="complete(appo.id)"
+                class="btn btn-sm btn-cal-info flex-grow-1">
+                Completed
+              </button>
+
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openDialog(appo.id)"
+                class="btn btn-sm btn-cal-outline-danger">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

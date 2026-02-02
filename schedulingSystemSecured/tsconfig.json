@@ -16,11 +16,13 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
+    "skipLibCheck": true,
     "lib": [
       "es2018",
       "dom"
     ]
   },
+ 
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
@@ -30,5 +32,6 @@
   "exclude": [
     "node_modules",
     "dist"
-  ]
-}
+  ],
+  
+} 

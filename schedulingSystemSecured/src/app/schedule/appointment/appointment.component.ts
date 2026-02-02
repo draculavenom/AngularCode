@@ -15,6 +15,7 @@ export class AppointmentComponent implements OnInit {
   errorMessage = "";
   minDate: string = new Date().toISOString().split('T')[0];
   existingAppointments: AppointmentModel[] = [];
+  public successMessage: string = '';
   
     allTimes: string[] = [
     '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
@@ -116,7 +117,11 @@ export class AppointmentComponent implements OnInit {
     if(this.appointment.id == 0)
       this.appointmentService.createAppointment(this.appointment).subscribe(a => {
         this.appointment = a;
+        //this.redirectToAppointmentList();
+         this.successMessage = 'Appointment created successfully.';setTimeout(() => {
         this.redirectToAppointmentList();
+      }, 2000);
+         
       }, error => this.errorMessage = error.error);
     else
       this.appointmentService.updateAppointment(this.appointment).subscribe(a => {
