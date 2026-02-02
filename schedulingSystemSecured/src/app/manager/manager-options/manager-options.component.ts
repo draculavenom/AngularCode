@@ -20,14 +20,11 @@ export class ManagerOptionsComponent implements OnInit {
     this.loadManagerForSelect();
   }
   loadManagerForSelect(): void {
-    // Usamos el método que creamos anteriormente
     this.managerService.getManagerNameSelect().subscribe({
       next: (data) => {
-        console.log('DATOS RECIBIDOS DE JAVA:', data);
         this.managerList = data;
       },
       error: (err) => {
-        console.error('ERROR AL CARGAR:', err);
         this.errorMessage = 'Error fetching manager list from the server.';
       }
     });
