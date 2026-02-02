@@ -1,44 +1,69 @@
-<div class="container" *ngIf="user?.role == 'ADMIN'">
-    <div class="row">
-        <div class="col-sm-12">
-            <H1>Welcome {{user?.name}}</H1>
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <th scope="col">Id</th>
-                    <th scope="col">email</th>
-                    <th scope="col">name</th>
-                    <th scope="col">phoneNumber</th>
-                    <th scope="col">dateOfBirth</th>
-                    <th scope="col">managedBy</th>
-                    <th scope="col">role</th>
-                    <th scope="col"></th>
-                </thead>
-                <tbody>
-                    <tr *ngFor = "let u of users">
-                        <th scope="row">{{u.id}}</th>
-                        <td>{{u.email}}</td>
-                        <td>{{u.name}}</td>
-                        <td>{{u.phoneNumber}}</td>
-                        <td>{{u.dateOfBirth}}</td>
-                        <td>{{u.managedBy}}</td>
-                        <td>{{u.role}}</td>
-                        <td><a *ngIf="u.role != 'ADMIN'" href="/user/{{u.id}}" class="btn btn-primary">Edit</a></td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="container py-5" *ngIf="user?.role === 'ADMIN'">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="display-5 fw-bold text-primary">Welcome, {{user?.name}}</h1>
+
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <a href="/users/createManager" class="btn btn-success">Create a Manager</a>
-        </div>
+        <a href="/users/createManager" class="btn-createManager">
+            <i class="bi bi-person-plus-fill me-2"></i>Create Manager
+        </a>
     </div>
 
-</div>
-<div class="container" *ngIf="user?.role != 'ADMIN'">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>You don't have access to see this page</h1>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive shadow-sm border rounded">
+                <table class="improved-table">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">ID</th>
+                            <th>User Info</th>
+                            <th>Phone</th>
+                            <th>Birthday</th>
+                            <th>Managed By</th>
+                            <th>Role</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let u of users">
+                            <td class="ps-4 fw-bold text-muted">{{u.id}}</td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold">{{u.name}}</span>
+                                    <small class="text-muted">{{u.email}}</small>
+                                </div>
+                            </td>
+                            <td>{{u.phoneNumber}}</td>
+                            <td>{{u.dateOfBirth | date:'mediumDate'}}</td>
+                            <td><span class="badge bg-light text-dark border">{{u.managedBy || 'N/A'}}</span></td>
+                            <td>
+                                <span class="badge rounded-pill" [ngClass]="{
+                                            'bg-role-admin': u.role === 'ADMIN',
+                                            'bg-role-manager': u.role === 'MANAGER',
+                                            'bg-role-user': u.role === 'USER',
+                                            'bg-role-default': !u.role
+                                          }"> {{ u.role }}
+                                </span>
+                            </td>
+                            <td class="text-end pe-4">
+                                <a *ngIf="u.role !== 'ADMIN'" [routerLink]="['/user', u.id]" class="btn-edit px-3">
+                                    <i class="bi bi-pencil"></i>
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>
+</div>
+
+<div class="container vh-100 d-flex align-items-center justify-content-center" *ngIf="user?.role !== 'ADMIN'">
+    <div class="text-center">
+        <div class="display-1 text-danger mb-4"><i class="bi bi-exclamation-triangle"></i></div>
+        <h1 class="fw-bold">Access Denied</h1>
+        <p class="lead text-muted">You don't have the necessary permissions to view this page.</p>
+        <a href="/" class="btn btn-primary px-4">Go to Dashboard</a>
     </div>
 </div>

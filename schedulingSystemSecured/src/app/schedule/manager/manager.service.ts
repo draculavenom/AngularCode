@@ -39,6 +39,10 @@ export class ManagerService {
     this.updateHeaders();
     return this.http.get<any>(`${this.configService.apiUrl}/api/v1/Manager/${managerId}`, { headers: this.headers });
   }
+  public getManagerNameSelect(): Observable<any> {
+    this.updateHeaders();
+    return this.http.get<any[]>(`${this.configService.apiUrl}/api/v1/Manager/company`, { headers: this.headers });
+  }
 
   private updateHeaders() {
     this.headers["Authorization"] = "Bearer " + this.securityService.getBearerToken();

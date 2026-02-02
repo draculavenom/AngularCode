@@ -1,0 +1,255 @@
+
+/*Paginación que esta al principio */
+.pagination-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+}
+
+.page-label {
+    font-size: 0.85rem;
+    color: #94a3b8; 
+    font-weight: 500;
+}
+
+.custom-select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.custom-select-wrapper i {
+    position: absolute;
+    right: 12px;
+    color: #64748b;
+    pointer-events: none;
+    font-size: 0.7rem;
+}
+
+.select-pill {
+    appearance: none;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 100px;
+    padding: 6px 35px 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.select-pill:hover {
+    border-color: #cbd5e1;
+    background-color: #f8fafc;
+}
+
+.select-pill:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.role-container {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #2b2d42;
+}
+
+.tracking-wider {
+    letter-spacing: 0.1em;
+}
+
+/* Tabla Personalizada */
+.glass-card, .custom-card {
+    background: #ffffff;
+    border-radius: 15px;
+    border: none;
+    overflow: hidden;
+}
+
+
+.improved-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden; 
+}
+
+.improved-table thead th {
+  background: #f1f5f9;
+  text-align: left;
+  padding: 12px 20px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-bottom: 2px solid #e2e8f0;
+  font-weight: 600;
+}
+
+.improved-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.improved-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Estilos de apoyo para los estados */
+.badge-status {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+}
+
+[data-status="SCHEDULED"] { background: #e0f2fe; color: #0369a1; }
+[data-status="CONFIRMED"] { background: #dcfce7; color: #15803d; }
+[data-status="COMPLETED"] { background: #f1f5f9; color: #475569; }
+[data-status="CANCELLED"] { background: #fee2e2; color: #b91c1c; }
+
+/* icono de mini calendario */
+.calendar-thumb {
+    background: #f8f9fa;
+    border-radius: 8px;
+    min-width: 50px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+.calendar-thumb .month {
+    display: block;
+    font-size: 0.7rem;
+    background: #0d6efd;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    padding: 2px;
+}
+
+.calendar-thumb .day {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.status-pill, .badge-status {
+    padding: 0.4em 1em;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+[data-status="SCHEDULED"] { background-color: #e3f2fd; color: #0d6efd; }
+[data-status="CONFIRMED"] { background-color: #e8f5e9; color: #2e7d32; }
+[data-status="COMPLETED"] { background-color: #f3e5f5; color: #7b1fa2; }
+[data-status="CANCELLED"] { background-color: #ffebee; color: #c62828; }
+
+
+.btn-icon:hover { transform: scale(1.1); }
+
+.btn-appointment {
+  padding: 12px 25px;
+  background: #004dc7;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.btn-appointment:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(78, 115, 223, 0.3);
+}
+
+.btn-appointment:active {
+  transform: translateY(0);
+}
+
+/* Botones de acción */
+.btn-main {
+    background: #036ad8;
+    color: #FFFFFF;
+    border-radius: 12px;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-main:hover {
+    background: #0056B3;
+    color:#FFFFFF;
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: 0.2s;
+}
+
+.btn-edit {
+    background: #f0f3ff;
+    color: #004dc7;
+}
+
+.btn-edit:hover {
+    background: #004dc7;
+    color: white;
+}
+
+.btn-cancel {
+    background: #fff5f5;
+    color: #e71d36;
+    margin-left: 8px;
+}
+
+.btn-cancel:hover {
+    background: #e71d36;
+    color: white;
+}
+
+.icon-box-manager {
+    background: #2b2d42;
+    padding: 12px;
+    border-radius: 14px;
+}
+
+.btn-op {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.btn-op-primary {
+    border: 1.5px solid #004dc7;
+    color: #004dc7;
+    background: transparent;
+}
+
+.btn-op-primary:hover {
+    background: #004dc7;
+    color: white;
+}
+
+
+

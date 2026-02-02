@@ -1,129 +1,191 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <form>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <label for="id">Id</label>
-                        </div>
-                        <div class="col-sm-5">
-                            <input class="form-control" name="id" id="id" value="{{user.id}}" disabled />
-                        </div>
-                        <div class="col-sm-1">
-                            <label for="firstName">First Name</label>
-                        </div>
-                        <div class="col-sm-5">
-                            <input class="form-control" name="firstName" id="firstName" [(ngModel)]="user.firstName" />
-                        </div>
-                        <div class="col-sm-1">
-                            <label for="lastName">Last Name</label>
-                        </div>
-                      
-                    <div class="col-sm-5">
-                        <input class="form-control" name="lastName" id="lastName" [(ngModel)]="user.lastName" />
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-10">
+            <div class="card edit-card ">
+                <div class="bg-white py-4 px-5">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="fw-bold text-primary  mb-0">User Settings</h1>
+                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
+                            <i class="bi bi-shield-check me-1"></i> {{user.role}}
+                        </span>
                     </div>
-                    <ng-container *ngIf="user.role === 'MANAGER' && self.role === 'ADMIN'">
-                       <div class="col-sm-1">
-                        <label for="nameCompany">Company</label>
-                    </div>
-                    <div class="col-sm-5" *ngIf="user.role === 'MANAGER' && self.role === 'ADMIN'">
-                        <input type="text" class="form-control" name="nameCompany" id="nameCompany"
-                            [(ngModel)]="managerOptions.nameCompany" />
-                    </div>
-                    </ng-container>
-                    <div class="col-sm-1">
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="col-sm-5">
-                        <input class="form-control" name="email" id="email" [(ngModel)]="user.email" />
-                    </div>
-                    <div class="col-sm-1">
-                        <label for="phoneNumber">Phone Number</label>
-                    </div>
-                    <div class="col-sm-5">
-                        <input class="form-control" name="phoneNumber" id="phoneNumber"
-                            [(ngModel)]="user.phoneNumber" />
-                    </div>
-                    <div class="col-sm-1">
-                        <label for="dateOfBirth">Date of Birth</label>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth"
-                            [(ngModel)]="user.dateOfBirth" />
-                    </div>
-                    <div class="col-sm-1">
-                        <label for="managedBy">Managed By</label>
-                    </div>
-                    <div class="col-sm-5">
-                        <input class="form-control" name="managedBy" id="managedBy" value="{{user.managedBy}}"
-                            disabled />
-                    </div>
-                    <div class="col-sm-1">
-                        <label for="role">Role</label>
-                    </div>
-                    <div class="col-sm-5">
-                        <input class="form-control" name="role" id="role" value="{{user.role}}" disabled />
-                    </div>
+                </div>
 
-
-                    <div class="col-sm-12 my-3" *ngIf="self.role === 'ADMIN' && user.role === 'MANAGER'">
-                        <button type="button" class="btn btn-outline-info"
-                            (click)="showManagerFields = !showManagerFields">
-                            {{ showManagerFields ? 'Hide Payment Info' : 'Edit Payment ' }}
-                        </button>
-                    </div>
-                    <ng-container *ngIf="showManagerFields && self.role === 'ADMIN' && user.role === 'MANAGER'">
-                        <div class="col-sm-1"><label for="ammountPaid">Amount</label></div>
-                        <div class="col-sm-5 mb-2">
-                            <input type="number" class="form-control" name="ammountPaid" id="ammountPaid"
-                                [(ngModel)]="managerOptions.ammountPaid" />
-                        </div>
-                        <div class="col-sm-1"><label for="activeDate">Active Until</label></div>
-                        <div class="col-sm-5 mb-2">
-                            <input type="date" class="form-control" name="activeDate" id="activeDate"
-                                [ngModel]="managerOptions.activeDate | date:'yyyy-MM-dd'"
-                                (ngModelChange)="managerOptions.activeDate = $event" />
-                        </div>
-
-                        <div class="col-sm-1"><label for="comments">Comments</label></div>
-                        <div class="col-sm-11 mb-2">
-                            <input type="text" class="form-control" name="comments" id="comments"
-                                [(ngModel)]="managerOptions.comments" />
-                        </div>
-                       
-
-                            <div class="col-sm-12 mb-4">
-                                <button type="button" class="btn btn-primary btn-sm" (click)="saveManagerDetails()">
-                                    Save Only Manager Details
-                                </button>
-                                <hr>
+                <div class="card-body p-5">
+                    <form>
+                        <div class="row readonly-summary p-3 mb-5 g-0 mx-0">
+                            <div class="col-md-6 border-end-md py-2">
+                                <div class="info-box">
+                                    <span class="info-box-label">User Reference</span>
+                                    <div class="info-box-content">
+                                        <div class="icon-circle">
+                                            <i class="bi bi-fingerprint"></i>
+                                        </div>
+                                        <span class="fw-bold fs-5">ID: {{user.id}}</span>
+                                    </div>
+                                </div>
                             </div>
-                    </ng-container>
+                            <div class="col-md-6 py-2">
+                                <div class="info-box">
+                                    <span class="info-box-label">Managed By</span>
+                                    <div class="info-box-content">
+                                        <div class="icon-circle">
+                                            <i class="bi bi-person-badge"></i>
+                                        </div>
+                                        <span class="fw-bold fs-5">{{user.managedBy || 'Direct Administration'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-header">
+                            <h5 class="section-title mb-3">
+                                <i class="bi bi-info-circle text-primary"></i> Personal Information
+                            </h5>
+                        </div>
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <label class="field-label">First Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input class="form-control" name="firstName" [(ngModel)]="user.firstName"
+                                        placeholder="First name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="field-label">Last Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input class="form-control" name="lastName" [(ngModel)]="user.lastName"
+                                        placeholder="Last name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="field-label">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    <input class="form-control" name="email" [(ngModel)]="user.email"
+                                        placeholder="email@example.com">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="field-label">Phone Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                    <input class="form-control" name="phoneNumber" [(ngModel)]="user.phoneNumber"
+                                        placeholder="+0 000 000">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="field-label">Date of Birth</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+                                    <input type="date" class="form-control" name="dateOfBirth"
+                                        [(ngModel)]="user.dateOfBirth">
+                                </div>
+                            </div>
+                            <div class="col-md-6" *ngIf="user.role === 'MANAGER' && self.role === 'ADMIN'">
+                                <label class="field-label">Company</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-building"></i></span>
+                                    <input type="text" class="form-control" name="nameCompany"
+                                        [(ngModel)]="managerOptions.nameCompany">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="self.role === 'ADMIN' && user.role === 'MANAGER'" class="mt-5">
+                            <div class="d-flex align-items-center justify-content-between mb-3 px-1">
+                                <div class="section-header mb-0 border-0">
+                                    <h5 class="section-title mb-3">
+                                        <i class="bi bi-credit-card text-primary"></i> Payment Details
+                                    </h5>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3"
+                                    (click)="showManagerFields = !showManagerFields">
+                                    <i class="bi"
+                                        [ngClass]="showManagerFields ? 'bi-eye-slash' : 'bi-pencil-square'"></i>
+                                    {{ showManagerFields ? 'Hide details' : 'Edit payment' }}
+                                </button>
+                            </div>
+
+                            <div class="payment-container shadow-sm mx-0" *ngIf="showManagerFields">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="field-label">Amount</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                                            <input type="number" class="form-control" name="ammountPaid"
+                                                [(ngModel)]="managerOptions.ammountPaid">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="field-label">Active Until</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+                                            <input type="date" class="form-control" name="activeDate"
+                                                [ngModel]="managerOptions.activeDate | date:'yyyy-MM-dd'"
+                                                (ngModelChange)="managerOptions.activeDate = $event">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="field-label">Comments</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-chat-text"></i></span>
+                                            <input type="text" class="form-control" name="comments"
+                                                [(ngModel)]="managerOptions.comments" placeholder="Internal notes...">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-4">
+                                        <div class="d-flex justify-content-end border-top pt-3">
+                                            <button type="button" class="btn btn-primary px-4 shadow-sm fw-bold"
+                                                (click)="saveManagerDetails()">
+                                                <i class="bi bi-save me-2"></i> Update payment info only
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="d-flex flex-wrap gap-3 justify-content-between align-items-center mt-5 pt-4 border-top">
+                            <div class="d-flex gap-2">
+                                <a *ngIf="user.id != 0 && user.id != tokenId" href="/users"
+                                    class="btn-cancel px-4 fw-bold border"> <i class="bi bi-x-circle"></i> Cancel</a>
+                                <a *ngIf="user.id != 0 && user.id == tokenId" href="/"
+                                    class="btn-cancel px-4 fw-bold border"> <i class="bi bi-x-circle"></i> Cancel</a>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button *ngIf="self.role == 'ADMIN'" (click)="openDialog(user.id)"
+                                    class="btn btn-outline-secondary px-4 fw-bold">
+                                    <i class="bi bi-key me-2"></i> Change password
+                                </button>
+
+                                <button *ngIf="user.id == 0" (click)="createUser()"
+                                    class="btn btn-success px-5 fw-bold shadow-sm">
+                                    Create Account
+                                </button>
+                                <button *ngIf="user.id != 0 && user.id != tokenId" (click)="editUser()"
+                                    class="btn-edit px-5 fw-bold shadow-sm">
+                                    <i class="bi bi-floppy"></i> Save changes
+                                </button>
+                                <button *ngIf="user.id != 0 && user.id == tokenId" (click)="editSelf()"
+                                    class="btn-edit px-5 fw-bold shadow-sm">
+                                    <i class="bi bi-floppy"></i> Update my profile
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="row">
-                    <div class="col-sm-1">
-                        <button *ngIf="user.id == 0" (click)="createUser()" class="btn btn-success">Create</button>
-                        <button *ngIf="user.id != 0 && user.id != tokenId" (click)="editUser()"
-                            class="btn btn-success">Edit</button>
-                        <button *ngIf="user.id != 0 && user.id == tokenId" (click)="editSelf()"
-                            class="btn btn-success">Edit</button>
-                    </div>
-                    <div class="col-sm-1">
-                        <a *ngIf="user.id != 0 && user.id != tokenId" href="/users" class="btn btn-danger">Cancel</a>
-                        <a *ngIf="user.id != 0 && user.id == tokenId" href="/" class="btn btn-danger">Cancel</a>
-                    </div>
-                    <div class="col-sm-1" *ngIf="self.role == 'ADMIN'">
-                        <button (click)="openDialog(user.id)" class="btn btn-light">Change Password</button>
-                    </div>
-                </div>
+            </div>
         </div>
-        </form>
     </div>
-</div>
-<div class="row" *ngIf="message != ''">
-    <div class="col-sm-12">
-        <div class="alert alert-{{messageType}}" role="alert">{{message}}</div>
+    <div class="row" *ngIf="message != ''">
+        <div class="col-sm-12">
+            <div class="alert alert-{{messageType}}" role="alert">{{message}}</div>
+        </div>
     </div>
-</div>
 </div>
