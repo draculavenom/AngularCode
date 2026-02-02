@@ -1,4 +1,4 @@
-<div class="contianer">
+<div class="container">
     <div class="row">
         <div class="col-sm-12">
             <form>
@@ -8,99 +8,122 @@
                             <label for="id">Id</label>
                         </div>
                         <div class="col-sm-5">
-                            <input class="form-control" name="id" id="id" value="{{user.id}}" disabled/>
+                            <input class="form-control" name="id" id="id" value="{{user.id}}" disabled />
                         </div>
                         <div class="col-sm-1">
                             <label for="firstName">First Name</label>
-                            </div>
+                        </div>
                         <div class="col-sm-5">
                             <input class="form-control" name="firstName" id="firstName" [(ngModel)]="user.firstName" />
                         </div>
                         <div class="col-sm-1">
                             <label for="lastName">Last Name</label>
-                            </div>
-                        <div class="col-sm-5">
-                            <input class="form-control" name="lastName" id="lastName" [(ngModel)]="user.lastName" />
                         </div>
-                        <div class="col-sm-1">
-                            <label for="email">Email</label>
-                            </div>
-                        <div class="col-sm-5">
-                            <input class="form-control" name="email" id="email" [(ngModel)]="user.email" />
-                        </div>
-                        <div class="col-sm-1">
-                            <label for="phoneNumber">Phone Number</label>
-                            </div>
-                        <div class="col-sm-5">
-                            <input class="form-control" name="phoneNumber" id="phoneNumber" [(ngModel)]="user.phoneNumber" />
-                        </div>
-                        <div class="col-sm-1">
-                            <label for="dateOfBirth">Date of Birth</label>
-                            </div>
-                        <div class="col-sm-5">
-                            <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" [(ngModel)]="user.dateOfBirth" />
-                        </div>
-                        <div class="col-sm-1">
-                            <label for="managedBy">Managed By</label>
-                            </div>
-                        <div class="col-sm-5">
-                            <input class="form-control" name="managedBy" id="managedBy" value="{{user.managedBy}}" disabled/>
-                        </div>
-                        <div class="col-sm-1">
-                            <label for="role">Role</label>
-                            </div>
-                        <div class="col-sm-5">
-                            <input class="form-control" name="role" id="role" value="{{user.role}}" disabled/>
-                        </div>
-                        
-                        <div class="col-sm-12 my-3" *ngIf="user.role === 'MANAGER'">
-                            <button type="button" class="btn btn-outline-info" (click)="showManagerFields = !showManagerFields">
-                                {{ showManagerFields ? 'Hide Payment Info' : 'Edit Payment ' }}
-                            </button>
-                        </div>
-                        <ng-container *ngIf="showManagerFields && user.role === 'MANAGER'">
-                            <div class="col-sm-1"><label for="ammountPaid">Amount</label></div>
-                            <div class="col-sm-5 mb-2">
-                                <input type="number" class="form-control" name="ammountPaid" id="ammountPaid" [(ngModel)]="managerOptions.ammountPaid" />
-                            </div>
-                            <div class="col-sm-1"><label for="activeDate">Active Until</label></div>
-                            <div class="col-sm-5 mb-2">
-                                <input type="date" class="form-control" name="activeDate" id="activeDate" [ngModel]="managerOptions.activeDate | date:'yyyy-MM-dd'" (ngModelChange)="managerOptions.activeDate = $event"/>
-                            </div>
+                      
+                    <div class="col-sm-5">
+                        <input class="form-control" name="lastName" id="lastName" [(ngModel)]="user.lastName" />
+                    </div>
+                    <ng-container *ngIf="user.role === 'MANAGER' && self.role === 'ADMIN'">
+                       <div class="col-sm-1">
+                        <label for="nameCompany">Company</label>
+                    </div>
+                    <div class="col-sm-5" *ngIf="user.role === 'MANAGER' && self.role === 'ADMIN'">
+                        <input type="text" class="form-control" name="nameCompany" id="nameCompany"
+                            [(ngModel)]="managerOptions.nameCompany" />
+                    </div>
+                    </ng-container>
+                    <div class="col-sm-1">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" name="email" id="email" [(ngModel)]="user.email" />
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="phoneNumber">Phone Number</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" name="phoneNumber" id="phoneNumber"
+                            [(ngModel)]="user.phoneNumber" />
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="dateOfBirth">Date of Birth</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth"
+                            [(ngModel)]="user.dateOfBirth" />
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="managedBy">Managed By</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" name="managedBy" id="managedBy" value="{{user.managedBy}}"
+                            disabled />
+                    </div>
+                    <div class="col-sm-1">
+                        <label for="role">Role</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" name="role" id="role" value="{{user.role}}" disabled />
+                    </div>
 
-                            <div class="col-sm-1"><label for="comments">Comments</label></div>
-                            <div class="col-sm-11 mb-2">
-                                <input type="text" class="form-control" name="comments" id="comments" [(ngModel)]="managerOptions.comments" />
-                            </div>
+
+                    <div class="col-sm-12 my-3" *ngIf="self.role === 'ADMIN' && user.role === 'MANAGER'">
+                        <button type="button" class="btn btn-outline-info"
+                            (click)="showManagerFields = !showManagerFields">
+                            {{ showManagerFields ? 'Hide Payment Info' : 'Edit Payment ' }}
+                        </button>
+                    </div>
+                    <ng-container *ngIf="showManagerFields && self.role === 'ADMIN' && user.role === 'MANAGER'">
+                        <div class="col-sm-1"><label for="ammountPaid">Amount</label></div>
+                        <div class="col-sm-5 mb-2">
+                            <input type="number" class="form-control" name="ammountPaid" id="ammountPaid"
+                                [(ngModel)]="managerOptions.ammountPaid" />
+                        </div>
+                        <div class="col-sm-1"><label for="activeDate">Active Until</label></div>
+                        <div class="col-sm-5 mb-2">
+                            <input type="date" class="form-control" name="activeDate" id="activeDate"
+                                [ngModel]="managerOptions.activeDate | date:'yyyy-MM-dd'"
+                                (ngModelChange)="managerOptions.activeDate = $event" />
+                        </div>
+
+                        <div class="col-sm-1"><label for="comments">Comments</label></div>
+                        <div class="col-sm-11 mb-2">
+                            <input type="text" class="form-control" name="comments" id="comments"
+                                [(ngModel)]="managerOptions.comments" />
+                        </div>
+                       
+
                             <div class="col-sm-12 mb-4">
                                 <button type="button" class="btn btn-primary btn-sm" (click)="saveManagerDetails()">
                                     Save Only Manager Details
                                 </button>
                                 <hr>
                             </div>
-                        </ng-container>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <button *ngIf="user.id == 0" (click)="createUser()" class="btn btn-success">Create</button>
+                        <button *ngIf="user.id != 0 && user.id != tokenId" (click)="editUser()"
+                            class="btn btn-success">Edit</button>
+                        <button *ngIf="user.id != 0 && user.id == tokenId" (click)="editSelf()"
+                            class="btn btn-success">Edit</button>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <button *ngIf="user.id == 0" (click)="createUser()" class="btn btn-success">Create</button>
-                            <button *ngIf="user.id != 0 && user.id != tokenId" (click)="editUser()" class="btn btn-success">Edit</button>
-                            <button *ngIf="user.id != 0 && user.id == tokenId" (click)="editSelf()" class="btn btn-success">Edit</button>
-                        </div>
-                        <div class="col-sm-1">
-                            <a *ngIf="user.id != 0 && user.id != tokenId" href="/users" class="btn btn-danger">Cancel</a>
-                            <a *ngIf="user.id != 0 && user.id == tokenId" href="/" class="btn btn-danger">Cancel</a>
-                        </div>
-                        <div class="col-sm-1" *ngIf="self.role == 'ADMIN'">
-                            <button (click)="openDialog(user.id)" class="btn btn-light">Change Password</button>
-                        </div>
+                    <div class="col-sm-1">
+                        <a *ngIf="user.id != 0 && user.id != tokenId" href="/users" class="btn btn-danger">Cancel</a>
+                        <a *ngIf="user.id != 0 && user.id == tokenId" href="/" class="btn btn-danger">Cancel</a>
+                    </div>
+                    <div class="col-sm-1" *ngIf="self.role == 'ADMIN'">
+                        <button (click)="openDialog(user.id)" class="btn btn-light">Change Password</button>
                     </div>
                 </div>
-            </form>
         </div>
+        </form>
     </div>
-    <div class="row" *ngIf="message != ''">
-        <div class="col-sm-12">
-            <div class="alert alert-{{messageType}}" role="alert">{{message}}</div>
-        </div>
+</div>
+<div class="row" *ngIf="message != ''">
+    <div class="col-sm-12">
+        <div class="alert alert-{{messageType}}" role="alert">{{message}}</div>
     </div>
+</div>
 </div>

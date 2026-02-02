@@ -1,31 +1,41 @@
+<div class="main-container">
+    <div class="login-box">
+        <div class="login-header">
+            <div class="brand-logo">
+                <i class="bi bi-person-circle"></i>
+            </div>
+            <h2>Login</h2>
 
-<div class="container px-4">
-    <form #userData = "ngForm" (ngSubmit)="onSubmit(userData.value)">
-        <div class="row gx-5">
-            <div class="col-sm-2">
-                <label for="email" class="p-3">Email</label>
-            </div>
-            <div class="col-sm-4">
-                <input type="text" id="email" name="email" placeholder="Email" class="form-control" ngModel/>
-            </div>
-            <div class="col-sm-2">
-                <label for="password" class="p-3">Password</label>
-            </div>
-            <div class="col-sm-4">
-                <input type="password" id="password" name="password" placeholder="Password" class="form-control" ngModel/>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <button class="btn btn-primary">Login</button>
+
+        <form #userData="ngForm" (ngSubmit)="onSubmit(userData.value)">
+            <div class="input-wrapper">
+                <label>Email</label>
+                <div class="input-field">
+                    <i class="bi bi-envelope"></i>
+                    <input type="email" name="email" placeholder="nombre@ejemplo.com" ngModel required />
+                </div>
             </div>
-        </div>
-    </form>
-</div>
-<div class="container px-4">
-    <div class="row gx-5">
-        <div class="col-sm-8">
-            {{responseMessage}}
+
+            <div class="input-wrapper">
+                <label>Password</label>
+                <div class="input-field">
+                    <i class="bi bi-lock"></i>
+                    <input type="password" name="password" placeholder="password" ngModel required />
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Login
+            </button>
+        </form>
+
+        <div *ngIf="responseMessage" class="status-message ">
+            <div class="alert-content"
+            [ngClass]="{'alert-success': !isError, 'alert-error': isError}">
+                <i class="bi" [ngClass]="{'bi-check-circle-fill': !isError, 'bi-x-circle-fill': isError}"></i>
+                <span>{{ responseMessage }}</span>
+            </div>
         </div>
     </div>
 </div>

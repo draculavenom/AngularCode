@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {UsersComponent} from './users/users.component';
+import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './security/login/login.component';
 import { RegisterComponent } from './security/register/register.component';
 import { PersonComponent } from './person/person.component';
@@ -16,9 +16,11 @@ import { ManagerUsersListComponent } from './users/manager-users-list/manager-us
 import { OnboardingFinalComponent } from './schedule/appointment/onboarding-final/onboarding-final.component';
 import { RegisterUserFinalComponent } from './security/register/register-userfinal.component';
 import { NotificationComponent } from './manager/notification/notification.component';
+import { ManagerOptionsComponent } from './manager/manager-options/manager-options.component';
 
 const routes: Routes = [
-  { path: '', component: ScheduleComponent, canActivate: [AuthGuard]},
+  { path: '', component: OnboardingFinalComponent},
+  { path: 'dashboard', component: ScheduleComponent, canActivate: [AuthGuard]},
   { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'user/:id', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
@@ -37,6 +39,7 @@ const routes: Routes = [
   { path: 'onboarding-final', component: OnboardingFinalComponent },
   { path: 'register-final', component: RegisterUserFinalComponent },
   { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
+  { path: 'manager-options', component: ManagerOptionsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

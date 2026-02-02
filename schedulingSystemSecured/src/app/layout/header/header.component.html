@@ -3,15 +3,12 @@
     <!-- Container wrapper -->
     <div class="container">
       <!-- Navbar brand -->
-      <a class="navbar-brand me-2" href="/">Home</a>
+      <a class="navbar-brand me-2" href="/dashboard">Home</a>
   
         <div class="d-flex align-items-center">
           <div *ngIf="!isLoggedIn">
             <a href="login" class="btn btn-primary px-3 me-2">
               Login
-            </a>
-            <a href="register" class="btn btn-success me-3">
-              Sign up
             </a>
           </div>
           <div *ngIf="isLoggedIn">
