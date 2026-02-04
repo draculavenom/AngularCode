@@ -72,23 +72,22 @@ export class CalendarComponent implements OnInit {
   }
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    if (view === 'month' && this.allAppointments.length > 0) {
+    if (view === 'month' && this.allAppointments && this.allAppointments.length > 0) {
       const cellDateStr = this.datePipe.transform(cellDate, 'yyyy-MM-dd');
 
       const hasAppointment = this.allAppointments.some(appo => {
-        if (!appo.date) return false;
-        const appoDateStr = appo.date.toString().split('T')[0];
+        if (!appo || !appo.date) return false;
+        const appoDateStr = String(appo.date).split('T')[0];
         return appoDateStr === cellDateStr;
       });
 
       if (hasAppointment) {
-        // Colores para diferentes estados
-        const dayApps = this.allAppointments.filter(a => a.date.toString().split('T')[0] === cellDateStr);
+        const dayApps = this.allAppointments.filter(a => a.date && String(a.date).split('T')[0] === cellDateStr);
+        // Colores según el estado de las citas
         if (dayApps.some(a => a.status === 'CONFIRMED')) return 'date-has-confirmed';
         if (dayApps.some(a => a.status === 'SCHEDULED')) return 'date-has-scheduled';
         if (dayApps.some(a => a.status === 'CANCELLED')) return 'date-has-cancelled';
         if (dayApps.some(a => a.status === 'COMPLETED')) return 'date-has-completed';
-
         return 'date-has-past';
       }
     }
@@ -109,19 +108,27 @@ export class CalendarComponent implements OnInit {
       this.user = u;
 
       const handleResponse = (data: AppointmentModel[]) => {
-        this.allAppointments = data;
-        this.calendarOptions.events = data.map(appo => ({
-          id: appo.id.toString(),
-          title: `${appo.time.substring(0, 5)} - ${appo.status}`,
-          start: `${appo.date}T${appo.time}`,
-          color: this.getStatusColor(appo.status),
-          extendedProps: { ...appo }
-        }));
+        this.allAppointments = data || [];
+        this.calendarOptions.events = this.allAppointments.map(appo => {
+          const id = appo?.id ? String(appo.id) : Math.random().toString();
+          const time = appo?.time ? String(appo.time).substring(0, 5) : '00:00';
+          const date = appo?.date ? String(appo.date).split('T')[0] : '';
+          const status = appo?.status || 'PENDING';
+
+          return {
+            id: id,
+            title: `${time} - ${status}`,
+            start: date ? `${date}T${appo.time || '00:00'}` : undefined,
+            color: this.getStatusColor(status),
+            extendedProps: { ...appo }
+          };
+        });
+        this.applyFilter();
+
         this.cdr.detectChanges();
         if (this._calendar) {
           this._calendar.updateTodaysDate();
         }
-        this.applyFilter();
       };
 
       if (u.role == "USER") {
@@ -137,16 +144,20 @@ export class CalendarComponent implements OnInit {
   }
 
   public applyFilter() {
-    if (!this.selectedDate) {
-      this.appointments = this.allAppointments;
-    } else {
-      const formattedDate = this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd');
-      this.appointments = this.allAppointments.filter(appo => {
-        const pureAppoDate = String(appo.date).substring(0, 10);
-        return pureAppoDate === formattedDate;
-      });
+    if (!this.allAppointments || this.allAppointments.length === 0) {
+      this.appointments = [];
+      return;
     }
-    this.currentPage = 1;
+
+    const selectedStr = this.datePipe.transform(this.selectedDate || new Date(), 'yyyy-MM-dd');
+
+    this.appointments = this.allAppointments.filter(appo => {
+      if (!appo.date) return false;
+      const appoDateStr = String(appo.date).split('T')[0];
+      return appoDateStr === selectedStr;
+    });
+
+    this.cdr.detectChanges();
   }
 
   public onDateChange(date: Date | null) {
