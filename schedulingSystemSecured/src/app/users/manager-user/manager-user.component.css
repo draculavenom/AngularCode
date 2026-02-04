@@ -1,0 +1,103 @@
+
+.custom-card {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    border-bottom: 1px solid #e9ecef !important;
+}
+
+.info-panel {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+}
+
+.icon-badge {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: rgba(13, 110, 253, 0.1);
+    color: #004dc7;
+}
+
+.input-group-text {
+    background-color: white;
+    border-right: none;
+    color: #6c757d;
+}
+
+.form-control {
+    border-left: none;
+    background-color: white;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #e9ecef;
+}
+
+.input-group:focus-within {
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+    border-radius: 0.375rem;
+}
+
+.input-group:focus-within .input-group-text,
+.input-group:focus-within .form-control {
+    border-color: #004dc7;
+}
+
+
+.section-title {
+    font-size: 1.1rem;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+}
+
+
+.btn-createManager {
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-weight: 600;
+    background-color: #004dc7;
+    color: white;
+    border: none;
+    transition: background-color 0.2s ease;
+
+}
+
+.btn-createManager:hover {
+    background-color:#0345ae;
+}
+.btn-createManager:active {
+    background-color: #004dc7;
+}
+.btn-action {
+    background-color: #848489;
+    color: white;
+    border: 1px solid #6b6b6f;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    
+}
+
+.btn-action:hover {
+    background: rgb(118, 118, 118);
+    color: white;
+}

@@ -1,75 +1,105 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SecurityService } from '../security/security.service';
 import { UsersModel } from './users.model';
 import { Observable } from 'rxjs';
 import { ManagerOptionsModel } from './manager.options';
+import { UserDTO } from './manager-users-list/manager-user-list-model';
+import { ConfigService } from '../services/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  headers = {
-    "Access-Control-Allow-Origin": "*",
-    "content-type": "application/json",
-    "Accept": "*/*",
-    "Authorization": ""
-  };
-  headersWithToken = {
-    "Access-Control-Allow-Origin": "*",
-    "content-type": "application/json",
-    "Accept": "*/*"
-  };
 
-  constructor(private http: HttpClient, private securityService: SecurityService) {
-    
-   }
 
-  public getUser(): Observable<UsersModel>{
-    let token = sessionStorage.getItem('bearerToken');
-    let tokenInfo = "";
+  constructor(private http: HttpClient, private securityService: SecurityService, private configService: ConfigService) {
+
+  }
+  private getRequestOptions() {
+    const token = sessionStorage.getItem('bearerToken');
+    let authHeader = "";
+
+    if (token) {
+      try {
+        const parsed = JSON.parse(token);
+        authHeader = "Bearer " + (parsed.access_token || parsed);
+      } catch (e) {
+        authHeader = "Bearer " + token;
+      }
+    }
+
+    const headersConfig: any = {
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    };
+
+    if (authHeader) {
+      headersConfig['Authorization'] = authHeader;
+    }
+
+    return {
+      headers: new HttpHeaders(headersConfig)
+    };
+  }
+
+  public getUser(): Observable<UsersModel> {
+    const token = sessionStorage.getItem('bearerToken');
     let email = "";
-    if (token !== null){
-      tokenInfo = this.securityService.getDecodedAccessToken(token);
-      email = tokenInfo.sub.toString();
-      this.headers["Authorization"] = "Bearer " + this.securityService.getBearerToken();
+    if (token) {
+      try {
+        const tokenObject = JSON.parse(token);
+        const tokenInfo = this.securityService.getDecodedAccessToken(tokenObject.access_token);
+        email = tokenInfo.sub.toString();
+      } catch (error) {
+        console.error("Error al obtener el email del  token:", error);
+      }
     }
     return this.getUserByEmail(email);
   }
 
-  public getUserById(id: number): Observable<UsersModel>{
-    return this.http.get<UsersModel>('http://localhost:8080/api/v1/Users/' + id, {headers: this.headers, responseType: 'json'});
+  public getUserById(id: number): Observable<UsersModel> {
+    return this.http.get<UsersModel>(`${this.configService.apiUrl}/api/v1/Users/${id}`, this.getRequestOptions());
   }
 
-  public getUserByEmail(email: string): Observable<UsersModel>{
-    return this.http.get<UsersModel>('http://localhost:8080/api/v1/Users/byEmail/' + email, {headers: this.headers, responseType: 'json'});
+  public getUserByEmail(email: string): Observable<UsersModel> {
+    return this.http.get<UsersModel>(`${this.configService.apiUrl}/api/v1/Users/byEmail/${email}`, this.getRequestOptions());
   }
 
-  public getUsers(): Observable<UsersModel[]>{
-    return this.http.get<UsersModel[]>('http://localhost:8080/api/v1/Users', {headers: this.headers, responseType: 'json'});
+  public getUsers(): Observable<UsersModel[]> {
+    return this.http.get<UsersModel[]>(`${this.configService.apiUrl}/api/v1/Users`, this.getRequestOptions());
   }
 
-  public createUser(user: UsersModel): Observable<UsersModel>{
-    return this.http.post<UsersModel>('http://localhost:8080/api/v1/Users', user, {headers: this.headers, responseType: 'json'});
+  public createUser(user: UsersModel): Observable<UsersModel> {
+    return this.http.post<UsersModel>(`${this.configService.apiUrl}/api/v1/Users`, user, this.getRequestOptions());
   }
 
-  public updateUser(user: UsersModel): Observable<UsersModel>{
-    return this.http.put<UsersModel>('http://localhost:8080/api/v1/Users', user, {headers: this.headers, responseType: 'json'});
+  public updateUser(user: UsersModel): Observable<UsersModel> {
+    return this.http.put<UsersModel>(`${this.configService.apiUrl}/api/v1/Users`, user, this.getRequestOptions());
   }
 
-  public updateSelf(user: UsersModel): Observable<UsersModel>{
-    return this.http.put<UsersModel>('http://localhost:8080/api/v1/Users/self', user, {headers: this.headers, responseType: 'json'});
+  public updateSelf(user: UsersModel): Observable<UsersModel> {
+    return this.http.put<UsersModel>(`${this.configService.apiUrl}/api/v1/Users/self`, user, this.getRequestOptions());
   }
 
-  public getManagerSelect(): Observable<ManagerOptionsModel[]>{
-    return this.http.get<ManagerOptionsModel[]>('http://localhost:8080/api/v1/Manager/select', {headers: this.headersWithToken, responseType: 'json'});
+  public getManagerSelect(): Observable<ManagerOptionsModel[]> {
+    return this.http.get<ManagerOptionsModel[]>(`${this.configService.apiUrl}/api/v1/Manager/select`, this.getRequestOptions());
   }
 
-  public resetPassword(id: number){
-    return this.http.get<boolean>('http://localhost:8080/api/v1/Users/resetPassword/' + id, {headers: this.headers, responseType: 'json'});
+  public resetPassword(id: number) {
+    return this.http.get<boolean>(`${this.configService.apiUrl}/api/v1/Users/resetPassword/${id}`, this.getRequestOptions());
   }
 
-  public changePassword(user: UsersModel){
-    return this.http.put<UsersModel>('http://localhost:8080/api/v1/Users/passwordChange', user, {headers: this.headers, responseType: 'json'});
+  public changePassword(user: UsersModel) {
+    return this.http.put<UsersModel>(`${this.configService.apiUrl}/api/v1/Users/passwordChange`, user, this.getRequestOptions());
   }
+
+  public getPersonsByManager(managerId: number): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(
+      `${this.configService.apiUrl}/api/v1/Manager/${managerId}/persons`,
+      this.getRequestOptions()
+    );
+  }
+
+
 }

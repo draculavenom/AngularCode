@@ -5,6 +5,9 @@ import { UsersModel } from '../users/users.model';
 import { AppointmentModel } from './appointment/appointment.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CancelDialogComponent } from '../layout/cancel-dialog/cancel-dialog.component';
+import { ManagerService } from 'src/app/schedule/manager/manager.service';
+import { ManagerOptionsModel } from '../users/manager.options';
+
 
 @Component({
   selector: 'app-schedule',
@@ -12,62 +15,113 @@ import { CancelDialogComponent } from '../layout/cancel-dialog/cancel-dialog.com
   styleUrls: ['./schedule.component.css']
 })
 export class ScheduleComponent implements OnInit {
-  user: UsersModel = new UsersModel(0,"",false);
+  user: UsersModel = new UsersModel(0, "", false);
   appointments: AppointmentModel[] = [];
   selectedDate: Date = new Date();
+  managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
+
+  currentPage: number = 1;
+  pageSize: number = 10;
+  pageSizeOptions: number[] = [10, 25, 50];
+
+  get pagedAppointments() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return this.appointments.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.appointments.length / this.pageSize);
+  }
+
+  get visiblePages() {
+    const total = this.totalPages;
+    const current = this.currentPage;
+    let start = Math.max(1, current - 4);
+    let end = Math.min(total, current + 4);
+
+    if (current <= 5) {
+      end = Math.min(total, 9);
+    } else if (current > total - 5) {
+      start = Math.max(1, total - 8);
+    }
+
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
 
   constructor(
-    private appointmentService: AppointmentService, 
+    private appointmentService: AppointmentService,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private managerService: ManagerService
   ) { }
 
   ngOnInit(): void {
     this.getAppointments();
   }
 
-  public getAppointments(){
+  public getAppointments() {
     this.userService.getUser().subscribe(u => {
       this.user = u;
       console.log(u);
-      if(u.role == "USER")
-        this.appointmentService.getAppointments(u.id).subscribe(a => a.forEach(ap => this.appointments.push(ap)));
-      else if(u.role == "MANAGER")
-        this.appointmentService.getManagerAppointments(u.id).subscribe(a => a.forEach(ap => this.appointments.push(ap)));
-      else if(u.role == "ADMIN")
-        this.appointmentService.getAdminAppointments(u.id).subscribe(a => a.forEach(ap => this.appointments.push(ap)));
+      this.appointments = [];
+      if (u.role == "USER") {
+        this.appointmentService.getAppointments(u.id).subscribe(a => this.appointments = a);
+      }
+      else if (u.role == "MANAGER") {
+        this.appointmentService.getManagerAppointments(u.id).subscribe(a => this.appointments = a);
+      }
+      else if (u.role == "ADMIN") {
+  this.appointmentService.getAdminAppointments().subscribe({
+    next: (data: AppointmentModel[]) => {
+      this.appointments = data;
+      console.log("Successful quote:", this.appointments);
+    },
+    error: (err) => {
+      console.error("Error loading Admin appointments:", err);
+    }
+  });
+}
     });
-    
     //it will be split in two, one to retrieve the userId from the user service, the second one to get the information of the appointments
   }
 
-  public cancel(appointmentId: number){
+  public cancel(appointmentId: number) {
     this.appointmentService.cancelAppointment(appointmentId).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
-      if(app !== undefined)
+      if (app !== undefined)
         app.status = a.status
     });
   }
 
-  public confirm(appointmentId: number){
+  public confirm(appointmentId: number) {
     this.appointmentService.confirmAppointment(appointmentId).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
-      if(app !== undefined)
+      if (app !== undefined)
         app.status = a.status
     });
   }
 
-  public complete(appointmentId: number){
+  public complete(appointmentId: number) {
     this.appointmentService.completeAppointment(appointmentId).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
-      if(app !== undefined)
+      if (app !== undefined)
         app.status = a.status
     });
   }
 
   openDialog(appointmentId: number): void {
     const dialogRef = this.dialog.open(CancelDialogComponent, {
-      data: {id: appointmentId},
+      data: { id: appointmentId },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -75,7 +129,7 @@ export class ScheduleComponent implements OnInit {
     });
   }
 
-  public onSelect(event: Event){
+  public onSelect(event: Event) {
     console.log(event);
   }
 

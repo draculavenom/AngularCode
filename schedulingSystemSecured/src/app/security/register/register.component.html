@@ -1,63 +1,74 @@
+<div class="container px-4 mt-4">
+  <form #userData="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3 align-items-center"> <div class="col-sm-2">
+        <label for="email" class="col-form-label">Email</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="email" id="email" name="email" class="form-control" [(ngModel)]="user.email" placeholder="Email" />
+      </div>
 
-<div class="container px-4">
-    <form #userData = "ngForm" (ngSubmit)="onSubmit()">
-        <div class="row gx-5">
-            <div class="col-sm-2">
-                <label for="email" class="p-3">Email</label>
-            </div>
-            <div class="col-sm-4">
-                <input type="email" id="email" name="email" placeholder="Email" class="form-control" [(ngModel)]="user.email"/>
-            </div>
-            <div class="col-sm-2">
-                <label for="password" class="p-3">Password</label>
-            </div>
-            <div class="col-sm-4">
-                <input type="password" id="password" name="password" placeholder="Password" class="form-control" [(ngModel)]="user.password"/>
-            </div>
-            <div class="col-sm-2">
-                <label for="name" class="p-3">First Name</label>
-            </div>
-            <div class="col-sm-4">
-                <input type="name" id="firstName" name="firstName" placeholder="First Name" class="form-control" [(ngModel)]="user.firstName"/>
-            </div>
-            <div class="col-sm-2">
-                <label for="lastName" class="p-3">Last Name</label>
-            </div>
-            <div class="col-sm-4">
-                <input type="lastName" id="lastName" name="lastName" placeholder="Last Name" class="form-control" [(ngModel)]="user.lastName"/>
-            </div>
-            <div class="col-sm-2">
-                <label for="phoneNumber" class="p-3">Phone Number</label>
-            </div>
-            <div class="col-sm-4">
-                <input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control" [(ngModel)]="user.phoneNumber"/>
-            </div>
-            <div class="col-sm-2">
-                <label for="dateOfBirth" class="p-3">Date Of Birth</label>
-            </div>
-            <div class="col-sm-4">
-                <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Date Of Birth" class="form-control" [ngModel]="user.dateOfBirth | date:'yyyy-MM-dd'" (ngModelChange)="user.dateOfBirth = $event"/>
-            </div>
-            <div class="col-sm-2">
-                <label for="managedBy" class="p-3">Company</label>
-            </div>
-            <div class="col-sm-4">
-                <select id="managedBy" name="managedBy" class="form-select" [(ngModel)]="user.managedBy" >
-                    <option *ngFor="let managerOption of managerSelect" value="{{managerOption.managerId}}">{{managerOption.name}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <button class="btn btn-success">Sign Up</button>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="container px-4">
-    <div class="row" *ngIf="messages.length != 0">
-        <div class="col-sm-12">
-            <div *ngFor="let message of messages" class="alert alert-{{messageType}}" role="alert">{{message}}</div>
-        </div>
+      <div class="col-sm-2">
+        <label for="password" class="col-form-label">Password</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="password" id="password" name="password" class="form-control" [(ngModel)]="user.password" placeholder="Password" />
+      </div>
+
+      <div class="col-sm-2">
+        <label for="firstName" class="col-form-label">First Name</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="user.firstName" placeholder="First Name" />
+      </div>
+
+      <div class="col-sm-2">
+        <label for="lastName" class="col-form-label">Last Name</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="user.lastName" placeholder="Last Name" />
+      </div>
+
+      <div class="col-sm-2">
+        <label for="phoneNumber" class="col-form-label">Phone Number</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" [(ngModel)]="user.phoneNumber" placeholder="Phone Number" />
+      </div>
+
+      <div class="col-sm-2">
+        <label for="dateOfBirth" class="col-form-label">Date Of Birth</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control" [ngModel]="user.dateOfBirth | date: 'yyyy-MM-dd'" (ngModelChange)="user.dateOfBirth = $event" />
+      </div>
+
+      <div class="col-sm-2">
+        <label for="managedBy" class="col-form-label">Company</label>
+      </div>
+      <div class="col-sm-4">
+        <select class="form-select" id="managedBy" name="managedBy" [(ngModel)]="user.managedBy" required>
+          <option [value]="0" disabled>-- Select your Company --</option>
+          <option *ngFor="let option of managerSelect" [value]="option.managerId">
+            {{ option.name }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="col-sm-6"></div>
+
+      <div class="col-12 mt-4">
+        <button class="btn btn-success px-5">Sign Up</button>
+      </div>
     </div>
+  </form>
+</div>
+
+<div class="container px-4 mt-3">
+  <div class="row" *ngIf="messages.length != 0">
+    <div class="col-12">
+      <div *ngFor="let message of messages" class="alert alert-{{ messageType }}" role="alert">
+        {{ message }}
+      </div>
+    </div>
+  </div>
 </div>

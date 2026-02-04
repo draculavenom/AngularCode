@@ -1,13 +1,14 @@
 export class ManagerOptionsModel{
     id: number;
-    name: string;
     managerId: number;
+    name: string;
     adminId: number;
     ammountPaid: number;
     activeDate: Date;
     comments: string;
+    nameCompany?: string;
 
-    constructor(id: number, name?: string, managerId?: number, adminId?: number, ammountPaid?: number, activeDate?: Date, comments?: string){
+    constructor(id: number, name?: string, managerId?: number, adminId?: number, ammountPaid?: number, activeDate?: Date, comments?: string, nameCompany?: string){
         this.id = id;
         if (name)
             this.name = name;
@@ -33,5 +34,9 @@ export class ManagerOptionsModel{
             this.comments = comments;
         else
             this.comments = "";
+        if (nameCompany)
+            this.nameCompany = nameCompany;
+        else
+            this.nameCompany = "";
     }
 }

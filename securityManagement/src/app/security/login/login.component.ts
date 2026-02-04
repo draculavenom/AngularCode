@@ -24,15 +24,21 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(userData: UsersModel){
-    this.securityService.loginUser(userData).subscribe(
-      data => {
+    this.responseMessage = "";
+    this.securityService.loginUser(userData).subscribe({
+      next: (data) => {
         sessionStorage.setItem('bearerToken', data);
         this.responseMessage = "Authetication successful.";
         this.getUserDetails(data);
-        location.reload();
+        setTimeout(() => {
+            location.reload();
+        }, 1500);
       },
-      error => this.responseMessage = error.erorr
-    );
+      error: (err) => {
+        this.responseMessage = "The username or password is incorrect. Please try again.";
+      console.error("Error capturado:", err);
+      }
+    });
   }
 
   private getUserDetails(data: any){

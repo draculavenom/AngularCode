@@ -1,0 +1,190 @@
+
+.managerOptions-wrapper {
+  padding: 30px;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.managerOptions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.title-section h1 {
+  font-size: 1.5rem;
+  color:#1e293b;
+  margin: 0;
+}
+
+.title-section p span {
+  color: #004dc7;
+  font-weight: 600;
+}
+
+/* Estilos para la barra de búsqueda y el select*/
+.search-bar {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+.custom-select-container {
+  position: relative;
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+.input-icon-wrapper {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  z-index: 10;
+  pointer-events: none;
+}
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.improved-select {
+  width: 100%;
+  padding: 12px 40px 12px 45px; 
+  font-size: 1rem;
+  color: #495057;
+  background-color: #fff;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.improved-select:focus {
+  border-color: #004dc7;
+  outline: 0;
+  box-shadow: 0 0 0 0.25 row rgba(78, 115, 223, 0.25);
+}
+
+.btn-search-improved {
+  padding: 12px 25px;
+  background: #004dc7;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.btn-search-improved:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(78, 115, 223, 0.3);
+}
+
+.btn-search-improved:active {
+  transform: translateY(0);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  pointer-events: none; /* Para que al hacer clic en la flecha, se abra el select */
+  font-size: 0.8rem;
+  z-index: 2;
+}
+
+/* Efecto visual al abrir/enfocar */
+.improved-select:focus + .select-arrow {
+  color: #4e73df;
+  transform: translateY(-50%) rotate(180deg); /* Opcional: la flecha gira */
+  transition: transform 0.2s ease;
+}
+
+/* Estilos para la tabla de opciones del manager */
+.input-group {
+  position: relative;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.input-group input {
+  border: none;
+  padding: 10px;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.content-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.improved-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden; 
+}
+
+.improved-table thead th {
+  background: #f1f5f9;
+  text-align: left;
+  padding: 12px 20px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-bottom: 2px solid #e2e8f0;
+  font-weight: 600;
+}
+
+.improved-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  color: #334155;
+  vertical-align: middle;
+}
+
+/* Efecto sutil al pasar el mouse */
+.improved-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+.bold {
+  font-weight: 600;
+  color: #004dc7;
+}
+
+.amount {
+  font-weight: 600;
+  color: #059669;
+}
+
+

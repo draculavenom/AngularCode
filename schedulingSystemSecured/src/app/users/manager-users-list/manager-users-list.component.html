@@ -1,0 +1,66 @@
+<div class="dashboard-wrapper" *ngIf="currentUser?.role == 'MANAGER'">
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="welcome-title">Welcome , <span class="highlight">{{currentUser?.name}}</span></h1>
+            </div>
+        </div>
+
+        <div class="glass-card main-shadow">
+            <div class="table-responsive">
+                <table class="improved-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">USER PROFILE</th>
+                            <th scope="col">CONTACT INFO</th>
+                            <th scope="col">DATE OF BIRTH</th>
+                            <th scope="col">MANAGER</th>
+                            <th scope="col">ROLE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let u of users">
+                            <td class="id-cell">#{{u.id}}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <span class="fw-bold">{{u.name}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="contact-info">
+                                    <span class="d-block email-text">{{u.email}}</span>
+                                    <small class="text-muted">{{u.phoneNumber}}</small>
+                                </div>
+                            </td>
+                            <td>{{u.dateOfBirth}}</td>
+                            <td>
+                                <span class="managed-by-tag">{{u.managedBy || 'N/A'}}</span>
+                            </td>
+                            <td>
+                                <span class="status-pill" 
+                                      [attr.data-status]="u.role === 'MANAGER' ? 'CONFIRMED' : 'SCHEDULED'">
+                                    {{u.role}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5" *ngIf="currentUser?.role != 'MANAGER'">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="glass-card text-center p-5 error-card">
+                <div class="error-icon mb-4">🚫</div>
+                <h2 class="text-dark fw-bold">Access Denied</h2>
+                <p class="text-muted">Your current account ({{currentUser?.role}}) does not have the necessary permissions to view the Manager Dashboard.</p>
+                <hr>
+                <button class="btn btn-outline-secondary btn-sm rounded-pill">Contact Support</button>
+            </div>
+        </div>
+    </div>
+</div>

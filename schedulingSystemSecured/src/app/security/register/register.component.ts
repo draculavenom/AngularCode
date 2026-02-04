@@ -14,7 +14,8 @@ export class RegisterComponent implements OnInit {
   messages: string[] = [];
   messageType = "";
   user: UsersModel = new UsersModel(0, "", true);
-  managerSelect: ManagerOptionsModel[] = [new ManagerOptionsModel(0)];
+  managerSelect: ManagerOptionsModel[] = [];
+  showPassword = false;
 
   constructor(
       private securityService: SecurityService, 
@@ -37,8 +38,11 @@ export class RegisterComponent implements OnInit {
     this.user.role = "USER";
     this.userService.getManagerSelect().subscribe(l => {
       this.managerSelect = l;
-      if(l.length > 0)
+      if(l.length > 0){
         this.user.managedBy = l[0].managerId;
+      } else {
+      this.user.managedBy = 0;
+    }
     });
   }
 

@@ -11,11 +11,20 @@ import { UsersModel } from 'src/app/users/users.model';
 export class LeftBarComponent implements OnInit {
   username = "";
   user: UsersModel = new UsersModel(0, "", false);
+  isLoggedIn: boolean = false;
 
   constructor(private securityService: SecurityService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.checkToken();
+    this.securityService.authStatus$.subscribe(loggedIn => {
+      this.isLoggedIn = loggedIn;
+      if (loggedIn) {
+        this.checkToken();
+      } else {
+        this.username = "";
+        this.user = new UsersModel(0, "", false);
+      }
+    });
   }
 
   private checkToken(){

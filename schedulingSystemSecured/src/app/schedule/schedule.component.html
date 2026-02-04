@@ -1,78 +1,201 @@
-<div class="row" *ngIf="user.role == 'USER'">
-    <div class="col-sm-12">
-        <H2>Appointments:</H2>
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <th scope="col">Date</th>
-                <th scope="col">Time</th>
-                <th scope="col">Status</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </thead>
-            <tbody>
-                <tr *ngFor = "let appointment of appointments">
-                    <th scope="row">{{appointment.date}}</th>
-                    <td>{{appointment.time.substring(0, 5)}}</td>
-                    <td>{{appointment.status}}</td>
-                    <td><a href="schedule/appointment/{{appointment.id}}" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Change</a></td>
-                    <td><button type="button" (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-danger">Cancel</button></td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="schedule/appointment" class="btn btn-success">New Appointment</a>
+<div class="row mb-3 mt-2">
+    <div class="col-12 d-flex align-items-center">
+        <div class="pagination-wrapper bg-white p-2 px-3 rounded-4 border shadow-sm">
+            <i class="bi bi-eye text-primary opacity-50 me-1"></i>
+
+            <span class="page-label small letter-spacing">Show</span>
+
+            <div class="custom-select-wrapper">
+                <select [(ngModel)]="pageSize" (change)="currentPage = 1" class="select-pill">
+                    <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{opt}}</option>
+                </select>
+                <i class="bi bi-chevron-down"></i>
+            </div>
+
+            <span class="page-label small letter-spacing">Records</span>
+
+            <div class="vr mx-2 opacity-25" style="height: 20px;"></div>
+            
+            <span class="badge bg-light text-dark rounded-pill fw-normal border px-3">
+                Total: {{pagedAppointments.length}}
+            </span>
+        </div>
     </div>
 </div>
-<div class="row" *ngIf="user.role == 'MANAGER'">
-    <div class="col-sm-12">
-        <H2>Appointments:</H2>
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <th scope="col">Date</th>
-                <th scope="col">Time</th>
-                <th scope="col">Status</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </thead>
-            <tbody>
-                <tr *ngFor = "let appointment of appointments">
-                    <th scope="row">{{appointment.date}}</th>
-                    <td>{{appointment.time.substring(0, 5)}}</td>
-                    <td>{{appointment.status}}</td>
-                    <td><button type="button" (click)="confirm(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Confirm</button></td>
-                    <td><button type="button" (click)="complete(appointment.id)" *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" class="btn btn-success">Completed</button></td>
-                    <td><button type="button" (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" class="btn btn-danger">Cancel</button></td>
-                </tr>
-            </tbody>
-        </table>
+
+
+<div class="role-container mb-5" *ngIf="user.role == 'USER'">
+    <header class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="display-6 fw-bold m-0">My Appointments</h2>
+        <a href="schedule/appointment" class="btn-appointment ">
+            <i class="bi bi-plus-lg me-2"></i>New Appointment
+        </a>
+    </header>
+
+    <div class="glass-card shadow-sm">
+        <div class="table-responsive shadow-sm border rounded">
+            <table class="improved-table">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">Date & Schedule</th>
+                        <th>Status</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let appointment of pagedAppointments">
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                                <div class="calendar-thumb me-3 shadow-sm">
+                                    <span class="month">{{appointment.date | date:'MMM'}}</span>
+                                    <span class="day">{{appointment.date | date:'dd'}}</span>
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark">{{appointment.date}}</div>
+                                    <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge-status" [attr.data-status]="appointment.status">
+                                {{appointment.status}}
+                            </span>
+                        </td>
+                        <td class="text-end pe-4">
+                            <a href="schedule/appointment/{{appointment.id}}" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-link btn-sm text-decoration-none me-2">
+                                <i class="bi bi-pencil"></i> Change
+                            </a>
+                            <button (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-<div class="row" *ngIf="user.role == 'ADMIN'">
+
+
+<div class="role-container mb-5" *ngIf="user.role == 'MANAGER'">
+    <div class="d-flex align-items-center mb-4">
+        <div class="icon-box-manager text-white me-3">
+            <i class="bi bi-person-badge fs-4"></i>
+        </div>
+        <h2 class="fw-bold h3 m-0 tracking-wider">Manager Dashboard</h2>
+    </div>
+
+    <div class="glass-card shadow-sm">
+        <div class="table-responsive">
+            <table class="improved-table">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Appointment Info</th>
+                        <th>Status</th>
+                        <th class="text-end pe-4">Management Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let appointment of pagedAppointments">
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                                <div class="calendar-thumb me-3 shadow-sm">
+                                    <span class="month">{{appointment.date | date:'MMM'}}</span>
+                                    <span class="day">{{appointment.date | date:'dd'}}</span>
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark">{{appointment.date}}</div>
+                                    <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge-status" [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
+                        <td class="text-end pe-4">
+                            <div class="d-flex justify-content-end gap-2">
+                                <button (click)="confirm(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-link btn-sm text-decoration-none me-2"><i class="bi bi-check-circle"></i> Confirm</button>
+                                <button (click)="complete(appointment.id)" *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" class="btn btn-link btn-sm text-decoration-none me-2 text-success"><i class="bi bi-check-circle"></i> Complete</button>
+                                <button (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" class="btn btn-link btn-sm text-decoration-none me-2 text-danger"><i class="bi bi-x-circle"></i> Cancel</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="role-container mb-5" *ngIf="user.role == 'ADMIN'">
+    <div class=" p-4 mb-4  text-dark ">
+        <h2 class="h2 mb-0 tracking-wider"><i class="bi bi-shield-check me-2"></i>Global Administration</h2>
+    </div>
+
+    <div class="glass-card  border-4">
+        <div class="table-responsive">
+            <table class="improved-table">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Date & Schedule</th>
+                        <th>Status</th>
+                        <th>Company</th>
+                        <th class="text-center">System Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let appointment of pagedAppointments">
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center">
+                                <div class="calendar-thumb me-3 shadow-sm">
+                                    <span class="month">{{appointment.date | date:'MMM'}}</span>
+                                    <span class="day">{{appointment.date | date:'dd'}}</span>
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark">{{appointment.date}}</div>
+                                    <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge-status" [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
+                        <td><span class="text-uppercase small fw-bold text-secondary">{{ $any(appointment).companyName || 'Global'}}</span></td>
+                        <td class="text-center">
+                            <button (click)="confirm(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2"><i class="bi bi-check-circle"></i> Confirm</button>
+                            <button (click)="complete(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2 text-success"><i class="bi bi-flag"></i> Complete</button>
+                            <button (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2 text-danger"><i class="bi bi-x-circle"></i> Cancel</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+ <div class="row mt-4" *ngIf="totalPages > 1">
     <div class="col-sm-12">
-        <H2>Appointments:</H2>
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <th scope="col">Date</th>
-                <th scope="col">Time</th>
-                <th scope="col">Status</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </thead>
-            <tbody>
-                <tr *ngFor = "let appointment of appointments">
-                    <th scope="row">{{appointment.date}}</th>
-                    <td>{{appointment.time.substring(0, 5)}}</td>
-                    <td>{{appointment.status}}</td>
-                    <td><button type="button" (click)="confirm(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-primary">Confirm</button></td>
-                    <td><button type="button" (click)="complete(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-success">Completed</button></td>
-                    <td><button type="button" (click)="openDialog(appointment.id)" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-danger">Cancel</button></td>
-                </tr>
-            </tbody>
-        </table>
-        <!--<mat-card>
-            <mat-calendar #calendar [(selected)] = "selectedDate">
-            </mat-calendar>
-        </mat-card>-->
+        <nav aria-label="Page navigation" class="pagination-container">
+            <ul class="pagination modern-pagination justify-content-center align-items-center">
+                
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="page-link page-text-btn shadow-sm" (click)="goToPage(1)" role="button">
+                        <i class="bi bi-chevron-double-left me-1"></i> First
+                    </a>
+                </li>
+
+                <li class="page-item" *ngFor="let page of visiblePages" [class.active]="currentPage === page">
+                    <a class="page-link shadow-sm" (click)="goToPage(page)" role="button">
+                        {{page}}
+                    </a>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                    <a class="page-link page-text-btn shadow-sm" (click)="goToPage(totalPages)" role="button">
+                        Last <i class="bi bi-chevron-double-right ms-1"></i>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        
+        <div class="text-center">
+            <span class="text-muted small">Page {{currentPage}} of {{totalPages}}</span>
+        </div>
     </div>
 </div>

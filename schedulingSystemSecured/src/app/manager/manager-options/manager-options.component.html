@@ -1,0 +1,73 @@
+<div class="managerOptions-wrapper">
+  <header class="managerOptions-header">
+    <div class="title-section">
+      <h1>Manager Options</h1>
+      <p>Information about <span>Manager Options</span></p>
+    </div>
+    
+    <div class="search-bar">
+      <div class="custom-select-container">
+    <div class="input-icon-wrapper">
+          <i class="bi bi-briefcase"></i> </div>
+          <div class="select-wrapper">
+          <select [(ngModel)]="selectedManager" class="improved-select" (change)="loadData()">
+            <option value="null" disabled selected>Select Manager </option>
+            <option *ngFor="let manager of managerList" [value]="manager.managerId">
+              {{ manager.managerId }} -  {{ manager.companyName }}
+          </option>
+        </select>
+        <i class="bi bi-chevron-down select-arrow"></i>
+      </div>
+      </div>
+      <button class="btn-search-improved" (click)="loadData()">
+        <i class="bi bi-search me-2"></i> Search
+      </button>
+    </div>
+  </header>
+
+
+
+  <div class="content-card">
+    <div class="card-header">
+      <h3>Record Details</h3>
+  
+    </div>
+
+    <div class="table-responsive">
+      <table class="improved-table">
+        <thead>
+          <tr>
+            <th>Activation Date</th>
+            <th>Amount</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let opt of managerOptionsList">
+            <td>{{ opt.activeDate | date:'mediumDate' }}</td>
+            <td class="amount">{{ opt.ammountPaid | currency }}</td>
+            <td class="comments">{{ opt.comments || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+     <div class="empty-state-container d-flex flex-column justify-content-center align-items-center" *ngIf="managerOptionsList.length === 0">
+    
+    <div class="icon-wrapper mb-3">
+        <i class="bi bi-database-exclamation display-1 text-muted opacity-50"></i>
+    </div>
+    
+    <div class="text-center">
+        <p class="h5 text-secondary fw-normal" *ngIf="!errorMessage">
+            <i class="bi bi-info-circle me-2"></i>Enter an ID to display the history
+        </p>
+        
+        <div *ngIf="errorMessage" class="alert alert-danger d-flex align-items-center mt-2" role="alert">
+            <i class="bi bi-exclamation-octagon-fill me-2"></i>
+            <div>{{ errorMessage }}</div>
+        </div>
+    </div>
+</div>
+    </div>
+  </div>
+</div>
