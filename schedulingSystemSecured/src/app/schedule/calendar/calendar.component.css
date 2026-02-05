@@ -1,40 +1,29 @@
-
 .bg-light {
     background-color: #f8f9fa !important;
 }
 
+/* --- Configuración Base del Calendario --- */
 ::ng-deep .improved-calendar {
     width: 100% !important;
     border: none !important;
 }
 
-/* --- Estilos para el contenido del calendario --- */
-
+/* Estilo  para las celdas del calendario */
 ::ng-deep .mat-calendar-body-cell-content {
     background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
     color: #495057 !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
-    width: 100% !important;
-    height: 100% !important;
     border-radius: 12px !important;
-    pointer-events: auto !important;
     position: relative;
     z-index: 5 !important;
-    pointer-events: auto !important;
 }
 
+/* Celda Seleccionada */
 ::ng-deep .mat-calendar-body-selected {
     background-color: #004dc7 !important;
     border-radius: 12px !important;
-    color: #ffffff !important;
-}
-
-::ng-deep .mat-calendar-body-selected .mat-calendar-body-cell-content,
-::ng-deep .mat-calendar-body-selected button.mat-calendar-body-cell-content {
     color: #ffffff !important;
 }
 
@@ -44,11 +33,7 @@
 }
 
 /* Puntitos de Estado  */
-::ng-deep .date-has-confirmed .mat-calendar-body-cell-content::after,
-::ng-deep .date-has-scheduled .mat-calendar-body-cell-content::after,
-::ng-deep .date-has-completed .mat-calendar-body-cell-content::after,
-::ng-deep .date-has-cancelled .mat-calendar-body-cell-content::after,
-::ng-deep .date-has-past .mat-calendar-body-cell-content::after {
+::ng-deep [class*='date-has-'] .mat-calendar-body-cell-content::after {
     content: '';
     position: absolute;
     bottom: 6px;
@@ -58,18 +43,9 @@
     height: 6px;
     border-radius: 50%;
     z-index: 10;
-    pointer-events: none;
-
-}
-
-::ng-deep .date-has-confirmed .mat-calendar-body-cell-content::after,
-::ng-deep .date-has-scheduled .mat-calendar-body-cell-content::after,
-::ng-deep .date-has-completed .mat-calendar-body-cell-content::after,
-::ng-deep .date-has-cancelled .mat-calendar-body-cell-content::after::ng-deep .date-has-past .mat-calendar-body-cell-content::after {
     display: block !important;
 }
 
-/* Colores de puntos en días NO seleccionados */
 ::ng-deep .date-has-confirmed:not(.mat-calendar-body-selected) .mat-calendar-body-cell-content::after {
     background-color: #198754 !important;
 }
@@ -94,18 +70,19 @@
     background-color: #ffffff !important;
 }
 
-/* --- Panel de Citas  --- */
 .appointment-card {
     border-radius: 16px;
     transition: transform 0.2s ease;
     border-left: 6px solid #dee2e6 !important;
     background: white;
+    margin-bottom: 1rem;
 }
 
 .appointment-card:hover {
     transform: translateY(-3px);
 }
 
+/* Bordes dinámicos */
 .status-border-scheduled {
     border-left-color: #0d6efd !important;
 }
@@ -127,7 +104,6 @@
     padding: 6px 10px;
     border-radius: 8px;
     font-weight: 700;
-    color: #212529;
 }
 
 .status-pill {
@@ -138,6 +114,7 @@
     text-transform: uppercase;
 }
 
+/* Colores de los Pill Status */
 .status-scheduled {
     background: #e7f1ff;
     color: #0d6efd;
@@ -158,44 +135,42 @@
     color: #0270d1;
 }
 
-.btn-cal-success {
-    background: #198754;
-    color: white;
-    border: 1px solid var(--primary);
+.btn-cal-success,
+.btn-cal-info,
+.btn-cal-outline-danger {
     border-radius: 8px;
     padding: 6px 12px;
     font-size: 0.875rem;
     font-weight: 500;
     transition: all 0.2s;
 }
-.btn-cal-success:hover {
-    background: #146c43;
+
+.btn-cal-success {
+    background: #198754;
     color: white;
+    border: none;
 }
 
 .btn-cal-info {
     background: #0d6cf0;
     color: white;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-.btn-cal-info:hover {
-    background: #0a58ca;
-    color: white;
+    border: none;
 }
 
 .btn-cal-outline-danger {
     border: 1px solid #dc3545;
     color: #dc3545;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.2s;
+    background: transparent;
 }
+
+.btn-cal-success:hover {
+    background: #146c43;
+}
+
+.btn-cal-info:hover {
+    background: #0a58ca;
+}
+
 .btn-cal-outline-danger:hover {
     background: #dc3545;
     color: white;
@@ -204,13 +179,11 @@
 .scroll-list {
     max-height: 65vh;
     overflow-y: auto;
-    padding-right: 5px;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
     width: 5px;
 }
-
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #dcdcdc;
     border-radius: 10px;
