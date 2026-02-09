@@ -75,15 +75,20 @@ export class ScheduleComponent implements OnInit {
       console.log(u);
       this.appointments = [];
       if (u.role == "USER") {
-        this.appointmentService.getAppointments(u.id).subscribe(a => this.appointments = a);
-      }
-      else if (u.role == "MANAGER") {
-        this.appointmentService.getManagerAppointments(u.id).subscribe(a => this.appointments = a);
-      }
+      this.appointmentService.getAppointments(u.id).subscribe(a => {
+        this.appointments = this.sortAppointments(a);
+      });
+    }
+    else if (u.role == "MANAGER") {
+      this.appointmentService.getManagerAppointments(u.id).subscribe(a => {
+        this.appointments = this.sortAppointments(a);
+      });
+    }
       else if (u.role == "ADMIN") {
   this.appointmentService.getAdminAppointments().subscribe({
     next: (data: AppointmentModel[]) => {
       this.appointments = data;
+      this.appointments = this.sortAppointments(data);
       console.log("Successful quote:", this.appointments);
     },
     error: (err) => {
@@ -94,6 +99,11 @@ export class ScheduleComponent implements OnInit {
     });
     //it will be split in two, one to retrieve the userId from the user service, the second one to get the information of the appointments
   }
+  private sortAppointments(list: AppointmentModel[]): AppointmentModel[] {
+  return list.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+}
 
   public cancel(appointmentId: number) {
     this.appointmentService.cancelAppointment(appointmentId).subscribe(a => {

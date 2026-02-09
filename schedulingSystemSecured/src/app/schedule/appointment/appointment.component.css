@@ -5,6 +5,14 @@
     padding: 2.5rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     border: 1px solid #f0f2f5;
+    width: 100%;
+    max-width: 600px; 
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.text-color{
+    color: #3b702e;
+    text-align: center;
 }
 
 .card-header-custom h3 {
@@ -27,14 +35,16 @@
 }
 
 .custom-input {
-    border: 2px solid #e2e8f0;
+    border: 2px solid #e6f0e2;
     border-radius: 10px;
     padding: 0.75rem 1rem;
     transition: all 0.3s ease;
+    width: 100%; 
+    font-size: 16px !important;
 }
 
 .custom-input:focus {
-    border-color: #6366f1;
+    border-color: #208905;
     box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
     outline: none;
 }
@@ -50,18 +60,24 @@
 }
 
 .btn-primary-appointment {
-    background-color: #004dc7;
+    background-color: #3b702e;
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;
     border-radius: 10px;
     font-weight: 600;
     transition: transform 0.2s;
+    flex: 1;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.90rem;
 }
 
 .btn-primary-appointment:hover {
-    background-color: #043b94;
-    transform: translateY(-1px);
+    background-color: #347a14;
+    transform: translateY(-2px);
 }
 
 .btn-outline-appointment {
@@ -71,11 +87,18 @@
     border-radius: 10px;
     font-weight: 600;
     background: transparent;
+    flex: 1; 
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-outline-appointment:hover {
-    background: #fcf8f8;
-    color: #9d2a2a;
+    background: #efd7d7;
+    color: #861616;
+    border-color: #861616;
+    transform: translateY(-2px);
 }
 
 .error-msg {
@@ -87,10 +110,36 @@
     gap: 4px;
 }
 
+
 .alert-custom-danger {
     background-color: #fff5f5;
     border: 1px solid #feb2b2;
     color: #c53030;
     border-radius: 10px;
     font-size: 0.9rem;
+}
+@media (max-width: 576px) {
+    .appointment-card {
+        padding: 1.5rem; 
+        border-radius: 12px; 
+    }
+}
+@media (max-width: 480px) {
+    .btn-primary-appointment, 
+    .btn-outline-appointment {
+        width: 100%; 
+        padding: 1rem; 
+        flex-direction: column;
+    }
+    
+    .badge-appointment {
+        display: block; 
+        text-align: center;
+         flex-direction: column;
+    }
+}
+@media (max-width: 576px) {
+    .card-header-custom h3 {
+        font-size: 1.25rem; 
+    }
 }

@@ -123,8 +123,6 @@ export class UserComponent implements OnInit {
     });
   }
 
-
-
   public saveManagerDetails() {
     if (this.user.id !== 0) {
       this.managerOptions.managerId = this.user.id;

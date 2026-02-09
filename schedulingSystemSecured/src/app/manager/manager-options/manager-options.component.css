@@ -1,8 +1,10 @@
-
 .managerOptions-wrapper {
   padding: 30px;
   background-color: #ffffff;
   min-height: 100vh;
+  flex-wrap: wrap; 
+  gap: 15px;
+  box-sizing: border-box;
 }
 
 .managerOptions-header {
@@ -19,11 +21,9 @@
 }
 
 .title-section p span {
-  color: #004dc7;
+  color: #166d00;
   font-weight: 600;
 }
-
-/* Estilos para la barra de búsqueda y el select*/
 .search-bar {
   display: flex;
   gap: 15px;
@@ -37,6 +37,8 @@
   position: relative;
   flex-grow: 1;
   max-width: 400px;
+  flex: 1 1 300px; 
+  max-width: 100%;
 }
 
 .input-icon-wrapper {
@@ -69,31 +71,9 @@
 }
 
 .improved-select:focus {
-  border-color: #004dc7;
+  border-color: #3b702e;
   outline: 0;
-  box-shadow: 0 0 0 0.25 row rgba(78, 115, 223, 0.25);
-}
-
-.btn-search-improved {
-  padding: 12px 25px;
-  background: #004dc7;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  align-items: center;
-}
-
-.btn-search-improved:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(78, 115, 223, 0.3);
-}
-
-.btn-search-improved:active {
-  transform: translateY(0);
+  box-shadow: 0 0 0 0.25 row rgba(112, 223, 78, 0.25);
 }
 
 .select-arrow {
@@ -102,15 +82,14 @@
   top: 50%;
   transform: translateY(-50%);
   color: #6c757d;
-  pointer-events: none; /* Para que al hacer clic en la flecha, se abra el select */
+  pointer-events: none; 
   font-size: 0.8rem;
   z-index: 2;
 }
 
-/* Efecto visual al abrir/enfocar */
 .improved-select:focus + .select-arrow {
-  color: #4e73df;
-  transform: translateY(-50%) rotate(180deg); /* Opcional: la flecha gira */
+  color: #50c23c;
+  transform: translateY(-50%) rotate(180deg); 
   transition: transform 0.2s ease;
 }
 
@@ -136,55 +115,86 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  width: 100%;
+  display: block;
 }
 
 .card-header {
   padding: 20px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e6f0e2;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+}
+.table-responsive {
+  width: 100%; 
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; 
+  border: 1px solid #e2e8f0; 
+  border-radius:  12px;
 }
 .improved-table {
   width: 100%;
-  border-collapse: collapse;
+  min-width: 700px;
   background-color: white;
-  border-radius: 8px;
-  overflow: hidden; 
+  border-radius: 10px;
+  border-spacing: 0;
+  border-collapse: separate;
 }
-
+.improved-table tbody tr:last-child td {
+  border-bottom: #114c04;
+}
 .improved-table thead th {
-  background: #f1f5f9;
+  background: #d2efcf;
   text-align: left;
   padding: 12px 20px;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: #616365;
   border-bottom: 2px solid #e2e8f0;
   font-weight: 600;
 }
 
 .improved-table td {
   padding: 16px 20px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2f0e3;
   font-size: 0.9rem;
-  color: #334155;
+  color: #427725;
   vertical-align: middle;
 }
 
 /* Efecto sutil al pasar el mouse */
 .improved-table tbody tr:hover {
-  background-color: #f8fafc;
+  background-color: #e2f4dd;
 }
 .bold {
   font-weight: 600;
-  color: #004dc7;
+  color: #059669;
 }
 
 .amount {
   font-weight: 600;
-  color: #059669;
+  color: #059669 !important;
+}
+
+@media (max-width: 600px) {
+  .managerOptions-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 480px) {
+  .btn-search-improved {
+    width: 100%;     
+    justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  .managerOptions-wrapper {
+    padding: 15px; 
+  }
 }
 
 

@@ -24,6 +24,7 @@ export class RegisterUserFinalComponent implements OnInit {
 
   ngOnInit(): void {
     this.user.role = "USER";
+    this.user.managedBy = 0;
     this.userService.getManagerSelect().subscribe((l: any) => {
       this.managerSelect = l;
     });

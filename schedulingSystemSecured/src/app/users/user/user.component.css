@@ -1,7 +1,10 @@
 .readonly-summary {
-    background-color: #f8f9fa;
+    background-color: #f8faf8;
     border-radius: 12px;
-    border: 1px solid #e9ecef;
+    border: 1px solid #e9efe9;
+}
+.text-color{
+    color:#3b702e ;
 }
 
 .info-box {
@@ -53,22 +56,22 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    color: #0d6efd;
+    color: #3b702e;
 }
 
 .payment-container {
     padding: 2rem !important; 
     margin-top: 1.5rem;
     margin-bottom: 2rem;
-    border: 1px solid #e2e8f0;
-    background-color: #f8fafc;
+    border: 1px solid #e4f0e2;
+    background-color: #f8fcf8;
     border-radius: 12px;
 }
 
 .payment-footer {
     margin-top: 1.5rem;
     padding-top: 1rem;
-    border-top: 1px style dashed #e2e8f0; 
+    border-top: 1px style dashed #e2f0e3; 
 }
 
 .field-label {
@@ -85,7 +88,7 @@
     padding: 12px 16px; 
     border-radius: 8px;
     font-size: 0.95rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #e2f0e3;
 }
 
 .form-group-container {
@@ -95,15 +98,15 @@
 .input-group-text {
     padding-left: 16px;
     padding-right: 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #e2f0e2;
     border-right: none;
     background-color: #ffffff;
 }
 
 .btn-edit {
-    background:  #004dc7;
+    background:  #3b702e;
     color: #fdfdfd;
-    border: 1px solid var(--primary);
+    border: 1px solid #134e05;
     border-radius: 8px;
     padding: 6px 12px;
     font-size: 0.875rem;
@@ -113,8 +116,9 @@
 }
 
 .btn-edit:hover {
-    background: #023a94;
+    background: #016504;
     color: white;
+    transform: translateY(-2px);
 }
 
 .btn-cancel {
@@ -132,5 +136,6 @@
 .btn-cancel:hover {
     background: #2f2f30;
     color: white;
+    transform: translateY(-2px);
 }
 

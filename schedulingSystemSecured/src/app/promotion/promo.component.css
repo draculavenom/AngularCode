@@ -1,0 +1,63 @@
+.landing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding: 20px;
+}
+
+.promo-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 550px;
+  width: 100%;
+  text-align: center;
+}
+
+.image-wrapper {
+  width: 100%;
+}
+
+.flyer-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.action-section {
+  padding: 30px;
+}
+
+.btn-login {
+  background-color: #689f38; 
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(104, 159, 56, 0.3);
+  width: 100%;
+}
+
+.btn-login:hover {
+  background-color: #558b2f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(104, 159, 56, 0.4);
+}
+
+.support-text {
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.support-text a {
+  color: #689f38;
+  text-decoration: none;
+}

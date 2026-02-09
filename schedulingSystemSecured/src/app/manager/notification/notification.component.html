@@ -1,26 +1,63 @@
 <div class="center-container">
   <div *ngIf="isLoading; else content" class="loader">
-    Loading your preferences...
+    Loading your notification preferences...
   </div>
 
   <ng-template #content>
-    <div class="notification-card">
-   
-      <h3>Notification Panel</h3>
-      <p>Configure whether you want the system to send you emails when a client schedules a new appointment with you.</p>
+    <div class="wrapper-layout">
 
-      <label class="checkbox-container">
-        <input type="checkbox" [formControl]="wantsNotifications">
-        <span class="custom-checkbox"></span>
-        <span class="label-text">Receive email notifications</span>
-      </label>
+      <div class="notification-card">
+        <h3>Notification Settings</h3>
+        <p class="instruction-text">Uncheck the boxes to <strong>disable</strong> the following notifications if you do
+          not wish to receive them.</p>
 
-      <button 
-        (click)="savePreference()" 
-        class="btn-save"
-        [disabled]="wantsNotifications?.pristine">
-        Update Preferences
-      </button>
+        <div class="options-grid">
+          <label class="checkbox-container">
+            <input type="checkbox" [formControl]="emailEnabled">
+            <span class="custom-checkbox"></span>
+            <span class="label-text">Welcome the manager with their personalized password</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" [formControl]="appointmentStatusChanges">
+            <span class="custom-checkbox"></span>
+            <span class="label-text">Notify end users of appointment status changes</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" [formControl]="paymentRunsOut">
+            <span class="custom-checkbox"></span>
+            <span class="label-text">Automated notifications (Payment reminders 5 or 1 days before)</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" [formControl]="appointmentCreated">
+            <span class="custom-checkbox"></span>
+            <span class="label-text">Notify the manager when a new appointment is scheduled</span>
+          </label>
+        </div>
+
+        <p class="legend-text">
+          <small><i>Note: If you wish to re-enable any notification, simply check the corresponding box.</i></small>
+        </p>
+
+        <button (click)="savePreference()" class="btn-save"
+          [disabled]="emailEnabled.pristine && appointmentStatusChanges.pristine && paymentRunsOut.pristine && appointmentCreated.pristine">
+          Update Preferences
+        </button>
+      </div>
+
+      <div *ngIf="message"
+        [class]="'alert ' + messageClass + ' alert-dismissible fade show mt-3 d-flex align-items-center'" role="alert">
+        <i class="bi me-2" [class.bi-check-circle-fill]="messageClass === 'alert-success'"
+          [class.bi-exclamation-triangle-fill]="messageClass === 'alert-danger'">
+        </i>
+        <div>
+          {{ message }}
+        </div>
+
+      </div>
+
     </div>
   </ng-template>
 </div>

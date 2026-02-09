@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SecurityService } from 'src/app/security/security.service';
 import { UserService } from 'src/app/users/user.service';
 import { UsersModel } from 'src/app/users/users.model';
-
+import { Location } from '@angular/common';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+ 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,8 +15,24 @@ export class HeaderComponent implements OnInit {
   username: string = "";
   user: UsersModel = new UsersModel(0, "", false);
   isLoggedIn: boolean = false;
+  currentRoute: string = '';
 
-  constructor(private securityService: SecurityService, private userService: UserService) { }
+  constructor(private securityService: SecurityService, private userService: UserService, private location: Location, 
+    private router: Router) {
+      this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      this.currentRoute = event.url;
+    });
+     }
+     showBackButton(): boolean {
+    const publicRoutes = ['/login', '/onboarding-final'];
+    return publicRoutes.some(route => this.currentRoute.includes(route)) && !this.isLoggedIn;
+  }
+
+  goBack() {
+    this.location.back();
+  }
 
   ngOnInit(): void {
     this.securityService.authStatus$.subscribe(loggedIn => {

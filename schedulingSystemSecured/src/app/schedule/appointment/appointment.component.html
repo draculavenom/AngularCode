@@ -2,8 +2,8 @@
   <div class="col-md-8 col-lg-6">
     <div class="appointment-card">
       <div class="card-header-custom">
-        <h3>Programar Cita</h3>
-        <p>Selecciona la fecha y hora que mejor te convenga.</p>
+        <h1 class="display-7 fw-bold text-color" > Schedule appointment</h1>
+        <p> Select the date and time that works best for you.</p>
       </div>
 
       <form class="appointment-form">
@@ -12,7 +12,7 @@
 
         <div class="form-section">
           <div class="mb-4">
-            <label for="date" class="form-label">Fecha del servicio</label>
+            <label for="date" class="form-label">Service Date</label>
             <div class="input-group-custom">
               <input
                 class="form-control custom-input"
@@ -27,34 +27,34 @@
           </div>
 
           <div class="mb-4">
-            <label for="time" class="form-label">Horario disponible</label>
+            <label for="time" class="form-label">Available Time</label>
             <select
               class="form-select custom-input"
               name="time"
               id="time"
               [(ngModel)]="appointment.time"
             >
-              <option value="">Selecciona una hora</option>
+              <option value="">Select a time</option>
               <option *ngFor="let t of filteredTimes" [value]="t">{{ t }}</option>
             </select>
             
             <div *ngIf="filteredTimes.length === 0" class="error-msg">
-              <i class="bi bi-exclamation-circle"></i> No hay turnos para este día.
+              <i class="bi bi-exclamation-circle"></i> No available slots for this day.
             </div>
           </div>
 
           <div class="status-badge-container mb-4">
-            <span class="status-label">Estado actual:</span>
+            <span class="status-label"> Current Status:</span>
             <span class="badge-appointment shadow-sm">{{ appointment.status }}</span>
           </div>
         </div>
 
         <div class="form-actions d-flex gap-3">
           <button class="btn btn-primary-appointment w-100" (click)="schedule()">
-            <i class="bi bi-check-circle"></i> Confirmar Cita
+            <i class="bi bi-check-circle me-1" ></i> Confirm Appointment
           </button>
           <a href="/schedule" class="btn btn-outline-appointment w-100">
-            <i class="bi bi-x-circle"></i> Cancelar</a>
+            <i class="bi bi-x-circle me-1"></i> Cancel</a>
         </div>
         <div *ngIf="successMessage" class="alert alert-success mt-3" role="alert"> 
           <i class="bi bi-check-circle"></i> {{ successMessage }}

@@ -48,6 +48,7 @@ import { ConfigService } from './services/config.service';
 import { NotificationComponent } from './manager/notification/notification.component';
 import { ManagerOptionsComponent } from './manager/manager-options/manager-options.component';
 import { CalendarComponent } from './schedule/calendar/calendar.component';
+import { PromoComponent } from './promotion/promo.component';
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
   interactionPlugin
@@ -81,7 +82,8 @@ export function initializeApp(configService: ConfigService) {
     RegisterUserFinalComponent,
     NotificationComponent,
     ManagerOptionsComponent,
-    CalendarComponent
+    CalendarComponent,
+    PromoComponent
 
   ],
   imports: [

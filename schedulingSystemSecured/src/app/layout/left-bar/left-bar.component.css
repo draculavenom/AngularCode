@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: column;
 }
-
 .menu-card {
     min-width: 220px; 
     max-width: 300px;
@@ -12,6 +11,8 @@
     border-radius: 16px; 
     position: sticky;   
     top: 1.5rem;
+    flex: 1 1 220px;
+    width: 100%;
 }
 
 .nav-link {
@@ -33,14 +34,14 @@
 }
 
 .nav-link.active {
-    background:  #004dc7 !important;
+    background:  #3b702e !important;
     color: white !important;
-    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+    box-shadow: 0 4px 12px rgba(17, 253, 13, 0.3);
 }
 
 .nav-link:hover:not(.active) {
-    background-color: #fff;
-    color: #0d6efd;
+    background-color: #fff; 
+    color: #1e8d02;
     transform: translateX(5px); 
 }
 
@@ -50,6 +51,8 @@
     min-height: 75vh;     
     display: block;
     width: 100%;
+    flex: 3 1 300px; 
+    width: 100%;
 }
 .animate-fade {
     animation: contentShow 0.4s ease-out forwards;
@@ -58,7 +61,6 @@
     display: flex;
     flex-direction: column;
 }
-
 
 @keyframes fadeInSlide {
     from {

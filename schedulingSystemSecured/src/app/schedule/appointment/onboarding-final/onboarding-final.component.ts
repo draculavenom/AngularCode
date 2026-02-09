@@ -47,7 +47,7 @@ public onSubmit() {
     this.securityService.registerUser(this.user).subscribe({
       next: (data: any) => { 
         sessionStorage.setItem('bearerToken', data);
-        this.updateMessage("exitosa");
+        this.updateMessage("Successful");
         setTimeout(() => {
           location.reload();
         }, 1500);
