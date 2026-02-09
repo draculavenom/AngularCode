@@ -22,7 +22,6 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     this.notificationService.getSelfSettings().subscribe({
       next: (settings) => {
-        // Cargamos los valores: True = Marcado (Habilitado)
         this.emailEnabled.setValue(settings.emailEnabled);
         this.appointmentCreated.setValue(settings.appointmentCreated);
         this.paymentRunsOut.setValue(settings.paymentRunsOut);
