@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 export interface NotificationSettings {
   emailEnabled: boolean;
   appointmentCreated: boolean;
+  paymentRunsOut: boolean;     
+  appointmentStatusChanges: boolean;
 }
 
 @Injectable({

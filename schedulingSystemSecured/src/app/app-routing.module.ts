@@ -18,6 +18,7 @@ import { RegisterUserFinalComponent } from './security/register/register-userfin
 import { NotificationComponent } from './manager/notification/notification.component';
 import { ManagerOptionsComponent } from './manager/manager-options/manager-options.component';
 import { CalendarComponent } from './schedule/calendar/calendar.component';
+import { PromoComponent } from './promotion/promo.component';
 
 const routes: Routes = [
   { path: '', component: OnboardingFinalComponent},
@@ -41,7 +42,8 @@ const routes: Routes = [
   { path: 'register-final', component: RegisterUserFinalComponent },
   { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
   { path: 'manager-options', component: ManagerOptionsComponent, canActivate: [AuthGuard] },
-  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] }
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
+  { path: 'promo', component: PromoComponent}
 ];
 
 @NgModule({

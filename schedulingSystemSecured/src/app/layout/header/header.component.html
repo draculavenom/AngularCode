@@ -1,25 +1,34 @@
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg nav-header-custom shadow-sm">
     <!-- Container wrapper -->
-    <div class="container">
+    <div class="container py-2">
       <!-- Navbar brand -->
-      <a class="navbar-brand me-2" href="/dashboard">Home</a>
+     <a class="navbar-brand d-flex align-items-center" style="cursor: pointer;" (click)="goBack()">
+      <div class="logo-container me-2">
+        <img src="assets/CREAAR_Logo-Vert_color.png" alt="Logo" class="nav-logo">
+      </div>
+      <i class="bi bi-house-door-fill me-2"></i>
+      <span class="brand-text">Home</span>
+    </a>
+
   
-        <div class="d-flex align-items-center">
-          <div *ngIf="!isLoggedIn">
-            <a href="login" class="btn btn-primary px-3 me-2">
-              Login
-            </a>
+      <div class="ms-auto d-flex align-items-center gap-3">
+      <div *ngIf="!isLoggedIn" class="d-flex align-items-center gap-2">
+        <a href="login" class="btn btn-header-outline">Log in</a>
+      </div>
+
+      <div *ngIf="isLoggedIn" class="d-flex align-items-center gap-3">
+        <a class="user-profile-pill d-flex align-items-center" href="/user/{{user.id}}">
+          <div class="avatar-circle">
+            {{ (username && username[0]) || 'U' }}
           </div>
-          <div *ngIf="isLoggedIn">
-            <a
-              class="btn btn-dark px-3"
-              href="/user/{{user.id}}"
-              role="button"
-              >{{ username || 'Loading...' }}</a>
-              <a href="#" class="btn btn-dark" (click)="logout()">Logout</a>
-          </div>
-        </div>
+          <span class="ms-2 d-none d-md-inline user-name-text">{{ username || 'Loading...' }}</span>
+        </a>
+        <button class="btn-logout-header" (click)="logout()">
+          <i class="bi bi-box-arrow-right"> Logout</i>
+        </button>
+      </div>
+    </div>
       <!-- Collapsible wrapper -->
     </div>
     <!-- Container wrapper -->

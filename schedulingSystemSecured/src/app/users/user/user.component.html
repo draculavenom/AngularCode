@@ -4,8 +4,8 @@
             <div class="card edit-card ">
                 <div class="bg-white py-4 px-5">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="fw-bold text-primary  mb-0">User Settings</h1>
-                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
+                        <h1 class="fw-bold text-color  mb-0">User Settings</h1>
+                        <span class="badge bg-success-subtle text-color px-3 py-2 rounded-pill">
                             <i class="bi bi-shield-check me-1"></i> {{user.role}}
                         </span>
                     </div>
@@ -40,7 +40,7 @@
 
                         <div class="section-header">
                             <h5 class="section-title mb-3">
-                                <i class="bi bi-info-circle text-primary"></i> Personal Information
+                                <i class="bi bi-info-circle text-color"></i> Personal Information
                             </h5>
                         </div>
                         <div class="row g-4 mb-5">
@@ -98,10 +98,10 @@
                             <div class="d-flex align-items-center justify-content-between mb-3 px-1">
                                 <div class="section-header mb-0 border-0">
                                     <h5 class="section-title mb-3">
-                                        <i class="bi bi-credit-card text-primary"></i> Payment Details
+                                        <i class="bi bi-credit-card text-color"></i> Payment Details
                                     </h5>
                                 </div>
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3"
+                                <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3"
                                     (click)="showManagerFields = !showManagerFields">
                                     <i class="bi"
                                         [ngClass]="showManagerFields ? 'bi-eye-slash' : 'bi-pencil-square'"></i>
@@ -139,7 +139,7 @@
 
                                     <div class="col-12 mt-4">
                                         <div class="d-flex justify-content-end border-top pt-3">
-                                            <button type="button" class="btn btn-primary px-4 shadow-sm fw-bold"
+                                            <button type="button" class="btn-edit px-4 shadow-sm fw-bold"
                                                 (click)="saveManagerDetails()">
                                                 <i class="bi bi-save me-2"></i> Update payment info only
                                             </button>
@@ -154,7 +154,7 @@
                             <div class="d-flex gap-2">
                                 <a *ngIf="user.id != 0 && user.id != tokenId" href="/users"
                                     class="btn-cancel px-4 fw-bold border"> <i class="bi bi-x-circle"></i> Cancel</a>
-                                <a *ngIf="user.id != 0 && user.id == tokenId" href="/"
+                                <a *ngIf="user.id != 0 && user.id == tokenId" href="/schedule"
                                     class="btn-cancel px-4 fw-bold border"> <i class="bi bi-x-circle"></i> Cancel</a>
                             </div>
 

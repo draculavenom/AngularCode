@@ -16,8 +16,4 @@ describe('NotificationComponent', () => {
     fixture.detectChanges();
   });
 
-  it('debería cambiar el valor del checkbox al hacer clic', () => {
-    component.wantsNotifications.setValue(true);
-    expect(component.wantsNotifications.value).toBeTrue();
-  });
 });

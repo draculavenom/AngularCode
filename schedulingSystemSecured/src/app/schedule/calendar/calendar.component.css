@@ -2,10 +2,24 @@
     background-color: #f8f9fa !important;
 }
 
-/* --- Configuración Base del Calendario --- */
+
+/* Configuración Base del Calendario */
 ::ng-deep .improved-calendar {
     width: 100% !important;
     border: none !important;
+    max-width: 100%;
+}
+@media (max-width: 480px) {
+    ::ng-deep .mat-calendar-body-cell-content {
+        width: 30px !important;  
+        height: 30px !important;
+        font-size: 0.8rem !important;
+    }
+    ::ng-deep [class*='date-has-'] .mat-calendar-body-cell-content::after {
+        width: 4px; 
+        height: 4px;
+        bottom: 2px;
+    }
 }
 
 /* Estilo  para las celdas del calendario */
@@ -22,7 +36,7 @@
 
 /* Celda Seleccionada */
 ::ng-deep .mat-calendar-body-selected {
-    background-color: #004dc7 !important;
+    background-color: #3b702e !important;
     border-radius: 12px !important;
     color: #ffffff !important;
 }
@@ -73,16 +87,19 @@
 .appointment-card {
     border-radius: 16px;
     transition: transform 0.2s ease;
-    border-left: 6px solid #dee2e6 !important;
+    border-left: 6px solid #126c04 !important;
     background: white;
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+    padding: 1rem;
+
 }
 
 .appointment-card:hover {
     transform: translateY(-3px);
 }
-
-/* Bordes dinámicos */
 .status-border-scheduled {
     border-left-color: #0d6efd !important;
 }
@@ -100,7 +117,7 @@
 }
 
 .time-badge {
-    background: #f1f3f5;
+    background: #dde9da;
     padding: 6px 10px;
     border-radius: 8px;
     font-weight: 700;
@@ -143,16 +160,21 @@
     font-size: 0.875rem;
     font-weight: 500;
     transition: all 0.2s;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .btn-cal-success {
     background: #198754;
+    background: #3c735a;
     color: white;
     border: none;
 }
 
 .btn-cal-info {
     background: #0d6cf0;
+    background: #46a00f;
     color: white;
     border: none;
 }
@@ -165,20 +187,48 @@
 
 .btn-cal-success:hover {
     background: #146c43;
+
+    background: #34624c;
+    transform: translateY(-2px);
 }
 
 .btn-cal-info:hover {
     background: #0a58ca;
+    transform: translateY(-2px);
 }
 
 .btn-cal-outline-danger:hover {
     background: #dc3545;
     color: white;
+    transform: translateY(-2px);
 }
+@media (max-width: 576px) {
+    .appointment-card {
+        padding: 0.75rem;
+        border-left-width: 4px !important; 
+    }
 
+    .time-badge {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+    .btn-cal-success,
+    .btn-cal-info,
+    .btn-cal-outline-danger {
+        flex: 1;
+        text-align: center;
+        padding: 10px 5px;
+    }
+}
 .scroll-list {
     max-height: 65vh;
     overflow-y: auto;
+}
+
+@media (max-height: 700px) {
+    .scroll-list {
+        max-height: 45vh;
+    }
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -187,4 +237,8 @@
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #dcdcdc;
     border-radius: 10px;
+}
+.bg-text-subtle{
+    color: #3c735a;
+    background-color: #bacdc4;
 }

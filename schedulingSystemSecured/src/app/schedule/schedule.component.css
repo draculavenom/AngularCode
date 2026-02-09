@@ -1,10 +1,12 @@
-
 /*Paginación que esta al principio */
 .pagination-wrapper {
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 10px 0;
+}
+.text-color{
+    color: #248d0a ;
 }
 
 .page-label {
@@ -30,7 +32,7 @@
 .select-pill {
     appearance: none;
     background-color: #ffffff;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #027109;
     border-radius: 100px;
     padding: 6px 35px 6px 16px;
     font-size: 0.85rem;
@@ -42,13 +44,13 @@
 }
 
 .select-pill:hover {
-    border-color: #cbd5e1;
+    border-color: #084d23;
     background-color: #f8fafc;
 }
 
 .select-pill:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: #24ac0f;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -69,7 +71,6 @@
     overflow: hidden;
 }
 
-
 .improved-table {
   width: 100%;
   border-collapse: collapse;
@@ -79,26 +80,26 @@
 }
 
 .improved-table thead th {
-  background: #f1f5f9;
+  background: #d2efcf;
   text-align: left;
   padding: 12px 20px;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: #616365;
   border-bottom: 2px solid #e2e8f0;
   font-weight: 600;
 }
 
 .improved-table td {
   padding: 16px 20px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2f0e3;
   font-size: 0.9rem;
-  color: #334155;
+  color: #427725;
   vertical-align: middle;
 }
 
 .improved-table tbody tr:hover {
-  background-color: #f8fafc;
+  background-color: #eef5ed;
 }
 
 /* Estilos de apoyo para los estados */
@@ -118,17 +119,17 @@
 
 /* icono de mini calendario */
 .calendar-thumb {
-    background: #f8f9fa;
+    background: #e8f0e8;
     border-radius: 8px;
     min-width: 50px;
     text-align: center;
-    border: 1px solid #dee2e6;
+    border: 1px solid #e0e6de;
 }
 
 .calendar-thumb .month {
     display: block;
     font-size: 0.7rem;
-    background: #0d6efd;
+    background: #239e04;
     color: white;
     border-radius: 8px 8px 0 0;
     padding: 2px;
@@ -153,12 +154,11 @@
 [data-status="COMPLETED"] { background-color: #f3e5f5; color: #7b1fa2; }
 [data-status="CANCELLED"] { background-color: #ffebee; color: #c62828; }
 
-
 .btn-icon:hover { transform: scale(1.1); }
 
 .btn-appointment {
   padding: 12px 25px;
-  background: #004dc7;
+  background: #257711;
   color: white;
   border: none;
   border-radius: 10px;
@@ -171,7 +171,8 @@
 
 .btn-appointment:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(78, 115, 223, 0.3);
+  box-shadow: 0 4px 12px rgba(90, 223, 78, 0.3);
+  background: #1c6909 ;
 }
 
 .btn-appointment:active {
@@ -227,29 +228,28 @@
     color: white;
 }
 
-.icon-box-manager {
-    background: #2b2d42;
-    padding: 12px;
-    border-radius: 14px;
-}
-
-.btn-op {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
 .btn-op-primary {
-    border: 1.5px solid #004dc7;
-    color: #004dc7;
-    background: transparent;
+    border: 1.5px solid #ccc; 
+    color: #666;           
+    background: #f8f9fa;      
+    transition: all 0.3s ease;
 }
 
 .btn-op-primary:hover {
-    background: #004dc7;
+    background: #58A845;
     color: white;
+    border-color: #58A845;
 }
-
+.page-item.active .btn-op-primary {
+    background: #3b702e !important;
+    color: white !important;
+    border-color: #3b702e !important;
+}
+.page-item.disabled .btn-op-primary {
+    background: #eee;
+    color: #bbb;
+    border-color: #ddd;
+    pointer-events: none;
+}
 
 

@@ -10,12 +10,12 @@
               Appointment and availability management
             </p>
           </div>
-          <button mat-flat-button [style.background-color]="'#004dc7'" style="color: white;" class="rounded-3"
+          <button mat-flat-button [style.background-color]="'#3b702e'" style="color: white;" class="rounded-3"
             (click)="resetFilter()">
             <i class="bi bi-calendar-check me-2"></i>Today
           </button>
         </div>
-        <div class="card-body p-2" *ngIf="allAppointments.length > 0; else loadingTemplate">
+        <div class="card-body p-2" *ngIf="allAppointments.length > 0 || allAppointments.length == 0; else loadingTemplate">
           <mat-calendar #calendar [(selected)]="selectedDate" [dateClass]="dateClass"
             (selectedChange)="onDateChange($event)" class="improved-calendar w-100">
           </mat-calendar>
@@ -38,8 +38,8 @@
         </div>
         <div>
           <h5 class="fw-bold mb-0 text-dark">Today's Activities</h5>
-          <span class="badge bg-primary-subtle text-primary rounded-pill">
-            {{ appointments.length }} appointments</span>
+          <span class="badge bg-text-subtle  rounded-pill">
+            {{ appointments.length  }} appointments</span>
         </div>
       </div>
 
@@ -71,16 +71,17 @@
 
             <div class="d-flex gap-2 mt-3 pt-3 border-top">
               <button *ngIf="appo.status === 'SCHEDULED'" (click)="confirm(appo.id)"
-                class="btn btn-sm btn-cal-success flex-grow-1"> Confirm
+                class="btn btn-sm btn-cal-success flex-grow-1">
+                <i class="bi bi-check-square-fill me-1"></i> Confirm
               </button>
 
               <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="complete(appo.id)"
-                class="btn btn-sm btn-cal-info flex-grow-1">
+                class="btn btn-sm btn-cal-info flex-grow-1"> <i class="bi bi-check-circle-fill me-1"></i>
                 Completed
               </button>
 
               <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="openDialog(appo.id)"
-                class="btn btn-sm btn-cal-outline-danger">
+                class="btn btn-sm btn-cal-outline-danger"> <i class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>
             </div>
@@ -103,12 +104,12 @@
               Appointment and availability management
             </p>
           </div>
-          <button mat-flat-button [style.background-color]="'#004dc7'" style="color: white;" class="rounded-3"
+          <button mat-flat-button [style.background-color]="'#3b702e'" style="color: white;" class="rounded-3"
             (click)="resetFilter()">
             <i class="bi bi-calendar-check me-2"></i>Today
           </button>
         </div>
-        <div class="card-body p-2" *ngIf="allAppointments.length > 0; else loadingTemplate">
+        <div class="card-body p-2" *ngIf="allAppointments.length > 0 || allAppointments.length == 0; else loadingTemplate">
           <mat-calendar #calendar [(selected)]="selectedDate" [dateClass]="dateClass"
             (selectedChange)="onDateChange($event)" class="improved-calendar w-100">
           </mat-calendar>
@@ -131,7 +132,7 @@
         </div>
         <div>
           <h5 class="fw-bold mb-0 text-dark">Today's Activities</h5>
-          <span class="badge bg-primary-subtle text-primary rounded-pill">
+          <span class="badge bg-text-subtle  rounded-pill">
             {{ appointments.length }} appointments</span>
         </div>
       </div>
@@ -170,16 +171,17 @@
 
             <div class="d-flex gap-2 mt-3 pt-3 border-top">
               <button *ngIf="appo.status === 'SCHEDULED'" (click)="confirm(appo.id)"
-                class="btn btn-sm btn-cal-success flex-grow-1"> Confirm
+                class="btn btn-sm btn-cal-success flex-grow-1"> <i class="bi bi-check-square-fill me-1"></i>
+                Confirm
               </button>
 
               <button *ngIf="appo.status === 'SCHEDULED'" (click)="complete(appo.id)"
-                class="btn btn-sm btn-cal-info flex-grow-1">
+                class="btn btn-sm btn-cal-info flex-grow-1"> <i class="bi bi-check-circle-fill me-1"></i>
                 Completed
               </button>
 
               <button *ngIf="appo.status === 'SCHEDULED'" (click)="openDialog(appo.id)"
-                class="btn btn-sm btn-cal-outline-danger">
+                class="btn btn-sm btn-cal-outline-danger"> <i class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>
             </div>

@@ -1,11 +1,14 @@
 .onboarding-wrapper {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #f0f2f5 100%;
   min-height: 100vh;
+  padding: 1rem;
 }
 
 .timeline {
   position: relative;
   padding-left: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .timeline::before {
@@ -14,9 +17,12 @@
   left: 1.25rem;
   top: 0;
   bottom: 0;
-  width: 3px;
+  width: 100%;
   background: #dee2e6;
-  border-radius: 10px;
+  border-radius: 1.5rem !important;
+  transition: transform 0.3s ease;
+  margin-bottom: 1.5rem;
+
 }
 
 .timeline-item {
@@ -38,6 +44,8 @@
 .timeline-panel {
   border-radius: 1.5rem !important;
   transition: transform 0.3s ease;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .timeline-panel:hover {
@@ -51,4 +59,30 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+.text-color {
+  color: #3b702e;
+}
+.bg-color {
+  background-color: #58A845;
+}
+@media (max-width: 576px) {
+  .timeline {
+    padding-left: 2rem; 
+  }
+
+  .timeline::before {
+    left: 0.75rem; 
+  }
+  .timeline-badge {
+    left: -1.75rem; 
+    width: 2rem;    
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 0.9rem;
+  }
+  
+  .timeline-panel:hover {
+    transform: none; 
+  }
 }
