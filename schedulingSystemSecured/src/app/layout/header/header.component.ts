@@ -15,23 +15,25 @@ export class HeaderComponent implements OnInit {
   username: string = "";
   user: UsersModel = new UsersModel(0, "", false);
   isLoggedIn: boolean = false;
-  currentRoute: string = '';
+  lastPublicRoute: string = '/promo';
 
   constructor(private securityService: SecurityService, private userService: UserService, private location: Location, 
     private router: Router) {
       this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.currentRoute = event.url;
+    const url = event.url;
+      if (url.includes('promo') || url.includes('onboarding-final')) {
+        this.lastPublicRoute = url;
+      }
     });
-     }
-     showBackButton(): boolean {
-    const publicRoutes = ['/login', '/onboarding-final'];
-    return publicRoutes.some(route => this.currentRoute.includes(route)) && !this.isLoggedIn;
   }
-
-  goBack() {
-    this.location.back();
+handleHomeClick() {
+    if (this.isLoggedIn) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.router.navigate([this.lastPublicRoute]);
+    }
   }
 
   ngOnInit(): void {
