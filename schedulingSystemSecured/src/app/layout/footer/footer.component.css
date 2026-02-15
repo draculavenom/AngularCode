@@ -1,0 +1,48 @@
+.improved-footer {
+    background: transparent;
+    padding-bottom: 24px; 
+    pointer-events: none; 
+}
+
+.footer-badge {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px); 
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    pointer-events: auto; 
+}
+
+
+.divider-v {
+    width: 1px;
+    height: 14px;
+    background: #e2e8f0;
+    margin: 0 12px;
+}
+
+.small-text {
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+}
+
+.text-name {
+    color: #427725;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+
+.text-dot {
+    width: 3px;
+    height: 3px;
+    background-color: #d1d1d6;
+    border-radius: 50%;
+    margin: 0 4px;
+}
+
+.text-year {
+    color: #273b27;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
