@@ -1,37 +1,21 @@
 .improved-footer {
     background: transparent;
-    padding-bottom: 24px; 
+    padding-bottom: 32px; 
     pointer-events: none; 
 }
 
 .footer-badge {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px); 
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    pointer-events: auto; 
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px); 
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); 
+    pointer-events: auto;
+    transition: all 0.3s ease;
 }
-
-
-.divider-v {
-    width: 1px;
-    height: 14px;
-    background: #e2e8f0;
-    margin: 0 12px;
-}
-
 .small-text {
     font-size: 0.8rem;
     letter-spacing: 0.02em;
 }
-
-.text-name {
-    color: #427725;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-}
-
 
 .text-dot {
     width: 3px;
@@ -45,4 +29,25 @@
     color: #273b27;
     font-size: 0.8rem;
     font-weight: 500;
+}
+.footer-logo {
+    height: 28px; 
+    width: auto;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.divider-v {
+    width: 1px;
+    height: 20px; 
+    background: #e2e8f0;
+    margin: 0 16px;
+}
+
+.text-name {
+    color: #427725;
+    font-size: 1rem; 
+    font-weight: 700;
+    line-height: 1;
 }
