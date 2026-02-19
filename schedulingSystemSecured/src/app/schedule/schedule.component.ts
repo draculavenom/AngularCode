@@ -81,7 +81,19 @@ export class ScheduleComponent implements OnInit {
     }
     else if (u.role == "MANAGER") {
       this.appointmentService.getManagerAppointments(u.id).subscribe(a => {
+      
         this.appointments = this.sortAppointments(a);
+        this.appointments.forEach(appointment => {
+      if (appointment.userId) { 
+        this.userService.getUserById(appointment.userId).subscribe({
+          next: (userData) => {
+            (appointment as any).firstName = userData.firstName;
+            (appointment as any).lastName = userData.lastName;
+          },
+          error: (err) => console.error("No se pudo cargar el nombre del usuario", err)
+        });
+      }
+    });
       });
     }
       else if (u.role == "ADMIN") {
