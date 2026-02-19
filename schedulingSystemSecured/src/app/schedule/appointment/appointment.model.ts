@@ -8,14 +8,18 @@ export class AppointmentModel{
     status: string;
     companyName?: string; 
     managerId?: number;
+    firstName?: string;
+    lastName?: string;
 
 
-    constructor(id: number, userId: number, date: Date, time: string, status: string, companyName?: string, managerId?: number){
+    constructor(id: number, userId: number, date: Date, time: string, status: string, companyName?: string, managerId?: number, firstName?: string, lastName?: string){
         this.id = id;
         this.userId = userId;
         this.date = date;
         this.time = time;
         this.status = status;
         this.companyName = companyName;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 }
