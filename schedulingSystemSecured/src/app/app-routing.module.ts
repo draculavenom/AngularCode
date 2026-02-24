@@ -19,6 +19,7 @@ import { NotificationComponent } from './manager/notification/notification.compo
 import { ManagerOptionsComponent } from './manager/manager-options/manager-options.component';
 import { CalendarComponent } from './schedule/calendar/calendar.component';
 import { PromoComponent } from './promotion/promo.component';
+import { ScheduleConfigurationComponent } from './manager/schedule-configuration/schedule-configuration.component';
 
 const routes: Routes = [
   { path: '', component: OnboardingFinalComponent},
@@ -43,7 +44,8 @@ const routes: Routes = [
   { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
   { path: 'manager-options', component: ManagerOptionsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-  { path: 'promo', component: PromoComponent}
+  { path: 'promo', component: PromoComponent},
+  { path: 'schedule-configuration', component: ScheduleConfigurationComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

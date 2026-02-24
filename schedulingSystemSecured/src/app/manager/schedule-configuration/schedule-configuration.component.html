@@ -1,0 +1,126 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-10">
+
+            <div class="update-banner mb-4 animate__animated animate__fadeIn" *ngIf="isLoading">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                    <span class="fw-bold text-primary small text-uppercase tracking-wider">Synchronizing
+                        configuration...</span>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-lg schedule-config-card">
+                <div class="edit-info-note mb-4 d-flex align-items-start p-3 animate__animated animate__fadeIn">
+                    <i class="bi bi-pencil-square text-success me-3 mt-1"></i>
+                    <div>
+                        <h6 class="mb-1 fw-bold text-dark" style="font-size: 0.9rem;">Active editing mode</h6>
+                        <p class="mb-0 text-muted" style="font-size: 0.8rem;">
+                            The values shown are your current configuration. When modifying the days or times and clicking
+                            <strong>"Save Changes"</strong>, your schedule will automatically update for upcoming appointments.
+                        </p>
+                    </div>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <div class="header-section mb-4">
+                        <h2 class="fw-bold h2 mb-1 text-color">Schedule Configuration</h2>
+                        <p class="text-muted  small" style="text-align: center;">Manage your availability and the
+                            duration of your appointments.</p>
+                    </div>
+
+                    <form (ngSubmit)="saveConfiguration()" #scheduleForm="ngForm">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="schedule-config-label">
+                                    <span class="input-group-text-schedule-config"><i
+                                            class="bi bi-clock ms-3"></i></span>
+                                    Opening Hour</label>
+                                <div class="input-group-schedule-config">
+                                    <input type="time" class="form-control schedule-config-input"
+                                        [(ngModel)]="config.startTime" name="startTime" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="schedule-config-label">
+                                    <span class="input-group-text-schedule-config"><i
+                                            class="bi bi-clock-fill ms-3"></i></span> Closing Hour</label>
+                                <div class="input-group-schedule-config">
+
+                                    <input type="time" class="form-control schedule-config-input"
+                                        [(ngModel)]="config.endTime" name="endTime" required>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <label class="schedule-config-label">Appointment Duration</label>
+                                <div class="input-group-schedule-config select-wrapper">
+                                    <span class="input-group-text-schedule-config"><i
+                                            class="bi bi-hourglass-split"></i></span>
+                                    <select class="form-select schedule-config-input" [(ngModel)]="config.duration"
+                                        name="duration" required>
+                                        <option [value]="15">15 Minutes - Quick Session</option>
+                                        <option [value]="30">30 Minutes - Standard Session</option>
+                                        <option [value]="45">45 Minutes - Extended Session</option>
+                                        <option [value]="60">60 Minutes - Full Session</option>
+                                    </select>
+                                    <i class="bi bi-chevron-down custom-select-arrow"></i>
+
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <label class="schedule-config-label fw-bold small text-muted d-block mb-3">Days of
+                                    Availability</label>
+                                <div
+                                    class="day-picker row g-2 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
+                                    <div *ngFor="let day of daysOfWeek"
+                                        class="col-6 col-sm-4 col-md-4 d-flex justify-content-center">
+                                        <input type="checkbox" [id]="day.id" class="btn-check" [checked]="day.selected"
+                                            (change)="toggleDay(day)">
+
+                                        <label class="btn btn-outline-day w-100 d-flex align-items-center px-2"
+                                            [for]="day.id">
+                                            <i class="bi bi-calendar-event me-1 flex-shrink-0"></i>
+
+                                            <span class="day-name flex-grow-1 text-start mx-1">{{ day.label }}</span>
+
+                                            <i class="bi flex-shrink-0 ms-auto"
+                                                [ngClass]="day.selected ? 'bi-patch-check-fill' : 'bi-circle'"
+                                                style="font-size: 0.9rem;"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="footer-actions mt-5 pt-4 border-top d-flex flex-column align-items-center">
+
+                            <button type="submit" class="btn btn-save shadow-sm"
+                                [disabled]="isLoading || !scheduleForm.form.valid">
+                                <i class="bi bi-cloud-arrow-up me-2" *ngIf="!isLoading"></i>
+                                <span class="spinner-border spinner-border-sm me-2" *ngIf="isLoading"></span>
+                                {{ isLoading ? 'Saving...' : 'Save Changes' }}
+                            </button>
+
+                            <div class="message-area mt-3 w-100 text-center" style="min-height: 40px;">
+                                <span *ngIf="message" [class]="'badge-msg ' + messageClass"
+                                    class="animate__animated animate__fadeInUp">
+                                    <i class="bi me-1" [ngClass]="{
+                                            'bi-check-circle-fill': messageClass === 'alert-success',
+                                            'bi-exclamation-triangle-fill': messageClass === 'alert-warning',
+                                            'bi-x-circle-fill': messageClass === 'alert-danger',
+                                            'bi-info-circle-fill': messageClass === 'alert-info'
+                                        }"></i>
+                                    {{ message }}
+                                    </span>
+                                    </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,7 +13,8 @@
 
         <div class="options-grid">
           <label class="checkbox-container">
-            <input type="checkbox" [formControl]="appointmentStatusChanges">
+            <input type="checkbox" [formControl]="appointmentStatusChanges"
+            [checked]="appointmentStatusChanges.value">
             <span class="custom-checkbox"></span>
             <span class="label-text">Notify end users of appointment status changes</span>
           </label>
@@ -29,6 +30,18 @@
             <span class="custom-checkbox"></span>
             <span class="label-text">Notify me when a new appointment is scheduled</span>
           </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" [formControl]="appointmentTimeManager">
+            <span class="custom-checkbox"></span>
+            <span class="label-text">Please notify me 5 minutes before the appointment, to remind me that I have an appointment.</span>
+          </label>
+
+          <label class="checkbox-container">
+            <input type="checkbox" [formControl]="appointmentTimeUser">
+            <span class="custom-checkbox"></span>
+            <span class="label-text">Notify the client 5 minutes before the appointment, to remind them that they have an appointment.</span>
+          </label>
         </div>
 
         <p class="legend-text">
@@ -36,7 +49,8 @@
         </p>
 
         <button (click)="savePreference()" class="btn-save"
-          [disabled]="emailEnabled.pristine && appointmentStatusChanges.pristine && paymentRunsOut.pristine && appointmentCreated.pristine">
+          [disabled]="emailEnabled.pristine && appointmentStatusChanges.pristine && paymentRunsOut.pristine && appointmentCreated.pristine
+            && appointmentTimeManager.pristine && appointmentTimeUser.pristine">
           Update Preferences
         </button>
       </div>

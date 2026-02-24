@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   username: string = "";
   user: UsersModel = new UsersModel(0, "", false);
   isLoggedIn: boolean = false;
-  lastPublicRoute: string = '/promo';
+  lastPublicRoute: string = '/onboarding-final';
 
   constructor(private securityService: SecurityService, private userService: UserService, private location: Location, 
     private router: Router) {

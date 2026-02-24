@@ -57,7 +57,6 @@ export class AppointmentService {
     let data = {"status": "COMPLETED", "id": id};
     return this.http.put<AppointmentModel>(`${this.configService.apiUrl}/api/v1/Appointments/updateStatus`, data, {headers: this.headers, responseType: 'json'});
   }
-
   private updateHeaders(){
     this.headers["Authorization"] = "Bearer " + this.securityService.getBearerToken();
   }
