@@ -6,17 +6,19 @@
                 <div class="card border-0 shadow-sm menu-card">
                     <div class="card-body p-2">
                         <nav class="nav flex-column">
-                            <a *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'" class="nav-link" routerLink="/schedule" routerLinkActive="active"
+                            <a *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'" class="nav-link"
+                                routerLink="/schedule" routerLinkActive="active"
                                 [routerLinkActiveOptions]="{exact: true}">
                                 <i class="bi bi-calendar-event me-3"></i>
                                 <span>Appointments</span>
                             </a>
-                            <a *ngIf="user?.role === 'USER'" class="nav-link"  routerLink="/schedule" routerLinkActive="active"
-                                [routerLinkActiveOptions]="{exact: true}">
+                            <a *ngIf="user?.role === 'USER'" class="nav-link" routerLink="/schedule"
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                                 <i class="bi bi-list-check me-3"></i>
                                 <span>My Appointments</span>
                             </a>
-                            <a *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'" class="nav-link" routerLink="/calendar" routerLinkActive="active"
+                            <a *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'" class="nav-link"
+                                routerLink="/calendar" routerLinkActive="active"
                                 [routerLinkActiveOptions]="{exact: true}">
                                 <i class="bi bi-calendar3 me-3"></i>
                                 <span>Calendar</span>
@@ -24,7 +26,7 @@
                             <a class="nav-link" routerLinkActive="active" [routerLink]="['/user', user.id]">
                                 <i class="bi bi-person-circle me-3"></i>
                                 <span>{{username}}</span>
-                            </a> 
+                            </a>
 
                             <hr class="my-2 mx-2 opacity-10" *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'">
 
@@ -42,6 +44,10 @@
                                 <a class="nav-link" routerLinkActive="active" routerLink="/notification">
                                     <i class="bi bi-bell me-3"></i>
                                     <span>Notifications</span>
+                                </a>
+                                <a class="nav-link" routerLinkActive="active" routerLink="/schedule-configuration">
+                                    <i class="bi bi-gear me-3"></i>
+                                    <span>Schedule Configuration</span>
                                 </a>
                             </ng-container>
                             <a *ngIf="user?.role === 'ADMIN'" class="nav-link" routerLinkActive="active"

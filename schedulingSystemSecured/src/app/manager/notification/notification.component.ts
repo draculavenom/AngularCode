@@ -13,6 +13,8 @@ export class NotificationComponent implements OnInit {
   appointmentCreated = new FormControl(true);
   paymentRunsOut = new FormControl(true);
   appointmentStatusChanges = new FormControl(true);
+  appointmentTimeManager = new FormControl(true);
+  appointmentTimeUser = new FormControl(true);
 
   message: string | null = null;
   messageClass: string = '';
@@ -22,10 +24,13 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     this.notificationService.getSelfSettings().subscribe({
       next: (settings) => {
-        this.emailEnabled.setValue(settings.emailEnabled);
-        this.appointmentCreated.setValue(settings.appointmentCreated);
-        this.paymentRunsOut.setValue(settings.paymentRunsOut);
-        this.appointmentStatusChanges.setValue(settings.appointmentStatusChanges);
+        console.log('Datos recibidos:', settings);
+        this.emailEnabled.setValue(!!settings.emailEnabled);
+        this.appointmentCreated.setValue(!!settings.appointmentCreated);
+        this.paymentRunsOut.setValue(!!settings.paymentRunsOut);
+        this.appointmentStatusChanges.setValue(!!settings.appointmentStatusChanges);
+        this.appointmentTimeManager.setValue(settings.appointmentTimeManager || true);
+        this.appointmentTimeUser.setValue(settings.appointmentTimeUser || true);
         this.isLoading = false;
       },
       error: (err) => {
@@ -40,7 +45,9 @@ export class NotificationComponent implements OnInit {
       emailEnabled: this.emailEnabled.value,
       appointmentCreated: this.appointmentCreated.value,
       paymentRunsOut: this.paymentRunsOut.value,
-      appointmentStatusChanges: this.appointmentStatusChanges.value
+      appointmentStatusChanges: this.appointmentStatusChanges.value,
+      appointmentTimeManager: this.appointmentTimeManager.value,
+      appointmentTimeUser: this.appointmentTimeUser.value
     };
 
     this.notificationService.updateSelfSettings(request).subscribe({
@@ -62,5 +69,7 @@ export class NotificationComponent implements OnInit {
     this.appointmentCreated.markAsPristine();
     this.paymentRunsOut.markAsPristine();
     this.appointmentStatusChanges.markAsPristine();
+    this.appointmentTimeManager.markAsPristine();
+    this.appointmentTimeUser.markAsPristine();
   }
 }

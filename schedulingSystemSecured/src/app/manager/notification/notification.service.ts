@@ -9,6 +9,8 @@ export interface NotificationSettings {
   appointmentCreated: boolean;
   paymentRunsOut: boolean;     
   appointmentStatusChanges: boolean;
+  appointmentTimeManager: boolean;
+  appointmentTimeUser: boolean;
 }
 
 @Injectable({

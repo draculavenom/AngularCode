@@ -44,6 +44,29 @@ export class ManagerService {
     return this.http.get<any[]>(`${this.configService.apiUrl}/api/v1/Manager/company`, { headers: this.headers });
   }
 
+  public getWorkSchedule(managerId: number): Observable<any[]> {
+    this.updateHeaders();
+    return this.http.get<any[]>(`${this.configService.apiUrl}/api/v1/managers/${managerId}/work-shift`, { headers: this.headers });
+  }
+
+  public saveWorkSchedule(managerId: number, scheduleRequest: any): Observable<any> {
+    this.updateHeaders();
+    return this.http.post(`${this.configService.apiUrl}/api/v1/managers/${managerId}/work-shift`, scheduleRequest, { headers: this.headers });
+  }
+
+
+  public getAvailableSlots(managerId: number, date: string): Observable<string[]> {
+    this.updateHeaders();
+
+    return this.http.get<string[]>(
+      `${this.configService.apiUrl}/api/v1/managers/${managerId}/available-slots`,
+      {
+        headers: this.headers,
+        params: { date: date }
+      }
+    );
+  }
+
   private updateHeaders() {
     this.headers["Authorization"] = "Bearer " + this.securityService.getBearerToken();
   }

@@ -1,6 +1,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { DatePipe } from '@angular/common';
 import dayGridPlugin from '@fullcalendar/daygrid'; 
@@ -49,6 +50,7 @@ import { NotificationComponent } from './manager/notification/notification.compo
 import { ManagerOptionsComponent } from './manager/manager-options/manager-options.component';
 import { CalendarComponent } from './schedule/calendar/calendar.component';
 import { PromoComponent } from './promotion/promo.component';
+import { ScheduleConfigurationComponent } from './manager/schedule-configuration/schedule-configuration.component';
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
   interactionPlugin
@@ -83,7 +85,8 @@ export function initializeApp(configService: ConfigService) {
     NotificationComponent,
     ManagerOptionsComponent,
     CalendarComponent,
-    PromoComponent
+    PromoComponent,
+    ScheduleConfigurationComponent
 
   ],
   imports: [
