@@ -2,31 +2,52 @@
   <div class="card-body ">
     <form #userData="ngForm" (ngSubmit)="onSubmit()">
       <div class="row g-3">
-        <div class="col-12 mb-3">
-          <label class="form-label fw-semibold">Company</label>
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0"><i class="bi bi-building"></i></span>
-            <select name="managedBy" class="form-select register-input border-start-0" [(ngModel)]="user.managedBy" required>
-              <option [ngValue]="0" disabled selected>Select your company...</option>
-              <option *ngFor="let opt of managerSelect" [value]="opt.managerId">{{opt.name}}</option>
-            </select>
+        <div class="col-12 mb-4">
+          <label class="form-label fw-bold text-success mb-3">Select your Company</label>
+          <div class="row row-cols-1 row-cols-md-2 g-3">
+            <div class="col" *ngFor="let opt of managerSelect">
+              <div class="card h-100 company-selection-card border-2"
+                [class.selected-card]="user.managedBy === opt.managerId" (click)="selectCompany(opt.managerId)">
+
+                <span class="badge-id">#{{ opt.managerId }}</span>
+
+                <div class="card-body p-4 text-center">
+                  <div class="company-avatar-circle mb-3 mx-auto">
+                    {{ (opt.nameCompany || opt.name || 'C').charAt(0).toUpperCase() }}
+                  </div>
+
+                  <div class="manager-info d-flex align-items-center justify-content-center">
+                    <span class="dot-online"
+                      [style.background-color]="user.managedBy === opt.managerId ? '#149905' : '#cbd5e0'"></span>
+                    <p class="text-muted small mb-0">{{ opt.name || 'No Manager' }}</p>
+                  </div>
+
+                  <div class="selection-indicator" *ngIf="user.managedBy === opt.managerId">
+                    <i class="bi bi-check2-all"></i> Active Workspace
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <input type="hidden" name="managedBy" [(ngModel)]="user.managedBy" required #managedBy="ngModel">
         </div>
 
-        <ng-container *ngIf="user.managedBy">
+        <ng-container *ngIf="user.managedBy && user.managedBy !== 0">
           <div class="col-md-6 register-fade-in">
             <label class="form-label fw-semibold">Email</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-envelope"></i></span>
-              <input type="email" name="email" class="form-control register-input border-start-0" placeholder="name@mail.com" [(ngModel)]="user.email" required email>
+              <input type="email" name="email" class="form-control register-input border-start-0"
+                placeholder="name@mail.com" [(ngModel)]="user.email" required email>
             </div>
           </div>
-          
+
           <div class="col-md-6 register-fade-in">
             <label class="form-label fw-semibold">Password</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-shield-lock"></i></span>
-              <input type="password" name="password" class="form-control register-input border-start-0" placeholder="••••••••" [(ngModel)]="user.password" required >
+              <input type="password" name="password" class="form-control register-input border-start-0"
+                placeholder="••••••••" [(ngModel)]="user.password" required>
             </div>
           </div>
 
@@ -34,7 +55,8 @@
             <label class="form-label fw-semibold">First Name</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
-              <input type="text" name="firstName" class="form-control register-input border-start-0" [(ngModel)]="user.firstName" required>
+              <input type="text" name="firstName" class="form-control register-input border-start-0"
+                [(ngModel)]="user.firstName" required>
             </div>
           </div>
 
@@ -42,7 +64,8 @@
             <label class="form-label fw-semibold">Last Name</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
-              <input type="text" name="lastName" class="form-control register-input border-start-0" [(ngModel)]="user.lastName" required>
+              <input type="text" name="lastName" class="form-control register-input border-start-0"
+                [(ngModel)]="user.lastName" required>
             </div>
           </div>
 
@@ -50,7 +73,8 @@
             <label class="form-label fw-semibold">Phone Number</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-telephone"></i></span>
-              <input type="text" name="phone" class="form-control register-input border-start-0" placeholder="+1..." [(ngModel)]="user.phoneNumber" required>
+              <input type="text" name="phone" class="form-control register-input border-start-0" placeholder="+1..."
+                [(ngModel)]="user.phoneNumber" required>
             </div>
           </div>
 
@@ -58,7 +82,8 @@
             <label class="form-label fw-semibold">Birth Date</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar-event"></i></span>
-              <input type="date" name="dob" class="form-control register-input border-start-0" [ngModel]="user.dateOfBirth | date:'yyyy-MM-dd'" (ngModelChange)="user.dateOfBirth = $event" required>
+              <input type="date" name="dob" class="form-control register-input border-start-0"
+                [ngModel]="user.dateOfBirth | date:'yyyy-MM-dd'" (ngModelChange)="user.dateOfBirth = $event" required>
             </div>
           </div>
 

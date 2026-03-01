@@ -105,3 +105,113 @@
     font-size: 16px !important;
   }
 }
+.company-selection-card {
+  cursor: pointer;
+  border: 2px solid #edf2f7;
+  border-radius: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff;
+  position: relative;
+}
+
+.company-selection-card:hover {
+  transform: translateY(-3px);
+  border-color: #149905;
+  background-color: #f0faed;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.company-avatar-circle {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #149905 0%, #108503 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  border-radius: 1rem; 
+  box-shadow: 0 4px 6px -1px rgba(20, 153, 5, 0.2);
+}
+
+.badge-id {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #f0f2f5;
+  color: #6c757d;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+.company-title {
+  color: #1a202c;
+  font-size: 1.1rem;
+}
+
+.dot-online {
+  height: 6px;
+  width: 6px;
+  background-color: #cbd5e0;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+.selected-card  {
+  background-color: #f0faed !important;
+  color: white;
+  border-color:#149905 !important;
+}
+.selected-card .dot-online {
+  background-color: #149905;
+}
+
+.selection-indicator {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #149905;
+  letter-spacing: 1px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.company-icon-placeholder {
+  font-size: 1.5rem;
+  color: #6c757d;
+  background: #fff;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto;
+  border: 1px solid #eee;
+}
+
+.selected-card .company-icon-placeholder {
+  color: #149905;
+  border-color: #149905;
+}
+
+.selection-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #149905;
+  font-size: 1.2rem;
+  animation: register-slideUp 0.3s ease;
+}
+
+.register-fade-in {
+  animation: register-slideUp 0.4s ease forwards;
+}
