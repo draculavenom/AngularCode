@@ -69,13 +69,26 @@
         </div>
 
         <div *ngIf="successMessage" class="alert alert-success mt-3 animate__animated animate__fadeIn"> 
-          <i class="bi bi-check-circle"></i> {{ successMessage }}
-        </div>
+  <i class="bi bi-check-circle"></i> {{ successMessage }}
+</div>
+
+<div *ngIf="successMessage" class="promo-mini-box animate__animated animate__fadeInUp">
+  <div class="promo-content">
+    <p class="promo-text">
+      <strong>¿Quieres gestionar tus propias citas?</strong><br>
+      Empieza con nosotros y profesionaliza tu negocio.
+    </p>
+    <a routerLink="/promo" class="btn-promo-link">
+      <i class="bi bi-rocket-takeoff-fill me-1"></i> Obtener mi propio calendario
+    </a>
+  </div>
+</div>
 
         <div *ngIf="errorMessage" class="alert alert-custom-danger mt-4 animate__animated animate__shakeX">
           <i class="bi bi-exclamation-triangle-fill"></i> {{ errorMessage }}
         </div>
       </form>
     </div>
+    
   </div>
 </div>

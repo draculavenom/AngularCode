@@ -1,0 +1,30 @@
+.legal-wrapper {
+  max-width: 750px;
+  margin: 3rem auto;
+  padding: 40px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.text-color {
+  color: #3b702e;
+  text-align: center;
+}
+.meta {
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.plain-text {
+  white-space: pre-wrap; 
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #353c36;
+  margin-top: 2rem;
+  text-align: justify;
+}
+

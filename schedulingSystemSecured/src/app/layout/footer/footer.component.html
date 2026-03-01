@@ -1,14 +1,29 @@
 <footer class="footer fixed-bottom improved-footer">
     <div class="container text-center">
-        <div class="d-inline-flex align-items-center py-3 px-4 rounded-pill footer-badge">
-            <div class="d-flex align-items-center me-2">
-                <img src="assets/CREAAR_Logo-Vert_color.png" alt="Logo" class="footer-logo">
+        <div class="d-inline-flex align-items-center py-2 px-4 rounded-pill footer-badge">
+            
+            <div class="d-flex align-items-center">
+                <img src="assets/CREAAR_Logo-Vert_color.png" alt="Logo" class="footer-logo me-2">
+                <span class="text-muted small-text">Rights reserved to</span>
+                <span class="divider-v"></span>
+                <span class="text-name">Creaar</span>
+                <span class="text-dot"></span>
+                <span class="text-year">© 2026</span>
             </div>
-            <span class="text-muted small-text">Rights reserved to</span>
+
             <span class="divider-v"></span>
-             <span class="text-name ms-2">Creaar</span>
-            <span class="text-dot"></span>
-            <span class="ms-2 text-year">© 2026</span>
+
+            <div class="footer-links-container d-flex align-items-center">
+                <a [routerLink]="['/privacy']" class="legal-link">Privacy Policy</a>
+                <span class="separator">|</span>
+                <a [routerLink]="['/terms']" class="legal-link">Terms</a>
+                <span class="separator">|</span>
+                <a [routerLink]="['/cookies']" class="legal-link">Cookies Policy</a>
+                <span class="separator">|</span>
+                <!---
+                <button class="cky-banner-element btn-link">Cookie Settings</button>
+                --->
+            </div>
         </div>
     </div>
 </footer>

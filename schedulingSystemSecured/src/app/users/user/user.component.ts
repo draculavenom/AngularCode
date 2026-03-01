@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
   managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
   showManagerFields: boolean = false;
 
-  message: string = "";
+  message: string = "";  
   messageType: string = "";
   tokenId: number = 0;
 

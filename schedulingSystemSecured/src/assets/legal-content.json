@@ -1,0 +1,18 @@
+{
+  "privacy": {
+    "title": "Privacy Policy ",
+    "lastUpdated": "March 1, 2026",
+    "content": "1. Information we collect\n- For Business Owners: We collect business name, contact details, and professional schedule.\n- For Clients: We collect names, phone numbers, and email addresses.\n- Appointment details: We store the date and time. \n\n2. How we use the data\nWe use this data to facilitate the booking process, notify both parties about the appointment status (Accepted/Completed/Cancelled), and maintain the business calendar.\n\n3. Data sharing\nBusiness owners have access to certain client information for the sole purpose of completing the appointment. We do not sell this data to third parties.\n\n4. User responsibilities\n"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "March 1, 2026",
+    "content": "1. Service description\nWe are a comprehensive appointment management platform designed to connect users with professionals in various fields. We simplify the booking process, allowing clients to schedule appointments quickly and efficiently, while professionals optimize their schedules in real time.\n\n2. Appointment booking & cancellations\n- Requests: A booking request does not constitute a confirmed appointment until the business owner manually accepts it.\n- Accuracy: Users must provide accurate information. We are not responsible for missed appointments due to incorrect data.\n\n3. Conduct and content\nBusiness owners must not use the platform for illegal services. We reserve the right to suspend accounts that violate local regulations or use the system for spam.\n\n4. Disclaimer\nWe provide the platform 'as is'. We are not liable for business losses, no-shows, or disputes between owners and their customers."
+  },
+ "cookies": {
+    "isHtml": false,
+    "title": "Cookies Policy ",
+    "lastUpdated": "March 1, 2026",
+    "content": "On our appointment management platform, we use cookies to ensure the booking process is safe, fast, and reliable for both business owners and their clients.\n\n1. What are cookies?\nCookies are small text files stored in your browser to remember your preferences and active sessions.\n\n2. Technical cookies (necessary)\nThese cookies are essential for the system to function. They allow:\n- Keeping the business owner's session active in their control panel.\n- Ensuring security by preventing spoofing attacks during scheduling.\n\n3. Personalization cookies\nWe use cookies to remember your time zone, ensuring that appointment times are displayed correctly to both the professional and the client, avoiding coordination errors.\n\n4. Performance cookies\nWe anonymously analyze how users interact with the appointment calendar to streamline steps and reduce the time it takes to schedule.\n\n5. Cookie control\nYou can configure your browser to block or alert about these cookies, but some parts of the appointment system (such as login or booking confirmation) may not work properly without them."
+  }
+}

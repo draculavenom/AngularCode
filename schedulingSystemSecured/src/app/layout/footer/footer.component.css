@@ -10,7 +10,15 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); 
     pointer-events: auto;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    white-space: nowrap; 
+    gap: 8px;
+}
+.footer-badge:hover {
+    background: rgba(255, 255, 255, 0.95); 
+    border-color: rgba(66, 119, 37, 0.3); 
+    box-shadow: 0 12px 32px rgba(66, 119, 37, 0.12); 
+    transform: translateY(-2px);
 }
 .small-text {
     font-size: 0.8rem;
@@ -18,11 +26,12 @@
 }
 
 .text-dot {
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
     background-color: #d1d1d6;
     border-radius: 50%;
-    margin: 0 4px;
+    margin: 0 8px;
+    display: inline-block;
 }
 
 .text-year {
@@ -40,9 +49,9 @@
 
 .divider-v {
     width: 1px;
-    height: 20px; 
+    height: 16px; 
     background: #e2e8f0;
-    margin: 0 16px;
+    margin: 0 10px;
 }
 
 .text-name {
@@ -50,4 +59,35 @@
     font-size: 1rem; 
     font-weight: 700;
     line-height: 1;
+}
+.legal-link, .btn-link {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+
+.legal-link:hover, .btn-link:hover, .consent-text a:hover {
+    color: #427725 !important;
+    text-decoration: underline !important;
+}
+
+.consent-text {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.consent-text a {
+    color: #64748b;
+    text-decoration: underline;
+}
+.footer-badge:hover .footer-logo {
+    filter: drop-shadow(0 4px 6px rgba(66, 119, 37, 0.2));
+    transform: scale(1.05);
+    transition: all 0.3s ease;
 }

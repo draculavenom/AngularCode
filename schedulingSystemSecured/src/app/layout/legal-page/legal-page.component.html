@@ -1,0 +1,13 @@
+<div class="legal-wrapper" *ngIf="legalData">
+    
+  <header>
+    <h1 class="text-color">{{ legalData.title }}</h1>
+    <p class="meta">Last update: {{ legalData.lastUpdated }}</p>
+  </header>
+  
+  <hr>
+
+  <article class="legal-body">
+    <pre class="plain-text">{{ legalData.content }}</pre>
+  </article>
+</div>

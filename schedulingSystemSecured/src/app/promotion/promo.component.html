@@ -4,7 +4,7 @@
       <img src="assets/Flyer-publicitario-ingles.png" alt="Flyer Informativo Crear" class="flyer-img">
     </div>
 
-    <div class="action-section">
+    <div class="action-section" *ngIf="!isLoggedIn">
       <button (click)="goToLogin()" class="btn-login">
         Acceder al Sistema
       </button>
