@@ -1,0 +1,66 @@
+.comment-dialog {
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+.text-color{
+    color: #3b702e;
+    text-align: center;
+}
+
+.icon-box {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+.comment-input {
+    border: 1.5px solid #add4af;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.2s ease;
+    background-color: #f8fafc;
+}
+
+.comment-input:focus {
+    background-color: #fff;
+    border-color: #11b916;
+    box-shadow: 0 0 0 4px rgba(59, 246, 62, 0.1);
+    outline: none;
+}
+
+.tracking-wider {
+    letter-spacing: 0.05em;
+    color: #64748b;
+}
+
+.tiny-text {
+    font-size: 0.75rem;
+}
+
+.btn-comment-secondary {
+    color: #64748b !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+}
+
+.btn-comment-primary {
+    background-color: #3b702e !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 0 20px !important;
+    font-weight: 600 !important;
+    height: 40px !important;
+}
+.btn-comment-primary:hover {
+    background-color: #28670b !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(52, 122, 20, 0.2);
+}
+
+.bg-primary-subtle { background-color: rgba(72, 246, 59, 0.1) !important; }
+.bg-danger-subtle { background-color: rgba(239, 68, 68, 0.1) !important; }

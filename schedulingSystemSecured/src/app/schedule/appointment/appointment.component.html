@@ -14,7 +14,8 @@
           <div class="mb-4">
             <label for="date" class="form-label fw-bold">Service Date</label>
             <div class="input-group-custom">
-              <input class="form-control custom-input" type="date" name="date" id="date" [min]="minDate"
+              <input class="form-control custom-input"
+               type="date" name="date" id="date" [min]="minDate"
                 [ngModel]="appointment.date | date : 'yyyy-MM-dd'" (ngModelChange)="onDateChange($event)" required />
             </div>
           </div>

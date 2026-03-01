@@ -51,7 +51,10 @@ import { ManagerOptionsComponent } from './manager/manager-options/manager-optio
 import { CalendarComponent } from './schedule/calendar/calendar.component';
 import { PromoComponent } from './promotion/promo.component';
 import { ScheduleConfigurationComponent } from './manager/schedule-configuration/schedule-configuration.component';
-import { LegalPageComponent } from './layout/legal-page/legal-page.component';
+import { LegalPageComponent } from './layout/legal-page/legal-page.component';import { ManagerAppointmentComponent } from './schedule/manager-appointment/manager-appointment.component';
+import { AppointmentQuickSlotComponent } from './schedule/appointment-quick-slot/appointment-quick-slot.component';
+import { CommentDialogComponent } from './layout/comment-dialog/comment-dialog.component';
+
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
   interactionPlugin
@@ -88,6 +91,9 @@ export function initializeApp(configService: ConfigService) {
     CalendarComponent,
     PromoComponent,
     ScheduleConfigurationComponent,
+    ManagerAppointmentComponent,
+    AppointmentQuickSlotComponent,
+    CommentDialogComponent,
     LegalPageComponent
 
   ],

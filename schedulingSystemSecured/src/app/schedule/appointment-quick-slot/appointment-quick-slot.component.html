@@ -1,0 +1,92 @@
+<div class="container-fluid py-5 animate__animated animate__fadeIn">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <div class="card border-0 shadow-sm appo-quick-card">
+                <div class="card-body p-4 p-md-5 text-center">
+
+                    <div class="mb-4">
+                        <div class="icon-shape bg-light-success text-color mb-3">
+                            <i class="bi bi-lightning-charge-fill fs-4"></i>
+                        </div>
+                        <h2 class="fw-extra-bold text-color mb-1">Instant Appointment</h2>
+                        <p class="text-muted small">The system has found the best slot for you</p>
+                    </div>
+
+                    <div *ngIf="isLoading" class="py-5">
+                        <div class="spinner-border text-color" role="status" style="width: 3rem; height: 3rem;"></div>
+                        <p class="mt-4 text-secondary fw-medium">Analyzing availability in real-time...</p>
+                    </div>
+
+                    <div *ngIf="!isLoading && quickSlot" class="content-fade-in">
+                        <div class="slot-display-container mb-4">
+                            <div class="row g-0 align-items-center">
+                                <div class="col-7 border-end p-3">
+                                    <span class="ls-1 fw-bold text-muted-xs d-block mb-1">Date</span>
+                                    <h4 class="mb-0 fw-bold text-date">{{ quickSlot.date | date:'EEEE, d MMMM' : 'UTC'
+                                        }}</h4>
+                                </div>
+                                <div class="col-5 p-3">
+                                    <span class="ls-1 fw-bold text-muted-xs d-block mb-1">Time</span>
+                                    <h4 class="mb-0 fw-bold text-time">{{ quickSlot.time }}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button class="btn btn-confirm w-100 mb-3 shadow-sm" (click)="confirmAppointment()"
+                            [disabled]="isSaving">
+                            <span *ngIf="!isSaving">
+                                Confirm Appointment <i class="bi bi-arrow-right ms-2"></i>
+                            </span>
+                            <span *ngIf="isSaving" class="d-flex align-items-center justify-content-center">
+                                <span class="spinner-border spinner-border-sm me-2"></span> Processing...
+                            </span>
+                        </button>
+                        <div *ngIf="errorMessage"
+                            class="alert alert-danger d-flex align-items-center animate__animated animate__shakeX"
+                            role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <div class="small">
+                                {{ errorMessage }}
+                            </div>
+                            <button type="button" class="btn-close ms-auto" (click)="errorMessage = null"
+                                aria-label="Close"></button>
+                        </div>
+                        <div *ngIf="successMessage"
+                            class="alert alert-success d-flex align-items-center animate__animated animate__fadeIn"
+                            role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            <div class="small">
+                                {{ successMessage }}
+                            </div>
+                            <button type="button" class="btn-close ms-auto" (click)="successMessage = null"
+                                aria-label="Close"></button>
+                        </div>
+
+                        <a routerLink="/schedule/appointment" class="btn btn-link-appo-quick text-decoration-none"
+                            [class.disabled]="isSaving">
+                            <i class="bi bi-calendar3 me-1"></i> Explore other times
+                        </a>
+                    </div>
+
+                    <div *ngIf="!isLoading && !quickSlot" class="py-4">
+                        <div class="empty-state-icon mb-3">
+                            <i class="bi bi-calendar-x text-warning"></i>
+                        </div>
+                        <h5 class="fw-bold">No upcoming slots</h5>
+                        <p class="text-muted px-4">It seems the schedule is full for the next few days.</p>
+                        <a routerLink="/schedule/appointment" class="btn btn-outline-primary btn-confirm w-100 mt-2">
+                            View full calendar
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <p class="text-center mt-4 text-muted small">
+                <i class="bi bi-shield-check me-1"></i> Secure and private scheduling. Your data is safe with us.
+            </p>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CancelDialogComponent } from '../layout/cancel-dialog/cancel-dialog.component';
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
 import { ManagerOptionsModel } from '../users/manager.options';
+import { CommentDialogComponent } from '../layout/comment-dialog/comment-dialog.component';
 
 
 @Component({
@@ -116,30 +117,67 @@ export class ScheduleComponent implements OnInit {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 }
+openActionDialog(appointmentId: number, status: string): void {
+  const isCancel = status === 'CANCELLED';
+  const isConfirm = status === 'CONFIRMED';
+  const isComplete = status === 'COMPLETED';
 
-  public cancel(appointmentId: number) {
-    this.appointmentService.cancelAppointment(appointmentId).subscribe(a => {
+  const dialogRef = this.dialog.open(CommentDialogComponent, {
+    width: '400px',
+    data: {
+      title: isCancel ? 'Cancel Appointment' : (isConfirm ? 'Confirm Appointment' : 'Complete Appointment'),
+      message: `Are you sure you want to ${status.toLowerCase()} this appointment?`,
+      isMandatory: isCancel // Solo obligatorio si es cancelación
+    },
+    panelClass: 'custom-dialog-container' 
+  });
+
+  dialogRef.afterClosed().subscribe(comment => {
+    if (comment !== undefined) { 
+      if (isCancel) {
+        this.cancel(appointmentId, comment);
+      } else {
+        this.updateStatus(appointmentId, status, comment);
+      }
+    }
+  });
+}
+
+ public cancel(appointmentId: number, comment: string) {
+  this.appointmentService.cancelAppointment(appointmentId, comment).subscribe(a => {
+    this.updateLocalList(a);
+  });
+}
+
+  public confirm(appointmentId: number, comment: string) {
+    this.appointmentService.confirmAppointment(appointmentId, comment).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
       if (app !== undefined)
         app.status = a.status
     });
   }
 
-  public confirm(appointmentId: number) {
-    this.appointmentService.confirmAppointment(appointmentId).subscribe(a => {
+  public complete(appointmentId: number, comment: string) {
+    this.appointmentService.completeAppointment(appointmentId, comment).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
       if (app !== undefined)
         app.status = a.status
     });
   }
+  public updateStatus(appointmentId: number, status: string, comment: string) {
+  const payload = { id: appointmentId, status: status, comment: comment };
+  this.appointmentService.updateStatus(payload).subscribe(a => {
+    this.updateLocalList(a);
+  });
+}
 
-  public complete(appointmentId: number) {
-    this.appointmentService.completeAppointment(appointmentId).subscribe(a => {
-      let app = this.appointments.find(ap => ap.id == a.id)
-      if (app !== undefined)
-        app.status = a.status
-    });
+private updateLocalList(updatedApp: any) {
+  let app = this.appointments.find(ap => ap.id == updatedApp.id);
+  if (app) {
+    app.status = updatedApp.status;
+    app.comment = updatedApp.comment;
   }
+}
 
   openDialog(appointmentId: number): void {
     const dialogRef = this.dialog.open(CancelDialogComponent, {
@@ -147,7 +185,7 @@ export class ScheduleComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.cancel(result);
+      this.cancel(result.id, result.comment);
     });
   }
 

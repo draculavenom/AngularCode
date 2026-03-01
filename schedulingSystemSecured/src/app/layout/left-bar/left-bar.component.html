@@ -22,6 +22,11 @@
                                 <i class="bi bi-calendar-plus-fill me-3"></i>
                                 <span>Have my own calendar</span>
                             </a>
+                            <a *ngIf="user?.role === 'USER'" class="nav-link" routerLink="/appointment-quick-slot"
+                                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                <i class="bi bi-lightning-fill me-3"></i>
+                                <span>Quick Schedule</span>
+                            </a>
 
                             <a *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'" class="nav-link"
                                 routerLink="/calendar" routerLinkActive="active"
@@ -54,6 +59,10 @@
                                 <a class="nav-link" routerLinkActive="active" routerLink="/schedule-configuration">
                                     <i class="bi bi-gear me-3"></i>
                                     <span>Schedule Configuration</span>
+                                </a>
+                                <a class="nav-link" routerLinkActive="active" routerLink="/manager-appointment">
+                                    <i class="bi bi-calendar-plus me-3"></i>
+                                    <span>Schedule for User</span>
                                 </a>
                             </ng-container>
                             <a *ngIf="user?.role === 'ADMIN'" class="nav-link" routerLinkActive="active"
