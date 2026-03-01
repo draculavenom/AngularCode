@@ -51,6 +51,7 @@ import { ManagerOptionsComponent } from './manager/manager-options/manager-optio
 import { CalendarComponent } from './schedule/calendar/calendar.component';
 import { PromoComponent } from './promotion/promo.component';
 import { ScheduleConfigurationComponent } from './manager/schedule-configuration/schedule-configuration.component';
+import { LegalPageComponent } from './layout/legal-page/legal-page.component';
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
   interactionPlugin
@@ -86,7 +87,8 @@ export function initializeApp(configService: ConfigService) {
     ManagerOptionsComponent,
     CalendarComponent,
     PromoComponent,
-    ScheduleConfigurationComponent
+    ScheduleConfigurationComponent,
+    LegalPageComponent
 
   ],
   imports: [

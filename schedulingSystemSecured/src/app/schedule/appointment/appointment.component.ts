@@ -103,8 +103,13 @@ export class AppointmentComponent implements OnInit {
     serviceCall.subscribe({
       next: () => {
         this.successMessage = 'Appointment saved successfully.';
-        setTimeout(() => this.router.navigate(['schedule']), 2000);
-      },
+        setTimeout(() => {
+        // Solo redirigir si el usuario no se ha ido ya a la página de promo
+        if (this.router.url.includes('appointment')) { 
+           this.router.navigate(['schedule']);
+        }
+      }, 6000);
+    },
       error: (err) => this.errorMessage = err.error || "Error saving appointment"
     });
   }

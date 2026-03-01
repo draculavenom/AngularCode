@@ -17,6 +17,12 @@
                                 <i class="bi bi-list-check me-3"></i>
                                 <span>My Appointments</span>
                             </a>
+                            <a *ngIf="user?.role === 'USER'" class="nav-link" routerLink="/promo"
+                            routerLinkActive="active" >
+                                <i class="bi bi-calendar-plus-fill me-3"></i>
+                                <span>Have my own calendar</span>
+                            </a>
+
                             <a *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'" class="nav-link"
                                 routerLink="/calendar" routerLinkActive="active"
                                 [routerLinkActiveOptions]="{exact: true}">
