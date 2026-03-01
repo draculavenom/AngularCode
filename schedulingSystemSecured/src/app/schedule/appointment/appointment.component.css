@@ -118,10 +118,10 @@
     border-radius: 10px;
     font-size: 0.9rem;
 }
-/* Caja promocional compacta */
+
 .promo-mini-box {
-    background-color: #f9fbf8; /* Un verde casi blanco muy sutil */
-    border: 1px dashed #3b702e; /* Borde discontinuo para diferenciarlo */
+    background-color: #f9fbf8;
+    border: 1px dashed #3b702e; 
     border-radius: 10px;
     padding: 1rem;
     margin-top: 10px;
@@ -130,7 +130,7 @@
 
 .promo-text {
     color: #4a5568;
-    font-size: 0.85rem; /* Tamaño pequeño para que no se vea "grandote" */
+    font-size: 0.85rem; 
     margin-bottom: 8px;
     line-height: 1.3;
 }

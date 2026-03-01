@@ -14,37 +14,24 @@
           <div class="mb-4">
             <label for="date" class="form-label fw-bold">Service Date</label>
             <div class="input-group-custom">
-              <input
-                class="form-control custom-input"
-                type="date"
-                name="date"
-                id="date"
-                [min]="minDate"
-                [ngModel]="appointment.date | date : 'yyyy-MM-dd'"
-                (ngModelChange)="onDateChange($event)"
-                required
-              />
+              <input class="form-control custom-input" type="date" name="date" id="date" [min]="minDate"
+                [ngModel]="appointment.date | date : 'yyyy-MM-dd'" (ngModelChange)="onDateChange($event)" required />
             </div>
           </div>
 
           <div class="mb-4">
             <label for="time" class="form-label fw-bold">Available Time</label>
-            <select
-              class="form-select custom-input"
-              name="time"
-              id="time"
-              [(ngModel)]="appointment.time"
-              [disabled]="isLoadingSlots"
-              required
-            >
-            
+            <select class="form-select custom-input" name="time" id="time" [(ngModel)]="appointment.time"
+              [disabled]="isLoadingSlots" required>
+
               <option value="">{{ isLoadingSlots ? 'Searching available slots...' : 'Select a time' }}</option>
               <option *ngFor="let t of availableSlots" [value]="t">{{ t }}</option>
-              
+
             </select>
-            
-            <div *ngIf="!isLoadingSlots && availableSlots.length === 0 && appointment.date" class="text-danger small mt-2">
-              <i class="bi bi-exclamation-circle"></i> No available slots for this day. 
+
+            <div *ngIf="!isLoadingSlots && availableSlots.length === 0 && appointment.date"
+              class="text-danger small mt-2">
+              <i class="bi bi-exclamation-circle"></i> No available slots for this day.
               The manager might not work on this day or all slots are full.
             </div>
           </div>
@@ -56,11 +43,9 @@
         </div>
 
         <div class="form-actions d-flex gap-3">
-          <button type="button" 
-                  class="btn btn-primary-appointment w-100 fw-bold" 
-                  (click)="schedule()" 
-                  [disabled]="isLoadingSlots || !f.valid">
-            <i class="bi bi-check-circle me-1"></i> 
+          <button type="button" class="btn btn-primary-appointment w-100 fw-bold" (click)="schedule()"
+            [disabled]="isLoadingSlots || !f.valid">
+            <i class="bi bi-check-circle me-1"></i>
             {{ appointment.id === 0 ? 'Confirm Appointment' : 'Update Appointment' }}
           </button>
           <a routerLink="/schedule" class="btn btn-outline-appointment w-100">
@@ -68,27 +53,27 @@
           </a>
         </div>
 
-        <div *ngIf="successMessage" class="alert alert-success mt-3 animate__animated animate__fadeIn"> 
-  <i class="bi bi-check-circle"></i> {{ successMessage }}
-</div>
+        <div *ngIf="successMessage" class="alert alert-success mt-3 animate__animated animate__fadeIn">
+          <i class="bi bi-check-circle"></i> {{ successMessage }}
+        </div>
 
-<div *ngIf="successMessage" class="promo-mini-box animate__animated animate__fadeInUp">
-  <div class="promo-content">
-    <p class="promo-text">
-      <strong>¿Quieres gestionar tus propias citas?</strong><br>
-      Empieza con nosotros y profesionaliza tu negocio.
-    </p>
-    <a routerLink="/promo" class="btn-promo-link">
-      <i class="bi bi-rocket-takeoff-fill me-1"></i> Obtener mi propio calendario
-    </a>
-  </div>
-</div>
+        <div *ngIf="successMessage" class="promo-mini-box animate__animated animate__fadeInUp">
+          <div class="promo-content">
+            <p class="promo-text">
+              <strong>Do you want to manage your own appointments?</strong><br>
+              Start with us and professionalize your business.
+            </p>
+            <a routerLink="/promo" class="btn-promo-link">
+              <i class="bi bi-rocket-takeoff-fill me-1"></i> Get my own calendar
+            </a>
+          </div>
+        </div>
 
         <div *ngIf="errorMessage" class="alert alert-custom-danger mt-4 animate__animated animate__shakeX">
           <i class="bi bi-exclamation-triangle-fill"></i> {{ errorMessage }}
         </div>
       </form>
     </div>
-    
+
   </div>
 </div>
