@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SecurityService } from '../security.service'; 
+import { SecurityService } from '../security.service';
 import { UsersModel } from 'src/app/users/users.model';
 import { UserService } from 'src/app/users/user.service';
 import { ManagerOptionsModel } from 'src/app/users/manager.options';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -17,17 +17,29 @@ export class RegisterUserFinalComponent implements OnInit {
   managerSelect: ManagerOptionsModel[] = [];
 
   constructor(
-    private securityService: SecurityService, 
-    private userService: UserService, 
-    private router: Router
+    private securityService: SecurityService,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.user.role = "USER";
     this.user.managedBy = 0;
+
     this.userService.getManagerSelect().subscribe((l: any) => {
       this.managerSelect = l;
+
+      this.route.queryParams.subscribe(params => {
+        const idFromUrl = +params['managerId'];
+        if (idFromUrl) {
+          this.selectCompany(idFromUrl);
+        }
+      });
     });
+  }
+  public selectCompany(id: number) {
+    this.user.managedBy = id;
   }
 
   public onSubmit() {
