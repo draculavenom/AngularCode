@@ -12,6 +12,8 @@ import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { ViewChild } from '@angular/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import { ChangeDetectorRef } from '@angular/core';
+import { CommentDialogComponent } from '../../layout/comment-dialog/comment-dialog.component';
+
 
 @Component({
   selector: 'app-calendar',
@@ -105,37 +107,41 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  public cancel(appointmentId: number) {
-    this.appointmentService.cancelAppointment(appointmentId).subscribe(a => {
+  public cancel(appointmentId: number, comment: string) {
+    this.appointmentService.cancelAppointment(appointmentId, comment).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
       if (app !== undefined)
         app.status = a.status
     });
   }
+  
 
-  public confirm(appointmentId: number) {
-    this.appointmentService.confirmAppointment(appointmentId).subscribe(a => {
-      let app = this.appointments.find(ap => ap.id == a.id)
-      if (app !== undefined)
-        app.status = a.status
-    });
-  }
 
-  public complete(appointmentId: number) {
-    this.appointmentService.completeAppointment(appointmentId).subscribe(a => {
-      let app = this.appointments.find(ap => ap.id == a.id)
-      if (app !== undefined)
-        app.status = a.status
-    });
-  }
+public confirm(appointmentId: number, comment: string = "Confirmed via Calendar") {
+  this.appointmentService.confirmAppointment(appointmentId, comment).subscribe(a => {
+    let app = this.appointments.find(ap => ap.id == a.id);
+    if (app !== undefined) app.status = a.status;
+    this.cdr.detectChanges(); 
+  });
+}
+
+public complete(appointmentId: number, comment: string = "Completed via Calendar") {
+  this.appointmentService.completeAppointment(appointmentId, comment).subscribe(a => {
+    let app = this.appointments.find(ap => ap.id == a.id);
+    if (app !== undefined) app.status = a.status;
+    this.cdr.detectChanges();
+  });
+}
 
   openDialog(appointmentId: number): void {
     const dialogRef = this.dialog.open(CancelDialogComponent, {
       data: { id: appointmentId },
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.cancel(result);
-    });
+      if (result && result.id) {
+      this.cancel(result.id, result.comment || "Cancelled by manager");
+    }
+  });
   }
 
   public onSelect(event: Event) {

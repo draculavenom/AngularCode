@@ -1,0 +1,110 @@
+.appo-quick-card {
+    border-radius: 1.25rem !important;
+    background-color: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.text-color {
+    color: #3b702e;
+    text-align: center;
+}
+
+.bg-light-success {
+    background-color: #d1fae5;
+}
+
+.text-date {
+    color: #658b64;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.text-time {
+    color: #076344;
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1;
+    margin-top: 5px;
+}
+
+.fw-extra-bold {
+    font-weight: 800;
+}
+
+.ls-1 {
+    letter-spacing: 0.05rem;
+}
+
+.text-muted-xs {
+    font-size: 0.7rem;
+    color: #9ca3af;
+}
+
+.slot-display-container {
+    background-color: #f9fbf9;
+    border: 1px solid #e7ebe5;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.icon-shape {
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+
+.btn-confirm {
+    background-color: #3b702e;
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-confirm:hover {
+    background-color: #155405;
+    transform: translateY(-2px);
+}
+
+.btn-link-appo-quick {
+    color: #3b702e;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.btn-link-appo-quick:hover {
+    color: #3a4f34;
+    text-decoration: underline;
+    background-color: #cfe6d8;
+}
+
+.empty-state-icon {
+    font-size: 3.5rem;
+    opacity: 0.8;
+}
+
+.content-fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
