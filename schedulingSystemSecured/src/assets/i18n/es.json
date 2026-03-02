@@ -1,0 +1,9 @@
+{
+  "NAV": {
+    "HOME": "Inicio"
+  },
+  "AUTH": {
+    "LOGIN": "Iniciar sesión",
+    "LOGOUT": "Cerrar sesión"
+  }
+}
