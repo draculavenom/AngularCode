@@ -1,0 +1,66 @@
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="appointment-card shadow-lg p-4 bg-white rounded">
+            <div class="card-header-custom mb-4 text-center">
+                <h1 class="display-7 fw-bold text-color">Create Appointment for User</h1>
+            </div>
+
+            <form #f="ngForm" class="appointment-form">
+                <div class="form-section">
+                    <div class="mb-4">
+
+                        <label class="form-label fw-bold">Select Client</label>
+                        <select class="form-select custom-input" [(ngModel)]="appointment.userId"
+                            (change)="onUserChange()" name="userId" required>
+                            <option [ngValue]="0" disabled selected>Select a client</option>
+                            <option *ngFor="let u of managedUsers" [value]="u.id">{{ u.name }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Service Date</label>
+                        <div class="input-group-custom">
+                            <input class="form-control custom-input" type="date" [min]="minDate"
+                                [ngModel]="appointment.date | date : 'yyyy-MM-dd'"
+                                (ngModelChange)="onDateChange($event)" name="date" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Available Time</label>
+                        <select class="form-select custom-input" [(ngModel)]="appointment.time" name="time"
+                            [disabled]="isLoadingSlots || !appointment.userId" required>
+                            <option value="">{{ isLoadingSlots ? 'Loading...' : 'Select a time' }}</option>
+                            <option *ngFor="let t of availableSlots" [value]="t">{{ t }}</option>
+                        </select>
+                        <div *ngIf="!isLoadingSlots && availableSlots.length === 0 && appointment.date "
+                            class="text-danger small mt-2">
+                            <i class="bi bi-info-circle"></i>
+                            No time slots available for this date. Please try another day.
+                        </div>
+                        <div *ngIf="!isLoadingSlots && !appointment.userId" class="text-danger small mt-2">
+                            <i class="bi bi-info-circle"></i>
+                            Please select a client to see available time slots.
+                        </div>
+                    </div>
+
+                    <div class="status-badge-container mb-4">
+                        <span class="status-label"> Current Status:</span>
+                        <span class="badge-appointment shadow-sm">{{ appointment.status }}</span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary-appointment  w-100" (click)="schedule()"
+                    [disabled]="!f.valid || isLoadingSlots || !availableSlots.length || !appointment.userId">
+                    Create Appointment
+                </button>
+            </form>
+
+            <div *ngIf="successMessage" class="alert alert-success mt-3">
+                <i class="bi bi-check-circle me-1"></i> {{ successMessage }}
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                <i class="bi bi-exclamation-triangle-fill me-1"></i> {{ errorMessage }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,6 +20,9 @@ import { ManagerOptionsComponent } from './manager/manager-options/manager-optio
 import { CalendarComponent } from './schedule/calendar/calendar.component';
 import { PromoComponent } from './promotion/promo.component';
 import { ScheduleConfigurationComponent } from './manager/schedule-configuration/schedule-configuration.component';
+import { LegalPageComponent } from './layout/legal-page/legal-page.component';
+import { ManagerAppointmentComponent } from './schedule/manager-appointment/manager-appointment.component';
+import { AppointmentQuickSlotComponent } from './schedule/appointment-quick-slot/appointment-quick-slot.component';
 
 const routes: Routes = [
   { path: '', component: OnboardingFinalComponent},
@@ -45,7 +48,14 @@ const routes: Routes = [
   { path: 'manager-options', component: ManagerOptionsComponent, canActivate: [AuthGuard] },
   { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
   { path: 'promo', component: PromoComponent},
-  { path: 'schedule-configuration', component: ScheduleConfigurationComponent, canActivate: [AuthGuard] }
+  { path: 'promouser', component: PromoComponent, canActivate: [AuthGuard]},
+  { path: 'schedule-configuration', component: ScheduleConfigurationComponent, canActivate: [AuthGuard] },
+  { path: 'privacy', component: LegalPageComponent, data: { type: 'privacy' } },
+  { path: 'terms', component: LegalPageComponent, data: { type: 'terms' } },
+  { path: 'cookies', component: LegalPageComponent, data: { type: 'cookies' } },
+  { path: 'manager-appointment', component: ManagerAppointmentComponent, canActivate: [AuthGuard] },
+  { path: 'appointment-quick-slot', component: AppointmentQuickSlotComponent, canActivate: [AuthGuard] },
+  
 ];
 
 @NgModule({

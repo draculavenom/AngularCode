@@ -1,0 +1,37 @@
+<div class="comment-dialog">
+  <div class="d-flex align-items-center p-4 pb-2">
+    <div class="icon-box me-3"
+      [ngClass]="data.title.toLowerCase().includes('delete') || data.title.toLowerCase().includes('cancel') ? 'bg-danger-subtle text-danger' : 'bg-primary-subtle text-color'">
+      <i class="bi" [ngClass]="data.title.toLowerCase().includes('delete') ? 'bi-trash3' : 'bi-info-circle'"></i>
+    </div>
+    <h2 mat-dialog-title class="m-0 fw-bold fs-5 text-color">{{data.title}}</h2>
+  </div>
+
+  <mat-dialog-content class="px-4 py-2">
+    <p class="text-secondary mb-4">{{data.message}}</p>
+
+    <div class="form-group custom-form">
+      <label class="form-label small fw-semibold  tracking-wider">
+        Comments <span *ngIf="data.isMandatory" class="text-danger">*</span>
+      </label>
+      <textarea [(ngModel)]="comment" class="form-control comment-input " rows="3"
+        [placeholder]="data.isMandatory ? 'Please explain the reason...' : 'Optional notes...'">
+      </textarea>
+      <div *ngIf="data.isMandatory && (!comment || comment.trim().length === 0)" class="text-danger mt-1 tiny-text">
+        This field is required to proceed.
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="p-4 pt-2 border-0">
+    <button mat-button class="btn-comment-secondary me-2" (click)="onNoClick()">
+      Go Back
+    </button>
+    <button mat-flat-button
+      [color]="data.title.toLowerCase().includes('delete') || data.title.toLowerCase().includes('cancel') ? 'warn' : 'primary'"
+      class="btn-comment-primary shadow-sm" [disabled]="data.isMandatory && (!comment || comment.trim().length === 0)"
+      [mat-dialog-close]="comment">
+      {{ data.title.toLowerCase().includes('delete') ? 'Confirm Delete' : 'Confirm Action' }}
+    </button>
+  </mat-dialog-actions>
+</div>
