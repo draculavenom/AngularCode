@@ -15,6 +15,7 @@ export class RegisterUserFinalComponent implements OnInit {
   messageType = "";
   user: UsersModel = new UsersModel(0, "", true);
   managerSelect: ManagerOptionsModel[] = [];
+  showCompanySelection: boolean = true;
 
   constructor(
     private securityService: SecurityService,
@@ -31,15 +32,20 @@ export class RegisterUserFinalComponent implements OnInit {
       this.managerSelect = l;
 
       this.route.queryParams.subscribe(params => {
-        const idFromUrl = +params['managerId'];
+        const idFromUrl = +params['managerId'] || +params['managerid'];
         if (idFromUrl) {
-          this.selectCompany(idFromUrl);
+          this.user.managedBy = idFromUrl;
+          this.showCompanySelection = false;
         }
       });
     });
   }
   public selectCompany(id: number) {
     this.user.managedBy = id;
+    this.showCompanySelection = false;
+  }
+  public toggleCompanySelection() {
+    this.showCompanySelection = !this.showCompanySelection;
   }
 
   public onSubmit() {
