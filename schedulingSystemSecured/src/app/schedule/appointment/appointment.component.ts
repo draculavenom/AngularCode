@@ -69,8 +69,23 @@ export class AppointmentComponent implements OnInit {
     const dateStr = this.appointment.date.toISOString().split('T')[0];
 
     this.managerService.getAvailableSlots(this.resolvedManagerId, dateStr).subscribe({
-      next: (slots) => {
-        this.availableSlots = slots ? slots.map(s => s.substring(0, 5)) : [];
+      next: (slots: string[]) => {
+        const now = new Date();
+
+        const selectedDate = new Date(this.appointment.date);
+        const isToday = selectedDate.toDateString() === now.toDateString();
+
+        if (isToday) {
+          this.availableSlots = slots.filter(slot => {
+            const [hours, minutes] = slot.split(':').map(Number);
+            const slotTime = new Date();
+            slotTime.setHours(hours, minutes, 0, 0);
+
+            return slotTime > now;
+          }).map(s => s.substring(0, 5));
+        } else {
+          this.availableSlots = slots ? slots.map(s => s.substring(0, 5)) : [];
+        }
         this.isLoadingSlots = false;
       },
       error: () => {
@@ -104,12 +119,12 @@ export class AppointmentComponent implements OnInit {
       next: () => {
         this.successMessage = 'Appointment saved successfully.';
         setTimeout(() => {
-        // Solo redirigir si el usuario no se ha ido ya a la página de promo
-        if (this.router.url.includes('appointment')) { 
-           this.router.navigate(['schedule']);
-        }
-      }, 6000);
-    },
+          // Solo redirigir si el usuario no se ha ido ya a la página de promo
+          if (this.router.url.includes('appointment')) {
+            this.router.navigate(['schedule']);
+          }
+        }, 6000);
+      },
       error: (err) => this.errorMessage = err.error || "Error saving appointment"
     });
   }
