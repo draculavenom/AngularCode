@@ -14,11 +14,11 @@
             <span class="divider-v"></span>
 
             <div class="footer-links-container d-flex align-items-center">
-                <a [routerLink]="['/privacy']" class="legal-link">Privacy Policy</a>
+                <a [routerLink]="[]" (click)="openInNewTab('/privacy')" class="legal-link">Privacy Policy</a>
                 <span class="separator">|</span>
-                <a [routerLink]="['/terms']" class="legal-link">Terms</a>
+                <a href="/terms" target="_blank" rel="noopener noreferrer" class="legal-link">Terms</a>
                 <span class="separator">|</span>
-                <a [routerLink]="['/cookies']" class="legal-link">Cookies Policy</a>
+                <a href="/cookies" target="_blank" rel="noopener noreferrer" class="legal-link">Cookies</a>
                 <span class="separator">|</span>
                 <!---
                 <button class="cky-banner-element btn-link">Cookie Settings</button>
