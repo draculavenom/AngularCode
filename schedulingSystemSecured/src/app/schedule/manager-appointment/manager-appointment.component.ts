@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./manager-appointment.component.css']
 })
 export class ManagerAppointmentComponent implements OnInit {
+  private managerId: number | null = null;
   appointment: AppointmentModel = new AppointmentModel(0, 0, new Date(), "", "SCHEDULED");
   managedUsers: any[] = [];
   availableSlots: string[] = [];
@@ -30,17 +31,17 @@ export class ManagerAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser().subscribe(currentUser => {
+      this.managerId = currentUser.id;
       this.userService.getPersonsByManager(currentUser.id).subscribe({
-        next: (users) => {
-          this.managedUsers = users;
-        },
+        next: (users) => this.managedUsers = users,
         error: () => this.errorMessage = "Could not load your managed users."
       });
     });
   }
 
   onDateChange(newDate: string) {
-    this.appointment.date = new Date(newDate);
+    const [y, m, d] = newDate.split('-').map(Number);
+    this.appointment.date = new Date(y, m - 1, d);
     this.loadSlots();
   }
   onUserChange() {
@@ -49,24 +50,41 @@ export class ManagerAppointmentComponent implements OnInit {
     this.availableSlots = [];
     this.successMessage = "";
     this.errorMessage = "";
+    if (this.appointment.date) {
+      this.loadSlots();
+    }
   }
 
   loadSlots() {
-    if (!this.appointment.userId || !this.appointment.date) return;
+    if (!this.appointment.userId || !this.appointment.date || !this.managerId) return;
 
     this.isLoadingSlots = true;
     const dateStr = this.appointment.date.toISOString().split('T')[0];
-    this.userService.getUser().subscribe(u => {
-      this.managerService.getAvailableSlots(u.id, dateStr).subscribe({
-        next: (slots) => {
+    this.managerService.getAvailableSlots(this.managerId, dateStr).subscribe({
+      next: (slots: string[]) => {
+        const now = new Date();
+        const selectedDate = new Date(this.appointment.date);
+
+        const isToday = selectedDate.toDateString() === now.toDateString();
+
+        if (isToday) {
+          this.availableSlots = slots.filter(slot => {
+            const [hours, minutes] = slot.split(':').map(Number);
+            const slotTime = new Date();
+            slotTime.setHours(hours, minutes, 0, 0);
+
+            return slotTime > now;
+          }).map(s => s.substring(0, 5));
+        } else {
           this.availableSlots = slots ? slots.map(s => s.substring(0, 5)) : [];
-          this.isLoadingSlots = false;
-        },
-        error: () => {
-          this.availableSlots = [];
-          this.isLoadingSlots = false;
         }
-      });
+        this.isLoadingSlots = false;
+      },
+      error: () => {
+        this.availableSlots = [];
+        this.isLoadingSlots = false;
+        this.errorMessage = "Could not load available slots for the selected date. Please try again later.";
+      }
     });
   }
 
