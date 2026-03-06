@@ -14,8 +14,7 @@
           <div class="mb-4">
             <label for="date" class="form-label fw-bold">Service Date</label>
             <div class="input-group-custom">
-              <input class="form-control custom-input"
-               type="date" name="date" id="date" [min]="minDate"
+              <input class="form-control custom-input" type="date" name="date" id="date" [min]="minDate"
                 [ngModel]="appointment.date | date : 'yyyy-MM-dd'" (ngModelChange)="onDateChange($event)" required />
             </div>
           </div>
@@ -30,10 +29,30 @@
 
             </select>
 
+
             <div *ngIf="!isLoadingSlots && availableSlots.length === 0 && appointment.date"
               class="text-danger small mt-2">
               <i class="bi bi-exclamation-circle"></i> No available slots for this day.
               The manager might not work on this day or all slots are full.
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="comment" class="form-label fw-bold d-flex justify-content-between">
+              <span>Comments</span>
+              <small [ngClass]="appointment.id === 0 ? 'text-muted' : 'text-danger'">
+                {{ appointment.id === 0 ? '(Optional)' : '(Required for changes *)' }}
+              </small>
+            </label>
+
+            <textarea class="form-control custom-input" name="comment" id="comment" rows="3"
+              [(ngModel)]="appointment.comment" #commentModel="ngModel" [required]="appointment.id !== 0"
+              [placeholder]="appointment.id === 0 ? 'Any specific requests?' : 'Please explain the reason for the change'"
+              [class.is-invalid]="appointment.id !== 0 && commentModel.invalid && commentModel.touched">
+    </textarea>
+
+            <div *ngIf="appointment.id !== 0 && commentModel.invalid && commentModel.touched"
+              class="text-danger small mt-1">
+              <i class="bi bi-exclamation-triangle"></i> A comment is required to update your appointment.
             </div>
           </div>
 

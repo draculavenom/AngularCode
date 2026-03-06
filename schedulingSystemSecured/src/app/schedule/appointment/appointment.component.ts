@@ -5,6 +5,7 @@ import { AppointmentService } from './appointment.service';
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
 import { SecurityService } from 'src/app/security/security.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-appointment',
@@ -43,10 +44,16 @@ export class AppointmentComponent implements OnInit {
           this.appointment.userId = u.id;
 
           if (params['id']) {
-            this.appointmentService.getAppointment(Number(params['id'])).subscribe(a => {
-              this.convertTime(a);
-              this.resolvedManagerId = (a as any).managerId;
-              this.loadSlots();
+            this.appointmentService.getAppointment(Number(params['id'])).subscribe({
+              next: (a: any) => {
+                this.convertTime(a);
+                this.resolvedManagerId = a.managerId || u.managedBy;
+                console.log("Manager identified through appointment:", this.resolvedManagerId);
+                this.loadSlots();
+              },
+              error: (err: any) => {
+                this.errorMessage = "Error loading appointment.";
+              }
             });
           } else {
             if (u.managedBy) {
@@ -71,22 +78,33 @@ export class AppointmentComponent implements OnInit {
     this.managerService.getAvailableSlots(this.resolvedManagerId, dateStr).subscribe({
       next: (slots: string[]) => {
         const now = new Date();
+        const isToday = new Date(this.appointment.date).toDateString() === now.toDateString();
 
-        const selectedDate = new Date(this.appointment.date);
-        const isToday = selectedDate.toDateString() === now.toDateString();
+        let displaySlots = slots ? slots.map(s => s.substring(0, 5)) : [];
 
         if (isToday) {
-          this.availableSlots = slots.filter(slot => {
+          displaySlots = displaySlots.filter(slot => {
             const [hours, minutes] = slot.split(':').map(Number);
             const slotTime = new Date();
             slotTime.setHours(hours, minutes, 0, 0);
+            console.log(`Comparing slot time ${slotTime} with current time ${now}`);
 
             return slotTime > now;
-          }).map(s => s.substring(0, 5));
-        } else {
-          this.availableSlots = slots ? slots.map(s => s.substring(0, 5)) : [];
+          });
         }
+
+        if (this.appointment.id !== 0 && this.appointment.time) {
+          const myCurrentTime = this.appointment.time.substring(0, 5);
+          if (!displaySlots.includes(myCurrentTime)) {
+            displaySlots.push(myCurrentTime);
+            displaySlots.sort(); 
+          }
+          console.log("Ensured current appointment time is included in slots:", displaySlots);
+        }
+
+        this.availableSlots = displaySlots;
         this.isLoadingSlots = false;
+        console.log("Available slots loaded:", this.availableSlots);
       },
       error: () => {
         this.availableSlots = [];
@@ -129,12 +147,23 @@ export class AppointmentComponent implements OnInit {
     });
   }
 
-  public convertTime(a: AppointmentModel) {
+  public convertTime(a: any) {
     this.appointment = a;
-    if (this.appointment.time) this.appointment.time = this.appointment.time.substring(0, 5);
-    if (typeof a.date === 'string') {
-      const parts = (a.date as string).split('T')[0].split('-');
-      this.appointment.date = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+
+    if (this.appointment.time) {
+      this.appointment.time = this.appointment.time.substring(0, 5);
+    }
+    if (a.date) {
+      let dateObj: Date;
+
+      if (typeof a.date === 'string') {
+        const parts = a.date.split('T')[0].split('-');
+        dateObj = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+      } else {
+        dateObj = new Date(a.date);
+      }
+
+      this.appointment.date = dateObj;
     }
   }
 }
