@@ -15,7 +15,8 @@
             <i class="bi bi-calendar-check me-2"></i>Today
           </button>
         </div>
-        <div class="card-body p-2" *ngIf="allAppointments.length > 0 || allAppointments.length == 0; else loadingTemplate">
+        <div class="card-body p-2"
+          *ngIf="allAppointments.length > 0 || allAppointments.length == 0; else loadingTemplate">
           <mat-calendar #calendar [(selected)]="selectedDate" [dateClass]="dateClass"
             (selectedChange)="onDateChange($event)" class="improved-calendar w-100">
           </mat-calendar>
@@ -39,7 +40,7 @@
         <div>
           <h5 class="fw-bold mb-0 text-dark">Today's Activities</h5>
           <span class="badge bg-text-subtle  rounded-pill">
-            {{ appointments.length  }} appointments</span>
+            {{ appointments.length }} appointments</span>
         </div>
       </div>
 
@@ -70,19 +71,20 @@
             </div>
 
             <div class="d-flex gap-2 mt-3 pt-3 border-top">
-              <button *ngIf="appo.status === 'SCHEDULED'" (click)="confirm(appo.id)"
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'CONFIRMED')"
                 class="btn btn-sm btn-cal-success flex-grow-1">
                 <i class="bi bi-check-square-fill me-1"></i> Confirm
               </button>
 
-              <button 
-              *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="complete(appo.id)"
-                class="btn btn-sm btn-cal-info flex-grow-1"> <i class="bi bi-check-circle-fill me-1"></i>
+              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'"
+                (click)="openActionDialog(appo.id, 'COMPLETED')" class="btn btn-sm btn-cal-info flex-grow-1"> <i
+                  class="bi bi-check-circle-fill me-1"></i>
                 Completed
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="openDialog(appo.id)"
-                class="btn btn-sm btn-cal-outline-danger"> <i class="bi bi-x-circle me-1"></i>
+              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'"
+                (click)="openActionDialog(appo.id, 'CANCELLED')" class="btn btn-sm btn-cal-outline-danger"> <i
+                  class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>
             </div>
@@ -110,7 +112,8 @@
             <i class="bi bi-calendar-check me-2"></i>Today
           </button>
         </div>
-        <div class="card-body p-2" *ngIf="allAppointments.length > 0 || allAppointments.length == 0; else loadingTemplate">
+        <div class="card-body p-2"
+          *ngIf="allAppointments.length > 0 || allAppointments.length == 0; else loadingTemplate">
           <mat-calendar #calendar [(selected)]="selectedDate" [dateClass]="dateClass"
             (selectedChange)="onDateChange($event)" class="improved-calendar w-100">
           </mat-calendar>
@@ -171,17 +174,17 @@
             </div>
 
             <div class="d-flex gap-2 mt-3 pt-3 border-top">
-              <button *ngIf="appo.status === 'SCHEDULED'" (click)="confirm(appo.id)"
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'CONFIRMED')"
                 class="btn btn-sm btn-cal-success flex-grow-1"> <i class="bi bi-check-square-fill me-1"></i>
                 Confirm
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED'" (click)="complete(appo.id)"
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'COMPLETED')"
                 class="btn btn-sm btn-cal-info flex-grow-1"> <i class="bi bi-check-circle-fill me-1"></i>
                 Completed
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openDialog(appo.id)"
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'CANCELLED')"
                 class="btn btn-sm btn-cal-outline-danger"> <i class="bi bi-x-circle me-1"></i>
                 Cancel
               </button>

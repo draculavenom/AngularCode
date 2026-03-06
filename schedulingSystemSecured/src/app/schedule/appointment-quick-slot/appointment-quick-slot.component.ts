@@ -78,7 +78,12 @@ export class AppointmentQuickSlotComponent implements OnInit {
 
         if (validSlots.length > 0) {
           console.log(` Suggested appointment found!: ${dateStr} at ${validSlots[0]}`);
-          this.quickSlot = { date: new Date(date), time: validSlots[0].substring(0, 5) };
+          const finalDate = new Date(date);
+          finalDate.setHours(0, 0, 0, 0)
+          this.quickSlot = { 
+        date: finalDate, 
+        time: validSlots[0].substring(0, 5) 
+    };
           this.isLoading = false;
         } else {
           console.log(`No available slots on ${dateStr}, skipping to next day...`);

@@ -76,78 +76,78 @@ export class ScheduleComponent implements OnInit {
       console.log(u);
       this.appointments = [];
       if (u.role == "USER") {
-      this.appointmentService.getAppointments(u.id).subscribe(a => {
-        this.appointments = this.sortAppointments(a);
-      });
-    }
-    else if (u.role == "MANAGER") {
-      this.appointmentService.getManagerAppointments(u.id).subscribe(a => {
-      
-        this.appointments = this.sortAppointments(a);
-        this.appointments.forEach(appointment => {
-      if (appointment.userId) { 
-        this.userService.getUserById(appointment.userId).subscribe({
-          next: (userData) => {
-            (appointment as any).firstName = userData.firstName;
-            (appointment as any).lastName = userData.lastName;
-          },
-          error: (err) => console.error("No se pudo cargar el nombre del usuario", err)
+        this.appointmentService.getAppointments(u.id).subscribe(a => {
+          this.appointments = this.sortAppointments(a);
         });
       }
-    });
-      });
-    }
+      else if (u.role == "MANAGER") {
+        this.appointmentService.getManagerAppointments(u.id).subscribe(a => {
+
+          this.appointments = this.sortAppointments(a);
+          this.appointments.forEach(appointment => {
+            if (appointment.userId) {
+              this.userService.getUserById(appointment.userId).subscribe({
+                next: (userData) => {
+                  (appointment as any).firstName = userData.firstName;
+                  (appointment as any).lastName = userData.lastName;
+                },
+                error: (err) => console.error("No se pudo cargar el nombre del usuario", err)
+              });
+            }
+          });
+        });
+      }
       else if (u.role == "ADMIN") {
-  this.appointmentService.getAdminAppointments().subscribe({
-    next: (data: AppointmentModel[]) => {
-      this.appointments = data;
-      this.appointments = this.sortAppointments(data);
-      console.log("Successful quote:", this.appointments);
-    },
-    error: (err) => {
-      console.error("Error loading Admin appointments:", err);
-    }
-  });
-}
+        this.appointmentService.getAdminAppointments().subscribe({
+          next: (data: AppointmentModel[]) => {
+            this.appointments = data;
+            this.appointments = this.sortAppointments(data);
+            console.log("Successful quote:", this.appointments);
+          },
+          error: (err) => {
+            console.error("Error loading Admin appointments:", err);
+          }
+        });
+      }
     });
     //it will be split in two, one to retrieve the userId from the user service, the second one to get the information of the appointments
   }
   private sortAppointments(list: AppointmentModel[]): AppointmentModel[] {
-  return list.sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
-  });
-}
-openActionDialog(appointmentId: number, status: string): void {
-  const isCancel = status === 'CANCELLED';
-  const isConfirm = status === 'CONFIRMED';
-  const isComplete = status === 'COMPLETED';
+    return list.sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+  }
+  openActionDialog(appointmentId: number, status: string): void {
+    const isCancel = status === 'CANCELLED';
+    const isConfirm = status === 'CONFIRMED';
+    const isComplete = status === 'COMPLETED';
 
-  const dialogRef = this.dialog.open(CommentDialogComponent, {
-    width: '400px',
-    data: {
-      title: isCancel ? 'Cancel Appointment' : (isConfirm ? 'Confirm Appointment' : 'Complete Appointment'),
-      message: `Are you sure you want to ${status.toLowerCase()} this appointment?`,
-      isMandatory: isCancel // Solo obligatorio si es cancelación
-    },
-    panelClass: 'custom-dialog-container' 
-  });
+    const dialogRef = this.dialog.open(CommentDialogComponent, {
+      width: '400px',
+      data: {
+        title: isCancel ? 'Cancel Appointment' : (isConfirm ? 'Confirm Appointment' : 'Complete Appointment'),
+        message: `Are you sure you want to ${status.toLowerCase()} this appointment?`,
+        isMandatory: isCancel // Solo obligatorio si es cancelación
+      },
+      panelClass: 'custom-dialog-container'
+    });
 
-  dialogRef.afterClosed().subscribe(comment => {
-    if (comment !== undefined) { 
-      if (isCancel) {
-        this.cancel(appointmentId, comment);
-      } else {
-        this.updateStatus(appointmentId, status, comment);
+    dialogRef.afterClosed().subscribe(comment => {
+      if (comment !== undefined) {
+        if (isCancel) {
+          this.cancel(appointmentId, comment);
+        } else {
+          this.updateStatus(appointmentId, status, comment);
+        }
       }
-    }
-  });
-}
+    });
+  }
 
- public cancel(appointmentId: number, comment: string) {
-  this.appointmentService.cancelAppointment(appointmentId, comment).subscribe(a => {
-    this.updateLocalList(a);
-  });
-}
+  public cancel(appointmentId: number, comment: string) {
+    this.appointmentService.cancelAppointment(appointmentId, comment).subscribe(a => {
+      this.updateLocalList(a);
+    });
+  }
 
   public confirm(appointmentId: number, comment: string) {
     this.appointmentService.confirmAppointment(appointmentId, comment).subscribe(a => {
@@ -165,19 +165,19 @@ openActionDialog(appointmentId: number, status: string): void {
     });
   }
   public updateStatus(appointmentId: number, status: string, comment: string) {
-  const payload = { id: appointmentId, status: status, comment: comment };
-  this.appointmentService.updateStatus(payload).subscribe(a => {
-    this.updateLocalList(a);
-  });
-}
-
-private updateLocalList(updatedApp: any) {
-  let app = this.appointments.find(ap => ap.id == updatedApp.id);
-  if (app) {
-    app.status = updatedApp.status;
-    app.comment = updatedApp.comment;
+    const payload = { id: appointmentId, status: status, comment: comment };
+    this.appointmentService.updateStatus(payload).subscribe(a => {
+      this.updateLocalList(a);
+    });
   }
-}
+
+  private updateLocalList(updatedApp: any) {
+    let app = this.appointments.find(ap => ap.id == updatedApp.id);
+    if (app) {
+      app.status = updatedApp.status;
+      app.comment = updatedApp.comment;
+    }
+  }
 
   openDialog(appointmentId: number): void {
     const dialogRef = this.dialog.open(CancelDialogComponent, {
