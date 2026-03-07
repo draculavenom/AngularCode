@@ -1,6 +1,12 @@
 .bg-light {
     background-color: #f8f9fa !important;
 }
+.user-name {
+    font-size: 0.9rem;
+    color: #3b5541;
+    font-weight: 500;
+    
+}
 
 
 /* Configuración Base del Calendario */
@@ -173,11 +179,11 @@
 }
 
 .btn-cal-info {
-    background: #0d6cf0;
     background: #46a00f;
     color: white;
     border: none;
 }
+
 
 .btn-cal-outline-danger {
     border: 1px solid #dc3545;
@@ -187,13 +193,11 @@
 
 .btn-cal-success:hover {
     background: #146c43;
-
-    background: #34624c;
     transform: translateY(-2px);
 }
 
 .btn-cal-info:hover {
-    background: #0a58ca;
+    background: #0b8003;
     transform: translateY(-2px);
 }
 
