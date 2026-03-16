@@ -10,29 +10,29 @@
                                 routerLink="/schedule" routerLinkActive="active"
                                 [routerLinkActiveOptions]="{exact: true}">
                                 <i class="bi bi-calendar-event me-3"></i>
-                                <span>Appointments</span>
+                                <span t>Appointments</span>
                             </a>
                             <a *ngIf="user?.role === 'USER'" class="nav-link" routerLink="/schedule"
                                 routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                                 <i class="bi bi-list-check me-3"></i>
-                                <span>My Appointments</span>
+                                <span t>My Appointments</span>
                             </a>
                             <a *ngIf="user?.role === 'USER'" class="nav-link" routerLink="/promo"
                             routerLinkActive="active" >
                                 <i class="bi bi-calendar-plus-fill me-3"></i>
-                                <span>Have my own calendar</span>
+                                <span t>Have my own calendar</span>
                             </a>
                             <a *ngIf="user?.role === 'USER'" class="nav-link" routerLink="/appointment-quick-slot"
                                 routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                                 <i class="bi bi-lightning-fill me-3"></i>
-                                <span>Quick Schedule</span>
+                                <span t>Quick Schedule</span>
                             </a>
 
                             <a *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'" class="nav-link"
                                 routerLink="/calendar" routerLinkActive="active"
                                 [routerLinkActiveOptions]="{exact: true}">
                                 <i class="bi bi-calendar3 me-3"></i>
-                                <span>Calendar</span>
+                                <span t>Calendar</span>
                             </a>
                             <a class="nav-link" routerLinkActive="active" [routerLink]="['/user', user.id]">
                                 <i class="bi bi-person-circle me-3"></i>
@@ -44,31 +44,31 @@
                             <a *ngIf="user?.role === 'ADMIN'" class="nav-link admin-link" routerLinkActive="active"
                                 routerLink="/users">
                                 <i class="bi bi-shield-lock me-3"></i>
-                                <span>Manage Users</span>
+                                <span t>Manage Users</span>
                             </a>
 
                             <ng-container *ngIf="user?.role === 'MANAGER'">
                                 <a class="nav-link" routerLinkActive="active" routerLink="/manager-users-list">
                                     <i class="bi bi-people me-3"></i>
-                                    <span>Users</span>
+                                    <span t>Users</span>
                                 </a>
                                 <a class="nav-link" routerLinkActive="active" routerLink="/notification">
                                     <i class="bi bi-bell me-3"></i>
-                                    <span>Notifications</span>
+                                    <span t>Notifications</span>
                                 </a>
                                 <a class="nav-link" routerLinkActive="active" routerLink="/schedule-configuration">
                                     <i class="bi bi-gear me-3"></i>
-                                    <span>Schedule Configuration</span>
+                                    <span t>Schedule Configuration</span>
                                 </a>
                                 <a class="nav-link" routerLinkActive="active" routerLink="/manager-appointment">
                                     <i class="bi bi-calendar-plus me-3"></i>
-                                    <span>Schedule for User</span>
+                                    <span t>Schedule for User</span>
                                 </a>
                             </ng-container>
                             <a *ngIf="user?.role === 'ADMIN'" class="nav-link" routerLinkActive="active"
                                 routerLink="/manager-options">
                                 <i class="bi bi-card-list me-3"></i>
-                                <span>Manager Options</span>
+                                <span t>Manager Options</span>
                             </a>
                         </nav>
                     </div>

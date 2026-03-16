@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -6,9 +6,14 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { DatePipe } from '@angular/common';
 import dayGridPlugin from '@fullcalendar/daygrid'; 
 import interactionPlugin from '@fullcalendar/interaction';
+import { AutoTranslateDirective } from './directives/auto-translate.directive';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es'
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -63,6 +68,10 @@ FullCalendarModule.registerPlugins([
 export function initializeApp(configService: ConfigService) {
   return () => configService.loadConfig();
 }
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -94,7 +103,8 @@ export function initializeApp(configService: ConfigService) {
     ManagerAppointmentComponent,
     AppointmentQuickSlotComponent,
     CommentDialogComponent,
-    LegalPageComponent
+    LegalPageComponent,
+    AutoTranslateDirective
 
   ],
   imports: [
@@ -119,6 +129,14 @@ export function initializeApp(configService: ConfigService) {
     MatCardModule,
     MatNativeDateModule,
     FullCalendarModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      defaultLanguage: 'en'
+    }),
   ],
   providers: [SecurityService, AuthGuard,
     ConfigService,
@@ -127,8 +145,15 @@ export function initializeApp(configService: ConfigService) {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [ConfigService],
-      multi: true
+      multi: true,
     },
+    {
+      provide: LOCALE_ID,
+      useFactory: () => {
+        // Intenta obtener el idioma del storage, si no, usa inglés por defecto
+        return localStorage.getItem('language') || 'en'; 
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

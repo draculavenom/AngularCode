@@ -1,0 +1,18 @@
+{
+  "privacy": {
+    "title": "Política de Privacidad",
+    "lastUpdated": "1 de marzo de 2026",
+    "content": "1. Información que recopilamos\n- Para dueños de negocios: Recopilamos el nombre de la empresa, detalles de contacto y agenda profesional.\n- Para clientes: Recopilamos nombres, números de teléfono y direcciones de correo electrónico.\n- Detalles de la cita: Almacenamos la fecha y la hora.\n\n2. Cómo utilizamos los datos\nUtilizamos estos datos para facilitar el proceso de reserva, notificar a ambas partes sobre el estado de la cita (Aceptada/Completada/Cancelada) y mantener el calendario del negocio.\n\n3. Intercambio de datos\nLos dueños de negocios tienen acceso a cierta información del cliente con el único fin de completar la cita. No vendemos estos datos a terceros.\n\n4. Responsabilidades del usuario\n"
+  },
+  "terms": {
+    "title": "Términos de Servicio",
+    "lastUpdated": "1 de marzo de 2026",
+    "content": "1. Descripción del servicio\nSomos una plataforma integral de gestión de citas diseñada para conectar a los usuarios con profesionales de diversos campos. Simplificamos el proceso de reserva, permitiendo a los clientes programar citas de manera rápida y eficiente, mientras que los profesionales optimizan sus agendas en tiempo real.\n\n2. Reserva de citas y cancelaciones\n- Solicitudes: Una solicitud de reserva no constituye una cita confirmada hasta que el dueño del negocio la acepte manualmente.\n- Exactitud: Los usuarios deben proporcionar información precisa. No nos hacemos responsables de las citas perdidas debido a datos incorrectos.\n\n3. Conducta y contenido\nLos dueños de negocios no deben utilizar la plataforma para servicios ilegales. Nos reservamos el derecho de suspender las cuentas que violen las regulaciones locales o utilicen el sistema para spam.\n\n4. Descargo de responsabilidad\nProporcionamos la plataforma 'tal cual'. No somos responsables de pérdidas comerciales, inasistencias o disputas entre los dueños y sus clientes."
+  },
+  "cookies": {
+    "isHtml": false,
+    "title": "Política de Cookies",
+    "lastUpdated": "1 de marzo de 2026",
+    "content": "En nuestra plataforma de gestión de citas, utilizamos cookies para garantizar que el proceso de reserva sea seguro, rápido y confiable tanto para los dueños de negocios como para sus clientes.\n\n1. ¿Qué son las cookies?\nLas cookies son pequeños archivos de texto almacenados en su navegador para recordar sus preferencias y sesiones activas.\n\n2. Cookies técnicas (necesarias)\nEstas cookies son esenciales para que el sistema funcione. Permiten:\n- Mantener activa la sesión del dueño del negocio en su panel de control.\n- Garantizar la seguridad mediante la prevención de ataques de suplantación durante la programación.\n\n3. Cookies de personalización\nUtilizamos cookies para recordar su zona horaria, asegurando que las horas de las citas se muestren correctamente tanto al profesional como al cliente, evitando errores de coordinación.\n\n4. Cookies de rendimiento\nAnalizamos de forma anónima cómo los usuarios interactúan con el calendario de citas para agilizar los pasos y reducir el tiempo necesario para programar.\n\n5. Control de cookies\nPuede configurar su navegador para bloquear o alertar sobre estas cookies, pero es posible que algunas partes del sistema de citas (como el inicio de sesión o la confirmación de reserva) no funcionen correctamente sin ellas."
+  }
+}

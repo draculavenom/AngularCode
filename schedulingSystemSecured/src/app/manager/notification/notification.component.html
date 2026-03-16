@@ -1,5 +1,5 @@
 <div class="center-container">
-  <div *ngIf="isLoading; else content" class="loader">
+  <div *ngIf="isLoading; else content" class="loader" t>
     Loading your notification preferences...
   </div>
 
@@ -7,50 +7,52 @@
     <div class="wrapper-layout">
 
       <div class="notification-card">
-        <h3>Notification Settings</h3>
-        <p class="instruction-text">Uncheck the boxes to <strong>disable</strong> the following notifications if you do
-          not wish to receive them.</p>
-
+        <h3 t>Notification Settings</h3>
+        <p class="instruction-text">
+          <span t>Uncheck the boxes to</span>
+          <strong t>disable</strong>
+          <span t>the following notifications if you do not wish to receive them.</span>
+        </p>
         <div class="options-grid">
           <label class="checkbox-container">
-            <input type="checkbox" [formControl]="appointmentStatusChanges"
-            [checked]="appointmentStatusChanges.value">
+            <input type="checkbox" [formControl]="appointmentStatusChanges" [checked]="appointmentStatusChanges.value">
             <span class="custom-checkbox"></span>
-            <span class="label-text">Notify end users of appointment status changes</span>
+            <span class="label-text" t>Notify end users of appointment status changes</span>
           </label>
 
           <label class="checkbox-container">
             <input type="checkbox" [formControl]="paymentRunsOut">
             <span class="custom-checkbox"></span>
-            <span class="label-text">Automated notifications (Payment reminders 5 or 1 day before)</span>
+            <span class="label-text" t>Automated notifications (Payment reminders 5 or 1 day before)</span>
           </label>
 
           <label class="checkbox-container">
             <input type="checkbox" [formControl]="appointmentCreated">
             <span class="custom-checkbox"></span>
-            <span class="label-text">Notify me when a new appointment is scheduled</span>
+            <span class="label-text" t>Notify me when a new appointment is scheduled</span>
           </label>
 
           <label class="checkbox-container">
             <input type="checkbox" [formControl]="appointmentTimeManager">
             <span class="custom-checkbox"></span>
-            <span class="label-text">Please notify me 5 minutes before the appointment, to remind me that I have an appointment.</span>
+            <span class="label-text" t>Please notify me 5 minutes before the appointment, to remind me that I have an
+              appointment.</span>
           </label>
 
           <label class="checkbox-container">
             <input type="checkbox" [formControl]="appointmentTimeUser">
             <span class="custom-checkbox"></span>
-            <span class="label-text">Notify the client 5 minutes before the appointment, to remind them that they have an appointment.</span>
+            <span class="label-text" t>Notify the client 5 minutes before the appointment, to remind them that they have
+              an appointment.</span>
           </label>
         </div>
 
         <p class="legend-text">
-          <small><i>Note: If you wish to re-enable any notification, simply check the corresponding box.</i></small>
+          <small><i t>Note: If you wish to re-enable any notification, simply check the corresponding box.</i></small>
         </p>
 
-        <button (click)="savePreference()" class="btn-save"
-          [disabled]="emailEnabled.pristine && appointmentStatusChanges.pristine && paymentRunsOut.pristine && appointmentCreated.pristine
-            && appointmentTimeManager.pristine && appointmentTimeUser.pristine">
+        <button (click)="savePreference()" class="btn-save" [disabled]="emailEnabled.pristine && appointmentStatusChanges.pristine && paymentRunsOut.pristine && appointmentCreated.pristine
+            && appointmentTimeManager.pristine && appointmentTimeUser.pristine" t>
           Update Preferences
         </button>
       </div>
@@ -60,7 +62,7 @@
         <i class="bi me-2" [class.bi-check-circle-fill]="messageClass === 'alert-success'"
           [class.bi-exclamation-triangle-fill]="messageClass === 'alert-danger'">
         </i>
-        <div>
+        <div t>
           {{ message }}
         </div>
 

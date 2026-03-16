@@ -4,6 +4,7 @@ import { UserService } from 'src/app/users/user.service';
 import { UsersModel } from 'src/app/users/users.model';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
  
 @Component({
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
   lastPublicRoute: string = '/onboarding-final';
 
   constructor(private securityService: SecurityService, private userService: UserService, private location: Location, 
-    private router: Router) {
+    private router: Router,private translate: TranslateService) {
       this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit {
       if (url.includes('promo') || url.includes('onboarding-final')) {
         this.lastPublicRoute = url;
       }
+      
     });
   }
 handleHomeClick() {
@@ -34,6 +36,13 @@ handleHomeClick() {
     } else {
       this.router.navigate([this.lastPublicRoute]);
     }
+  }
+  isCurrentLang(lang: string): boolean {
+    return (this.translate.currentLang || this.translate.defaultLang) === lang;
+  }
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
+    sessionStorage.setItem('preferredLang', lang);
   }
 
   ngOnInit(): void {

@@ -160,3 +160,38 @@
     justify-content: center;
   }
 }
+.lang-switcher-container {
+  display: inline-flex;
+  gap: 2px;
+  background-color: #f8f9fa; 
+  height: 36px;
+}
+
+
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: #6c757d; 
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 50rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+}
+
+
+.lang-btn:hover:not(.active) {
+  background-color: #e9ecef;
+  color: #343a40;
+}
+
+.lang-btn.active {
+  background-color: #ffffff; 
+  color: #3b702e;           
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}

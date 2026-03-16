@@ -3,7 +3,7 @@
         <div class="pagination-wrapper bg-white p-2 px-3 rounded-4 border shadow-sm">
             <i class="bi bi-eye text-color opacity-50 me-1"></i>
 
-            <span class="page-label small letter-spacing">Show</span>
+            <span class="page-label small letter-spacing" t>Show</span>
 
             <div class="custom-select-wrapper">
                 <select [(ngModel)]="pageSize" (change)="currentPage = 1" class="select-pill">
@@ -12,7 +12,7 @@
                 <i class="bi bi-chevron-down"></i>
             </div>
 
-            <span class="page-label small letter-spacing">Records</span>
+            <span class="page-label small letter-spacing" t>Records</span>
 
             <div class="vr mx-2 opacity-25" style="height: 20px;"></div>
             
@@ -26,9 +26,10 @@
 
 <div class="role-container mb-5" *ngIf="user.role == 'USER'">
     <header class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="display-6 fw-bold m-0">My Appointments</h2>
+        <h2 class="display-6 fw-bold m-0" t>My Appointments</h2>
         <a href="schedule/appointment" class="btn-appointment ">
-            <i class="bi bi-plus-lg me-2"></i>New Appointment
+            <i class="bi bi-plus-lg me-2"></i>
+            <span t>Appointment</span>
         </a>
     </header>
 
@@ -37,10 +38,10 @@
             <table class="improved-table">
                 <thead class="bg-light">
                     <tr>
-                        <th class="ps-4">Date & Schedule</th>
-                        <th>Status</th>
-                        <th>Comments</th>
-                        <th class="text-end pe-4">Actions</th>
+                        <th class="ps-4" t>Date & Schedule</th>
+                        <th t>Status</th>
+                        <th t>Comments</th>
+                        <th class="text-end pe-4" t>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,29 +49,29 @@
                         <td class="ps-4">
                             <div class="d-flex align-items-center">
                                 <div class="calendar-thumb me-3 shadow-sm">
-                                    <span class="month">{{appointment.date | date:'MMM'}}</span>
+                                    <span class="month">{{appointment.date | date:'MMM' : 'UTC' : currentLang}}</span>
                                     <span class="day">{{appointment.date | date:'dd'}}</span>
                                 </div>
                                 <div>
-                                    <div class="fw-bold text-dark">{{appointment.date}}</div>
+                                    <div class="fw-bold text-dark">{{appointment.date | date:'fullDate' : 'UTC' : currentLang}}</div>
                                     <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span class="badge-status" [attr.data-status]="appointment.status">
+                            <span class="badge-status" [attr.data-status]="appointment.status" t>
                                 {{appointment.status}}
                             </span>
                         </td>
                         <td>
-                            <span class="text-muted small">{{ appointment.comment || 'No comments' }}</span>
+                            <span class="text-muted small" t>{{ appointment.comment || 'No comments' }}</span>
                         </td>
                         <td class="text-end pe-4">
                             <a href="schedule/appointment/{{appointment.id}}" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-link btn-sm text-decoration-none me-2">
-                                <i class="bi bi-pencil"></i> Change
+                                <i class="bi bi-pencil"></i> <span t>Change</span>
                             </a>
                             <button (click)="openActionDialog(appointment.id, 'CANCELLED')" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-x-circle"></i> Cancel
+                                <i class="bi bi-x-circle"></i> <span t>Cancel</span>
                             </button>
                         </td>
                     </tr>
@@ -86,7 +87,7 @@
         <div class="icon-box-manager text-white me-3">
             <i class="bi bi-person-badge fs-4"></i>
         </div>
-        <h2 class="fw-bold h3 m-0 tracking-wider">Manager Dashboard</h2>
+        <h2 class="fw-bold h3 m-0 tracking-wider" t>Appointments from your company</h2>
     </div>
 
     <div class="glass-card shadow-sm">
@@ -94,11 +95,11 @@
             <table class="improved-table">
                 <thead>
                     <tr>
-                        <th class="ps-4">Appointment Info</th>
-                        <th>Status</th>
-                        <th>User name</th>
-                        <th>Comments</th>
-                        <th class="text-end pe-4">Management Actions</th>
+                        <th class="ps-4" t>Appointment Info</th>
+                        <th t>Status</th>
+                        <th t>User name</th>
+                        <th t>Comments</th>
+                        <th class="text-end pe-4" t>Management Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -106,31 +107,48 @@
                         <td class="ps-4">
                             <div class="d-flex align-items-center">
                                 <div class="calendar-thumb me-3 shadow-sm">
-                                    <span class="month">{{appointment.date | date:'MMM'}}</span>
+                                    <span class="month">{{appointment.date | date:'MMM' : 'UTC' : currentLang}}</span>
                                     <span class="day">{{appointment.date | date:'dd'}}</span>
                                 </div>
                                 <div>
-                                    <div class="fw-bold text-dark">{{appointment.date}}</div>
+                                    <div class="fw-bold text-dark">{{appointment.date | date:'fullDate' : 'UTC' : currentLang}}</div>
                                     <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
                                 </div>
                             </div>
                         </td>
-                        <td><span class="badge-status" [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
-                        <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || ' Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
-                       <td><span class="text-muted small">{{ appointment.comment || 'No comments' }}</span></td>
+                        <td><span class="badge-status" [attr.data-status]="appointment.status" t>{{appointment.status}}</span></td>
+                        <td>
+    <span class="text-capitalize small fw-bold text-secondary">
+        <ng-container *ngIf="appointment.firstName || appointment.lastName">
+            {{ appointment.firstName }} {{ appointment.lastName }}
+        </ng-container>
+        
+        <span *ngIf="!appointment.firstName && !appointment.lastName" t>Unknown user</span>
+    </span>
+</td>
+
+<td>
+    <span class="text-muted small">
+        <ng-container *ngIf="appointment.comment">
+            {{ appointment.comment }}
+        </ng-container>
+        
+        <span *ngIf="!appointment.comment" t>No comments</span>
+    </span>
+</td>
                         <td class="text-end pe-4">
                             <div class="d-flex justify-content-end gap-2">
                                 <button (click)="openActionDialog(appointment.id, 'CONFIRMED')" *ngIf="appointment.status == 'SCHEDULED'" 
                                 class="btn btn-link btn-sm text-decoration-none me-2">
-                                <i class="bi bi-check-circle"></i> Confirm</button>
+                                <i class="bi bi-check-circle"></i> <span t> Confirm </span></button>
                                 <button (click)="openActionDialog(appointment.id, 'COMPLETED')" 
                                 *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" 
                                 class="btn btn-link btn-sm text-decoration-none me-2 text-success">
-                                <i class="bi bi-check-circle"></i> Complete</button>
+                                <i class="bi bi-check-circle"></i> <span t>Completed </span></button>
                                 <button (click)="openActionDialog(appointment.id, 'CANCELLED')" 
                                 *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" 
                                 class="btn btn-link btn-sm text-decoration-none me-2 text-danger">
-                                <i class="bi bi-x-circle"></i> Cancel</button>
+                                <i class="bi bi-x-circle"></i> <span t>Cancel </span></button>
                             </div>
                         </td>
                     </tr>
@@ -142,7 +160,9 @@
 
 <div class="role-container mb-5" *ngIf="user.role == 'ADMIN'">
     <div class=" p-4 mb-4  text-dark ">
-        <h2 class="h2 mb-0 tracking-wider"><i class="bi bi-shield-check me-2"></i>Global Administration</h2>
+        <h2 class="h2 mb-0 tracking-wider"><i class="bi bi-shield-check me-2"></i>
+            <span t>Global Administration</span>
+        </h2>
     </div>
 
     <div class="glass-card  border-4">
@@ -150,11 +170,11 @@
             <table class="improved-table">
                 <thead>
                     <tr>
-                        <th class="ps-4">Date & Schedule</th>
-                        <th>Status</th>
-                        <th>Company</th>
-                        <th>User name</th>
-                        <th class="text-center">System Actions</th>
+                        <th class="ps-4" t>Date & Schedule</th>
+                        <th t>Status</th>
+                        <th t>Company</th>
+                        <th t>User name</th>
+                        <th class="text-center" t>Management Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -162,22 +182,36 @@
                         <td class="ps-4">
                             <div class="d-flex align-items-center">
                                 <div class="calendar-thumb me-3 shadow-sm">
-                                    <span class="month">{{appointment.date | date:'MMM'}}</span>
+                                    <span class="month">{{appointment.date | date:'MMM' : 'UTC' : currentLang}}</span>
                                     <span class="day">{{appointment.date | date:'dd'}}</span>
                                 </div>
                                 <div>
-                                    <div class="fw-bold text-dark">{{appointment.date}}</div>
+                                    <div class="fw-bold text-dark">{{appointment.date | date:'fullDate' : 'UTC' : currentLang}}</div>
                                     <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
                                 </div>
                             </div>
                         </td>
-                        <td><span class="badge-status" [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
-                        <td><span class="text-uppercase small fw-bold text-secondary">{{ $any(appointment).companyName || 'Without Company'}}</span></td>
-                        <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || ' Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
+                        <td><span class="badge-status" [attr.data-status]="appointment.status" t>{{appointment.status}}</span></td>
+                        <td>
+                            <span class=" small fw-bold text-secondary" t>
+                                <ng-container *ngIf="appointment.companyName ">
+                                {{ $any(appointment).companyName || 'Without Company'}}
+                                </ng-container>
+                                <span *ngIf="!appointment.companyName" t>Without Company</span>
+                            </span></td>
+                        <td>
+    <span class="text-capitalize small fw-bold text-secondary">
+        <ng-container *ngIf="appointment.firstName || appointment.lastName">
+            {{ appointment.firstName }} {{ appointment.lastName }}
+        </ng-container>
+        
+        <span *ngIf="!appointment.firstName && !appointment.lastName" t>Unknown user</span>
+    </span>
+</td>
                         <td class="text-center">
-                            <button (click)="openActionDialog(appointment.id, 'CONFIRMED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2"><i class="bi bi-check-circle"></i> Confirm</button>
-                            <button (click)="openActionDialog(appointment.id, 'CANCELLED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2 text-danger"><i class="bi bi-x-circle"></i> Cancel</button>
-                            <button (click)="openActionDialog(appointment.id, 'COMPLETED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2 text-success"><i class="bi bi-flag"></i> Complete</button>
+                            <button (click)="openActionDialog(appointment.id, 'CONFIRMED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2"><i class="bi bi-check-circle" t></i> Confirmed</button>
+                            <button (click)="openActionDialog(appointment.id, 'CANCELLED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2 text-danger"><i class="bi bi-x-circle" t></i> Cancel</button>
+                            <button (click)="openActionDialog(appointment.id, 'COMPLETED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2 text-success"><i class="bi bi-flag" t></i> Completed</button>
                         </td>
                     </tr>
                 </tbody>
@@ -193,7 +227,8 @@
                 
                 <li class="page-item" [class.disabled]="currentPage === 1">
                     <a class="page-link page-text-btn btn-op-primary shadow-sm" (click)="goToPage(1)" role="button">
-                        <i class="bi bi-chevron-double-left me-1"></i> First
+                        <i class="bi bi-chevron-double-left me-1"></i> 
+                        <span t>First</span>
                     </a>
                 </li>
 
@@ -205,7 +240,7 @@
 
                 <li class="page-item" [class.disabled]="currentPage === totalPages">
                     <a class="page-link page-text-btn btn-op-primary shadow-sm" (click)="goToPage(totalPages)" role="button">
-                        Last <i class="bi bi-chevron-double-right ms-1"></i>
+                        <span t>Last </span> <i class="bi bi-chevron-double-right ms-1"></i>
                     </a>
                 </li>
 

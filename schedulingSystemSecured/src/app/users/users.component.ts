@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { UsersModel } from './users.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-users',
@@ -12,8 +13,12 @@ export class UsersComponent implements OnInit {
   user: UsersModel = new UsersModel(0,"",true);
   users: UsersModel[] = [];
 
-  constructor(private userService: UserService) { }
-
+  constructor(private userService: UserService,
+    private translate: TranslateService
+  ) { }
+ get currentLang(): string {
+    return this.translate.currentLang || 'en';
+  }
   ngOnInit(): void {
     this.loadUserInfo();
     this.loadUsersInfo();

@@ -1,12 +1,14 @@
 <div class="landing-container">
   <div class="promo-card">
     <div class="image-wrapper">
-      <img src="assets/Flyer-publicitario-ingles.png" alt="Flyer Informativo Crear" class="flyer-img">
+      <img [src]="currentLang === 'es' ? 'assets/Flyer-publicitario-espanol.png' : 'assets/Flyer-publicitario-ingles.png'" 
+           alt="Flyer Informativo" 
+           class="flyer-img">
     </div>
 
     <div class="action-section" *ngIf="!isLoggedIn">
       <button (click)="goToLogin()" class="btn-login">
-        Acceder al Sistema
+        <span t>Access the System</span>
       </button>
     </div>
   </div>
