@@ -187,8 +187,17 @@
 
 .lang-btn:hover:not(.active) {
   background-color: #e9ecef;
-  color: #343a40;
+  color: #334535;
 }
+.flag-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.lang-label {
+  letter-spacing: 0.5px;
+}
+
 
 .lang-btn.active {
   background-color: #ffffff; 

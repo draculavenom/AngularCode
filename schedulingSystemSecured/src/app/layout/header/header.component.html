@@ -15,11 +15,15 @@
     <div class="ms-auto d-flex align-items-center gap-3">
 
       <div class="lang-switcher-container p-1 d-flex align-items-center bg-light rounded-pill border shadow-sm">
-        <button (click)="changeLanguage('en')" class="lang-btn" [class.active]="isCurrentLang('en')">
-          EN
+        <button (click)="changeLanguage('en')" class="lang-btn d-flex align-items-center gap-2"
+          [class.active]="isCurrentLang('en')">
+          <span class="flag-icon">🇺🇸</span>
+          <span class="lang-label">EN</span>
         </button>
-        <button (click)="changeLanguage('es')" class="lang-btn" [class.active]="isCurrentLang('es')">
-          ES
+        <button (click)="changeLanguage('es')" class="lang-btn d-flex align-items-center gap-2"
+          [class.active]="isCurrentLang('es')">
+          <span class="flag-icon">🇲🇽</span>
+          <span class="lang-label">ES</span>
         </button>
       </div>
 

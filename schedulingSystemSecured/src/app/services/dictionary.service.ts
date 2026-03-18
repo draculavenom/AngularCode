@@ -297,26 +297,6 @@ export class DictionaryService {
     'Edit': 'Editar',
     "You don't have the necessary permissions to view this page.": 'No tienes los permisos necesarios para ver esta página.',
     'Go to Dashboard': 'Ir al panel',
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   };
 
   translate(text: string, lang: string): string {
