@@ -63,21 +63,44 @@ export class CalendarComponent implements OnInit {
   public getAppointments() {
     this.userService.getUser().subscribe(u => {
       this.user = u;
-      const handleResponse = (data: AppointmentModel[]) => {
-        this.allAppointments = data || [];
-        this.applyFilter();
-        this.cdr.detectChanges();
-        if (this._calendar) {
-          this._calendar.updateTodaysDate();
-        }
-      };
 
+      let request;
       if (u.role === "USER") {
-        this.appointmentService.getAppointments(u.id).subscribe(handleResponse);
+        request = this.appointmentService.getAppointments(u.id);
       } else if (u.role === "MANAGER") {
-        this.appointmentService.getManagerAppointments(u.id).subscribe(handleResponse);
+        request = this.appointmentService.getManagerAppointments(u.id);
       } else if (u.role === "ADMIN") {
-        this.appointmentService.getAdminAppointments().subscribe(handleResponse);
+        request = this.appointmentService.getAdminAppointments();
+      }
+      if (request) {
+        request.subscribe(data => {
+          this.allAppointments = data || [];
+          this.applyFilter();
+
+          if (u.role === "ADMIN" || u.role === "MANAGER") {
+            this.fillUserNames();
+          }
+          if (this._calendar) {
+            this._calendar.updateTodaysDate();
+          }
+          this.cdr.detectChanges();
+        });
+      }
+    });
+  }
+
+  private fillUserNames() {
+    this.allAppointments.forEach(appo => {
+      if (appo.userId) {
+        this.userService.getUserById(appo.userId).subscribe({
+          next: (userData) => {
+            (appo as any).firstName = userData.firstName;
+            (appo as any).lastName = userData.lastName;
+
+            this.cdr.detectChanges();
+          },
+          error: (err) => console.error("Error al obtener usuario:", err)
+        });
       }
     });
   }

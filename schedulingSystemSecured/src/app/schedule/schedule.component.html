@@ -192,11 +192,11 @@
                                 class="btn btn-link btn-sm text-decoration-none me-2"><i class="bi bi-check-circle"></i>
                                 Confirm</button>
                             <button (click)="openActionDialog(appointment.id, 'CANCELLED')"
-                                *ngIf="appointment.status == 'SCHEDULED'"
+                                *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
                                 class="btn btn-link btn-sm text-decoration-none me-2 text-danger"><i
                                     class="bi bi-x-circle"></i> Cancel</button>
-                            <button (click)="openActionDialog(appointment.id, 'COMPLETED')"
-                                *ngIf="appointment.status == 'SCHEDULED'"
+                            <button (click)="openActionDialog(appointment.id, 'COMPLETED')" 
+                                *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
                                 class="btn btn-link btn-sm text-decoration-none me-2 text-success"><i
                                     class="bi bi-flag"></i> Complete</button>
                         </td>
