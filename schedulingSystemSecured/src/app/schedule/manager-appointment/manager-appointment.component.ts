@@ -33,28 +33,17 @@ export class ManagerAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser().subscribe(currentUser => {
-<<<<<<< HEAD
-      this.userService.getPersonsByManager(currentUser.id).subscribe({
-        next: (users) => {
-          this.managedUsers = users;
-        },
-=======
       this.managerId = currentUser.id;
       this.userService.getPersonsByManager(currentUser.id).subscribe({
         next: (users) => this.managedUsers = users,
->>>>>>> security
         error: () => this.errorMessage = "Could not load your managed users."
       });
     });
   }
 
   onDateChange(newDate: string) {
-<<<<<<< HEAD
-    this.appointment.date = new Date(newDate);
-=======
     const [y, m, d] = newDate.split('-').map(Number);
     this.appointment.date = new Date(y, m - 1, d);
->>>>>>> security
     this.loadSlots();
   }
   onUserChange() {
@@ -63,26 +52,6 @@ export class ManagerAppointmentComponent implements OnInit {
     this.availableSlots = [];
     this.successMessage = "";
     this.errorMessage = "";
-<<<<<<< HEAD
-  }
-
-  loadSlots() {
-    if (!this.appointment.userId || !this.appointment.date) return;
-
-    this.isLoadingSlots = true;
-    const dateStr = this.appointment.date.toISOString().split('T')[0];
-    this.userService.getUser().subscribe(u => {
-      this.managerService.getAvailableSlots(u.id, dateStr).subscribe({
-        next: (slots) => {
-          this.availableSlots = slots ? slots.map(s => s.substring(0, 5)) : [];
-          this.isLoadingSlots = false;
-        },
-        error: () => {
-          this.availableSlots = [];
-          this.isLoadingSlots = false;
-        }
-      });
-=======
     if (this.appointment.date) {
       this.loadSlots();
     }
@@ -118,7 +87,6 @@ export class ManagerAppointmentComponent implements OnInit {
         this.isLoadingSlots = false;
         this.errorMessage = "Could not load available slots for the selected date. Please try again later.";
       }
->>>>>>> security
     });
   }
 
