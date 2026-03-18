@@ -63,21 +63,46 @@ export class CalendarComponent implements OnInit {
   public getAppointments() {
     this.userService.getUser().subscribe(u => {
       this.user = u;
-      const handleResponse = (data: AppointmentModel[]) => {
-        this.allAppointments = data || [];
-        this.applyFilter();
-        this.cdr.detectChanges();
-        if (this._calendar) {
-          this._calendar.updateTodaysDate();
-        }
-      };
 
+
+      let request;
       if (u.role === "USER") {
-        this.appointmentService.getAppointments(u.id).subscribe(handleResponse);
+        request = this.appointmentService.getAppointments(u.id);
       } else if (u.role === "MANAGER") {
-        this.appointmentService.getManagerAppointments(u.id).subscribe(handleResponse);
+        request = this.appointmentService.getManagerAppointments(u.id);
       } else if (u.role === "ADMIN") {
-        this.appointmentService.getAdminAppointments().subscribe(handleResponse);
+        request = this.appointmentService.getAdminAppointments();
+      }
+      if (request) {
+        request.subscribe(data => {
+          this.allAppointments = data || [];
+          this.applyFilter();
+
+          if (u.role === "ADMIN" || u.role === "MANAGER") {
+            this.fillUserNames();
+          }
+          if (this._calendar) {
+            this._calendar.updateTodaysDate();
+          }
+          this.cdr.detectChanges();
+        });
+      }
+    });
+  }
+
+  private fillUserNames() {
+    this.allAppointments.forEach(appo => {
+      if (appo.userId) {
+        this.userService.getUserById(appo.userId).subscribe({
+          next: (userData) => {
+            (appo as any).firstName = userData.firstName;
+            (appo as any).lastName = userData.lastName;
+
+            this.cdr.detectChanges();
+          },
+          error: (err) => console.error("Error al obtener usuario:", err)
+        });
+
       }
     });
   }
@@ -107,6 +132,34 @@ export class CalendarComponent implements OnInit {
     }
   }
 
+
+  openActionDialog(appointmentId: number, status: string): void {
+    const isCancel = status === 'CANCELLED';
+    const isConfirm = status === 'CONFIRMED';
+    const isComplete = status === 'COMPLETED';
+
+    const dialogRef = this.dialog.open(CommentDialogComponent, {
+      width: '400px',
+      data: {
+        title: isCancel ? 'Cancel Appointment' : (isConfirm ? 'Confirm Appointment' : 'Complete Appointment'),
+        message: `Are you sure you want to ${status.toLowerCase()} this appointment?`,
+        isMandatory: isCancel // Solo obligatorio si es cancelación
+      },
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(comment => {
+      if (comment !== undefined) {
+        if (isCancel) {
+          this.cancel(appointmentId, comment);
+        } else {
+          this.updateStatus(appointmentId, status, comment);
+        }
+      }
+    });
+  }
+
+
   public cancel(appointmentId: number, comment: string) {
     this.appointmentService.cancelAppointment(appointmentId, comment).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
@@ -117,21 +170,38 @@ export class CalendarComponent implements OnInit {
   
 
 
-public confirm(appointmentId: number, comment: string = "Confirmed via Calendar") {
-  this.appointmentService.confirmAppointment(appointmentId, comment).subscribe(a => {
-    let app = this.appointments.find(ap => ap.id == a.id);
-    if (app !== undefined) app.status = a.status;
-    this.cdr.detectChanges(); 
-  });
-}
 
-public complete(appointmentId: number, comment: string = "Completed via Calendar") {
-  this.appointmentService.completeAppointment(appointmentId, comment).subscribe(a => {
-    let app = this.appointments.find(ap => ap.id == a.id);
-    if (app !== undefined) app.status = a.status;
-    this.cdr.detectChanges();
-  });
-}
+
+  public confirm(appointmentId: number, comment: string = "Confirmed via Calendar") {
+    this.appointmentService.confirmAppointment(appointmentId, comment).subscribe(a => {
+      let app = this.appointments.find(ap => ap.id == a.id);
+      if (app !== undefined) app.status = a.status;
+      this.cdr.detectChanges();
+    });
+  }
+
+  public complete(appointmentId: number, comment: string = "Completed via Calendar") {
+    this.appointmentService.completeAppointment(appointmentId, comment).subscribe(a => {
+      let app = this.appointments.find(ap => ap.id == a.id);
+      if (app !== undefined) app.status = a.status;
+      this.cdr.detectChanges();
+    });
+  }
+
+
+  public updateStatus(appointmentId: number, status: string, comment: string) {
+    const payload = { id: appointmentId, status: status, comment: comment };
+    this.appointmentService.updateStatus(payload).subscribe(a => {
+      this.updateLocalList(a);
+    });
+  }
+  private updateLocalList(updatedApp: any) {
+    let app = this.appointments.find(ap => ap.id == updatedApp.id);
+    if (app) {
+      app.status = updatedApp.status;
+      app.comment = updatedApp.comment;
+    }
+  }
 
   openDialog(appointmentId: number): void {
     const dialogRef = this.dialog.open(CancelDialogComponent, {
@@ -139,9 +209,11 @@ public complete(appointmentId: number, comment: string = "Completed via Calendar
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.id) {
-      this.cancel(result.id, result.comment || "Cancelled by manager");
-    }
-  });
+
+        this.cancel(result.id, result.comment || "Cancelled by manager");
+      }
+    });
+
   }
 
   public onSelect(event: Event) {

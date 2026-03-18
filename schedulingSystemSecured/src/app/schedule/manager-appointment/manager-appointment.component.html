@@ -28,7 +28,9 @@
                     <div class="mb-4">
                         <label class="form-label fw-bold">Available Time</label>
                         <select class="form-select custom-input" [(ngModel)]="appointment.time" name="time"
-                            [disabled]="isLoadingSlots || !appointment.userId" required>
+
+                            [disabled]="isLoadingSlots || !appointment.userId || availableSlots.length === 0" required>
+
                             <option value="">{{ isLoadingSlots ? 'Loading...' : 'Select a time' }}</option>
                             <option *ngFor="let t of availableSlots" [value]="t">{{ t }}</option>
                         </select>

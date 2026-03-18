@@ -15,7 +15,7 @@
             <span class="page-label small letter-spacing">Records</span>
 
             <div class="vr mx-2 opacity-25" style="height: 20px;"></div>
-            
+
             <span class="badge bg-light text-dark rounded-pill fw-normal border px-3">
                 Total: {{pagedAppointments.length}}
             </span>
@@ -53,7 +53,8 @@
                                 </div>
                                 <div>
                                     <div class="fw-bold text-dark">{{appointment.date}}</div>
-                                    <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
+                                    <div class="text-muted small"><i
+                                            class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
                                 </div>
                             </div>
                         </td>
@@ -66,10 +67,17 @@
                             <span class="text-muted small">{{ appointment.comment || 'No comments' }}</span>
                         </td>
                         <td class="text-end pe-4">
-                            <a href="schedule/appointment/{{appointment.id}}" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-link btn-sm text-decoration-none me-2">
+                            <a [routerLink]="['/schedule/appointment', appointment.id]"
+                                *ngIf="appointment.status == 'SCHEDULED'"
+                                class="btn btn-link btn-sm text-decoration-none me-2">
                                 <i class="bi bi-pencil"></i> Change
                             </a>
+<<<<<<< HEAD
                             <button (click)="openActionDialog(appointment.id, 'CANCELLED')" *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-sm btn-outline-danger">
+=======
+                            <button (click)="openActionDialog(appointment.id, 'CANCELLED')"
+                                *ngIf="appointment.status == 'SCHEDULED'" class="btn btn-sm btn-outline-danger">
+>>>>>>> security
                                 <i class="bi bi-x-circle"></i> Cancel
                             </button>
                         </td>
@@ -111,26 +119,31 @@
                                 </div>
                                 <div>
                                     <div class="fw-bold text-dark">{{appointment.date}}</div>
-                                    <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
+                                    <div class="text-muted small"><i
+                                            class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
                                 </div>
                             </div>
                         </td>
-                        <td><span class="badge-status" [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
-                        <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || ' Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
-                       <td><span class="text-muted small">{{ appointment.comment || 'No comments' }}</span></td>
+
+                        <td><span class="badge-status"
+                                [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
+                        <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || '
+                                Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
+                        <td><span class="text-muted small">{{ appointment.comment || 'No comments' }}</span></td>
                         <td class="text-end pe-4">
                             <div class="d-flex justify-content-end gap-2">
-                                <button (click)="openActionDialog(appointment.id, 'CONFIRMED')" *ngIf="appointment.status == 'SCHEDULED'" 
-                                class="btn btn-link btn-sm text-decoration-none me-2">
-                                <i class="bi bi-check-circle"></i> Confirm</button>
-                                <button (click)="openActionDialog(appointment.id, 'COMPLETED')" 
-                                *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" 
-                                class="btn btn-link btn-sm text-decoration-none me-2 text-success">
-                                <i class="bi bi-check-circle"></i> Complete</button>
-                                <button (click)="openActionDialog(appointment.id, 'CANCELLED')" 
-                                *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'" 
-                                class="btn btn-link btn-sm text-decoration-none me-2 text-danger">
-                                <i class="bi bi-x-circle"></i> Cancel</button>
+                                <button (click)="openActionDialog(appointment.id, 'CONFIRMED')"
+                                    *ngIf="appointment.status == 'SCHEDULED'"
+                                    class="btn btn-link btn-sm text-decoration-none me-2">
+                                    <i class="bi bi-check-circle"></i> Confirm</button>
+                                <button (click)="openActionDialog(appointment.id, 'COMPLETED')"
+                                    *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
+                                    class="btn btn-link btn-sm text-decoration-none me-2 text-success">
+                                    <i class="bi bi-check-circle"></i> Complete</button>
+                                <button (click)="openActionDialog(appointment.id, 'CANCELLED')"
+                                    *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
+                                    class="btn btn-link btn-sm text-decoration-none me-2 text-danger">
+                                    <i class="bi bi-x-circle"></i> Cancel</button>
                             </div>
                         </td>
                     </tr>
@@ -167,17 +180,32 @@
                                 </div>
                                 <div>
                                     <div class="fw-bold text-dark">{{appointment.date}}</div>
-                                    <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
+                                    <div class="text-muted small"><i
+                                            class="bi bi-clock me-1"></i>{{appointment.time.substring(0, 5)}}</div>
                                 </div>
                             </div>
                         </td>
-                        <td><span class="badge-status" [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
-                        <td><span class="text-uppercase small fw-bold text-secondary">{{ $any(appointment).companyName || 'Without Company'}}</span></td>
-                        <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || ' Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
+
+                        <td><span class="badge-status"
+                                [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
+                        <td><span class="text-uppercase small fw-bold text-secondary">{{ $any(appointment).companyName
+                                || 'Without Company'}}</span></td>
+                        <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || '
+                                Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
                         <td class="text-center">
-                            <button (click)="openActionDialog(appointment.id, 'CONFIRMED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2"><i class="bi bi-check-circle"></i> Confirm</button>
-                            <button (click)="openActionDialog(appointment.id, 'CANCELLED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2 text-danger"><i class="bi bi-x-circle"></i> Cancel</button>
-                            <button (click)="openActionDialog(appointment.id, 'COMPLETED')" *ngIf="appointment.status == 'SCHEDULED'"  class="btn btn-link btn-sm text-decoration-none me-2 text-success"><i class="bi bi-flag"></i> Complete</button>
+                            <button (click)="openActionDialog(appointment.id, 'CONFIRMED')"
+                                *ngIf="appointment.status == 'SCHEDULED'"
+                                class="btn btn-link btn-sm text-decoration-none me-2"><i class="bi bi-check-circle"></i>
+                                Confirm</button>
+                            <button (click)="openActionDialog(appointment.id, 'CANCELLED')"
+                                *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
+                                class="btn btn-link btn-sm text-decoration-none me-2 text-danger"><i
+                                    class="bi bi-x-circle"></i> Cancel</button>
+                            <button (click)="openActionDialog(appointment.id, 'COMPLETED')" 
+                                *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
+                                class="btn btn-link btn-sm text-decoration-none me-2 text-success"><i
+                                    class="bi bi-flag"></i> Complete</button>
+
                         </td>
                     </tr>
                 </tbody>
@@ -186,11 +214,11 @@
     </div>
 </div>
 
- <div class="row mt-4" *ngIf="totalPages > 1">
+<div class="row mt-4" *ngIf="totalPages > 1">
     <div class="col-sm-12">
         <nav aria-label="Page navigation" class="pagination-container">
             <ul class="pagination modern-pagination justify-content-center align-items-center">
-                
+
                 <li class="page-item" [class.disabled]="currentPage === 1">
                     <a class="page-link page-text-btn btn-op-primary shadow-sm" (click)="goToPage(1)" role="button">
                         <i class="bi bi-chevron-double-left me-1"></i> First
@@ -204,14 +232,17 @@
                 </li>
 
                 <li class="page-item" [class.disabled]="currentPage === totalPages">
-                    <a class="page-link page-text-btn btn-op-primary shadow-sm" (click)="goToPage(totalPages)" role="button">
+
+                    <a class="page-link page-text-btn btn-op-primary shadow-sm" (click)="goToPage(totalPages)"
+                        role="button">
+
                         Last <i class="bi bi-chevron-double-right ms-1"></i>
                     </a>
                 </li>
 
             </ul>
         </nav>
-        
+
         <div class="text-center">
             <span class="text-muted small">Page {{currentPage}} of {{totalPages}}</span>
         </div>

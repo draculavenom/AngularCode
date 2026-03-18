@@ -39,6 +39,12 @@
                                 <span>{{username}}</span>
                             </a>
 
+                              <a *ngIf="user?.role === 'MANAGER'" class="nav-link" routerLinkActive="active" routerLink="/manager-appointment">
+                                    <i class="bi bi-calendar-plus me-3"></i>
+                                    <span>Schedule for User</span>
+                                </a>
+
+
                             <hr class="my-2 mx-2 opacity-10" *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'">
 
                             <a *ngIf="user?.role === 'ADMIN'" class="nav-link admin-link" routerLinkActive="active"
