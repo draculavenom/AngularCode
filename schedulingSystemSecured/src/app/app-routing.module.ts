@@ -23,6 +23,8 @@ import { ScheduleConfigurationComponent } from './manager/schedule-configuration
 import { LegalPageComponent } from './layout/legal-page/legal-page.component';
 import { ManagerAppointmentComponent } from './schedule/manager-appointment/manager-appointment.component';
 import { AppointmentQuickSlotComponent } from './schedule/appointment-quick-slot/appointment-quick-slot.component';
+import { CompanyNumberComponent} from './manager/company-number/company-number.component';
+import { ManagementModuleComponent} from './manager/management-module/management-module.component';
 
 const routes: Routes = [
   { path: '', component: OnboardingFinalComponent},
@@ -55,6 +57,8 @@ const routes: Routes = [
   { path: 'cookies', component: LegalPageComponent, data: { type: 'cookies' } },
   { path: 'manager-appointment', component: ManagerAppointmentComponent, canActivate: [AuthGuard] },
   { path: 'appointment-quick-slot', component: AppointmentQuickSlotComponent, canActivate: [AuthGuard] },
+  { path: 'company-number', component: CompanyNumberComponent, canActivate: [AuthGuard]},
+  { path: 'management-module', component: ManagementModuleComponent, canActivate: [AuthGuard],}
   
 ];
 

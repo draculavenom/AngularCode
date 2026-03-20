@@ -1,0 +1,127 @@
+.numberCompany-container {
+  max-width: 650px;
+  margin: 2rem auto;
+}
+
+.numberCompany-card {
+  border: 1px solid #e2f0e4;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.numberCompany-header {
+  background: #e7f4e7;
+  border-bottom: 1px solid #e3f0e2;
+  padding: 1.25rem 1.5rem;
+}
+
+.numberCompany-title {
+  color: #3b702e;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.numberCompany-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #648b70;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-select, .form-control {
+  border: 1px solid #cfe1cb;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.form-select:focus, .form-control:focus {
+  border-color: #2abe2f;
+  box-shadow: 0 0 0 4px rgba(59, 246, 90, 0.191);
+}
+
+.preview-box {
+  background: #f2f9f1;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preview-number {
+  font-family: 'Monaco', 'Consolas', monospace;
+  color: #049618;
+  letter-spacing: 0.5px;
+}
+
+.btn-numberCompany {
+  background-color: #3b702e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.btn-numberCompany:hover{
+    background-color: #058c09;
+    transform: translateY(-2px);
+}
+
+.btn-numberCompany:hover:not(:disabled) {
+  background-color: #0e7811;
+}
+
+.btn-numberCompany:disabled {
+  background-color: #94b897;
+  cursor: not-allowed;
+}
+
+.animate-in {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.loading-overlay {
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+.alert {
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.alert-success {
+  background-color: #ecfdf5;
+  color: #065f46;
+}
+
+.alert-danger {
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.animate-in {
+  animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

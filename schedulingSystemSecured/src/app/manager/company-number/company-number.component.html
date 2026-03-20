@@ -1,0 +1,94 @@
+<div class="numberCompany-container px-3">
+    <div class="numberCompany-card shadow-sm">
+
+        <div class="numberCompany-header">
+            <div class="d-flex align-items-center">
+                <div class="bg-success text-white rounded-circle p-2 me-3 d-flex align-items-center justify-content-center"
+                    style="width: 35px; height: 35px;">
+                    <i class="bi bi-whatsapp"></i>
+                </div>
+                <h5 class="numberCompany-title mb-0">Number configuration for companies</h5>
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+
+            <div class="mb-4">
+                <label class="numberCompany-label ">
+                    <span><i class="bi bi-building-fill me-2"></i>Select Company </span> </label>
+                <select class="form-select form-select-md py-2" [(ngModel)]="selectedManagerId"
+                    (change)="onCompanySelected()">
+                    <option [ngValue]="null">Choose a company...</option>
+                    <option *ngFor="let item of companies" [ngValue]="item.managerId">
+                        {{ item.companyName }}
+                    </option>
+                </select>
+            </div>
+
+            <div *ngIf="selectedManagerId" class="animate-in">
+                <hr class="my-4 text-muted opacity-25">
+
+                <label class="numberCompany-label ">Set Phone Number</label>
+
+                <div class="input-group mb-3">
+                    <select class="form-select flex-grow-0 border-end-0"
+                        style="width: 110px; background-color: #fcfcfc;" [(ngModel)]="selectedPrefix"
+                        (change)="onPrefixChange()">
+                        <option *ngFor="let c of countries" [value]="c.code">
+                            {{ c.flag }} +{{ c.code }}
+                        </option>
+                    </select>
+
+                    <input type="text" class="form-control form-control-lg" [(ngModel)]="localNumber"
+                        (input)="formatNumber()" [placeholder]="'Escribe ' + selectedCountry!.len + ' dígitos'"
+                        [maxlength]="selectedCountry!.len"
+                        [class.is-invalid]="localNumber.length > 0 && !isNumberValid()"
+                        [class.is-valid]="isNumberValid()">
+                </div>
+
+                <div class="mb-4" style="min-height: 20px;">
+                    <small *ngIf="localNumber.length > 0 && !isNumberValid()" class="text-danger fw-medium">
+                        <i class="bi bi-exclamation-diamond-fill"></i>
+                        There are not enough digits for {{ selectedCountry?.name }} ({{ localNumber.length }}/{{
+                        selectedCountry?.len }})
+                    </small>
+                    <small *ngIf="isNumberValid()" class="text-success fw-medium">
+                        <i class="bi bi-check2-circle me-1"></i> Valid number
+                    </small>
+                </div>
+
+                <div class="preview-box mb-4">
+                    <span class="small text-muted fw-bold">Preview</span>
+                    <span class="preview-number h5 mb-0">+{{ selectedPrefix }} {{ localNumber || '----------' }}</span>
+                </div>
+
+
+
+                <button class="btn-numberCompany w-100 py-3 d-flex align-items-center justify-content-center"
+                    (click)="save()" [disabled]="!isNumberValid() || loading">
+
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    <i *ngIf="!loading" class="bi bi-cloud-arrow-up-fill me-2"></i>
+
+                    <span>{{ loading ? 'Saving...' : 'Save Changes' }}</span>
+                </button>
+            </div>
+            <div *ngIf="message"
+                [class]="'alert ' + messageClass + ' alert-dismissible fade show d-flex align-items-center animate-in mb-3'"
+                role="alert">
+                <i class="bi me-2"
+                    [ngClass]="messageClass === 'alert-success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'"></i>
+                <div>{{ message }}</div>
+                <button type="button" class="btn-close shadow-none" (click)="message = null"
+                    aria-label="Close"></button>
+            </div>
+
+            <div *ngIf="!selectedManagerId" class="text-center py-5">
+
+                <i class="bi bi-building-gear display-4 opacity-25"></i>
+                <p class="text-muted fw-medium">Select a manager from the list to<br>create or edit the number</p>
+            </div>
+
+        </div>
+    </div>
+</div>

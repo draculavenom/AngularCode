@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SecurityService } from 'src/app/security/security.service';
@@ -64,6 +64,39 @@ export class ManagerService {
         headers: this.headers,
         params: { date: date }
       }
+    );
+  }
+  public getCompanyNumber(managerId: number): Observable<any> {
+    this.updateHeaders();
+    return this.http.get<any>(
+      `${this.configService.apiUrl}/api/v1/companyNumber/${managerId}`,
+      { headers: this.headers }
+    );
+  }
+
+  public saveCompanyNumber(managerId: number, companyNumber: string): Observable<any> {
+    this.updateHeaders();
+    const body = { companyNumber: companyNumber };
+    return this.http.post(
+      `${this.configService.apiUrl}/api/v1/companyNumber/${managerId}`,
+      body,
+      { headers: this.headers }
+    );
+  }
+  public getManagementModules(managerId: number): Observable<any> {
+    this.updateHeaders();
+    return this.http.get<any>(
+      `${this.configService.apiUrl}/api/v1/management-modules/${managerId}`,
+      { headers: this.headers }
+    );
+  }
+  public updateManagementModules(managerId: number, whatsappNotification: boolean): Observable<any> {
+    this.updateHeaders();
+    const body = { whatsappNotification: whatsappNotification };
+    return this.http.put<any>(
+      `${this.configService.apiUrl}/api/v1/management-modules/${managerId}`,
+      body,
+      { headers: this.headers }
     );
   }
 
