@@ -4,6 +4,8 @@ import { AppointmentService } from '../appointment/appointment.service';
 import { AppointmentModel } from '../appointment/appointment.model';
 import { UserService } from 'src/app/users/user.service';
 import { Router } from '@angular/router';
+import { ManagerOptionsModel } from '../../users/manager.options';
+import { UsersModel } from 'src/app/users/users.model';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class AppointmentQuickSlotComponent implements OnInit {
   userData: any = null;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
 
   constructor(
     private managerService: ManagerService,
@@ -32,6 +35,7 @@ export class AppointmentQuickSlotComponent implements OnInit {
     this.userService.getUser().subscribe(user => {
       this.userData = user;
       if (user && user.managedBy) {
+        this.loadManagerDetails(user.managedBy);
         this.findNextAvailable(user.managedBy, new Date(), 0);
       }
     });
@@ -80,10 +84,10 @@ export class AppointmentQuickSlotComponent implements OnInit {
           console.log(` Suggested appointment found!: ${dateStr} at ${validSlots[0]}`);
           const finalDate = new Date(date);
           finalDate.setHours(0, 0, 0, 0)
-          this.quickSlot = { 
-        date: finalDate, 
-        time: validSlots[0].substring(0, 5) 
-    };
+          this.quickSlot = {
+            date: finalDate,
+            time: validSlots[0].substring(0, 5)
+          };
           this.isLoading = false;
         } else {
           console.log(`No available slots on ${dateStr}, skipping to next day...`);
@@ -132,4 +136,38 @@ export class AppointmentQuickSlotComponent implements OnInit {
       }
     });
   }
+
+  private loadManagerDetails(id: number | null) {
+    if (!id) return;
+
+    this.userService.getUserById(id).subscribe({
+      next: (userFullData: any) => {
+        this.managerOptions = new ManagerOptionsModel(id);
+        const name = userFullData.firstName || userFullData.name || '';
+        const lastName = userFullData.lastName || '';
+        this.managerOptions.name = `${name} ${lastName}`.trim();
+        this.userService.getManagerSelect().subscribe({
+          next: (managers: any[]) => {
+            const foundSelection = managers.find(m => m.managerId === id || m.id === id);
+            if (foundSelection) {
+              this.managerOptions.nameCompany = foundSelection.name;
+            }
+          }
+        });
+      }
+    });
+  }
+
+  public getAvatarColorClass(managerId: any): string {
+    const id = Number(managerId);
+    if (!id || isNaN(id)) {
+      return 'avatar-color-0';
+    }
+
+    const numberOfColors = 6;
+    const colorIndex = id % numberOfColors;
+
+    return `avatar-color-${colorIndex}`;
+  }
+
 }

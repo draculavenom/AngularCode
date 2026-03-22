@@ -4,7 +4,10 @@ import { UserService } from 'src/app/users/user.service';
 import { AppointmentService } from './appointment.service';
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
 import { SecurityService } from 'src/app/security/security.service';
+import { ManagerOptionsModel } from '../../users/manager.options';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UsersModel } from 'src/app/users/users.model';
+
 import { error } from '@angular/compiler/src/util';
 
 @Component({
@@ -23,6 +26,7 @@ export class AppointmentComponent implements OnInit {
   availableSlots: string[] = [];
   managersList: any[] = [];
   resolvedManagerId: number | null = null;
+  managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
 
   constructor(
     private userService: UserService,
@@ -49,6 +53,7 @@ export class AppointmentComponent implements OnInit {
                 this.convertTime(a);
                 this.resolvedManagerId = a.managerId || u.managedBy;
                 console.log("Manager identified through appointment:", this.resolvedManagerId);
+                this.loadManagerDetails(this.resolvedManagerId);
                 this.loadSlots();
               },
               error: (err: any) => {
@@ -59,6 +64,7 @@ export class AppointmentComponent implements OnInit {
             if (u.managedBy) {
               this.resolvedManagerId = u.managedBy;
               console.log("Manager identified through direct relationship:", this.resolvedManagerId);
+              this.loadManagerDetails(this.resolvedManagerId);
               this.loadSlots();
             } else {
               this.errorMessage = "You don't have a manager assigned. Please contact support.";
@@ -68,6 +74,33 @@ export class AppointmentComponent implements OnInit {
       });
     });
   }
+
+  private loadManagerDetails(id: number | null) {
+    if (!id) return;
+
+    this.userService.getUserById(id).subscribe({
+      next: (userFullData: UsersModel) => {
+        this.managerOptions = new ManagerOptionsModel(id);
+        this.managerOptions.name = `${userFullData.firstName || ''} ${userFullData.lastName || ''}`.trim();
+        this.userService.getManagerSelect().subscribe({
+          next: (managers: any[]) => {
+            const foundSelection = managers.find(m => m.managerId === id || m.id === id);
+
+            if (foundSelection) {
+              this.managerOptions.nameCompany = foundSelection.name;
+              console.log("Final data:", this.managerOptions);
+            }
+          },
+          error: (err) => console.error("Error loading the company. ", err)
+        });
+      },
+      error: (err) => {
+        console.error("Error loading manager`s data", err);
+
+      }
+    });
+  }
+
 
   public loadSlots() {
     if (!this.resolvedManagerId) return;
@@ -97,7 +130,7 @@ export class AppointmentComponent implements OnInit {
           const myCurrentTime = this.appointment.time.substring(0, 5);
           if (!displaySlots.includes(myCurrentTime)) {
             displaySlots.push(myCurrentTime);
-            displaySlots.sort(); 
+            displaySlots.sort();
           }
           console.log("Ensured current appointment time is included in slots:", displaySlots);
         }
@@ -112,8 +145,6 @@ export class AppointmentComponent implements OnInit {
       }
     });
   }
-
-
 
   public onDateChange(newDateValue: string) {
     if (newDateValue) {
@@ -166,4 +197,17 @@ export class AppointmentComponent implements OnInit {
       this.appointment.date = dateObj;
     }
   }
+
+  public getAvatarColorClass(managerId: any): string {
+  const id = Number(managerId);
+  if (!id || isNaN(id)) {
+    return 'avatar-color-0';
+  }
+
+  const numberOfColors = 6; 
+  const colorIndex = id % numberOfColors;
+  
+  return `avatar-color-${colorIndex}`;
+}
+
 }

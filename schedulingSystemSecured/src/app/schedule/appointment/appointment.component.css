@@ -1,4 +1,3 @@
-
 .appointment-card {
     background: #ffffff;
     border-radius: 16px;
@@ -6,11 +5,12 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     border: 1px solid #f0f2f5;
     width: 100%;
-    max-width: 600px; 
+    max-width: 600px;
     margin: 0 auto;
     box-sizing: border-box;
 }
-.text-color{
+
+.text-color {
     color: #3b702e;
     text-align: center;
 }
@@ -39,7 +39,7 @@
     border-radius: 10px;
     padding: 0.75rem 1rem;
     transition: all 0.3s ease;
-    width: 100%; 
+    width: 100%;
     font-size: 16px !important;
 }
 
@@ -87,7 +87,7 @@
     border-radius: 10px;
     font-weight: 600;
     background: transparent;
-    flex: 1; 
+    flex: 1;
     text-align: center;
     display: inline-flex;
     justify-content: center;
@@ -110,7 +110,6 @@
     gap: 4px;
 }
 
-
 .alert-custom-danger {
     background-color: #fff5f5;
     border: 1px solid #feb2b2;
@@ -121,7 +120,7 @@
 
 .promo-mini-box {
     background-color: #f9fbf8;
-    border: 1px dashed #3b702e; 
+    border: 1px dashed #3b702e;
     border-radius: 10px;
     padding: 1rem;
     margin-top: 10px;
@@ -130,7 +129,7 @@
 
 .promo-text {
     color: #4a5568;
-    font-size: 0.85rem; 
+    font-size: 0.85rem;
     margin-bottom: 8px;
     line-height: 1.3;
 }
@@ -156,32 +155,117 @@
     transform: scale(1.02);
 }
 
-/* Animación de entrada suave */
+.appo-card {
+    border: 1px solid #e9ecef !important;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 1px 0 rgba(0, 0, 0, 0.02) !important;
+    border-left: 4px solid #278c0d !important;
+}
+
+.avatar-color-1 {
+    background-color: #cfd9e7;
+    color: #065cde;
+}
+
+.avatar-color-2 {
+    background-color: #bbd9cb;
+    color: #0f5132;
+}
+
+.avatar-color-3 {
+    background-color: #cbbfe3;
+    color: #563d7c;
+}
+
+.avatar-color-4 {
+    background-color: #d4c8a0;
+    color: #856404;
+}
+
+.avatar-color-5 {
+    background-color: #e6c4c6;
+    color: #842029;
+}
+
+.avatar-color-6 {
+    background-color: #b5d6dd;
+    color: #087990;
+}
+
+.avatar-color-7 {
+    background-color: #c8a3d0;
+    color: #5a3f5b;
+}
+
+.avatar-color-8 {
+    background-color: #e3ddc0;
+    color: #de8405;
+}
+
+.appo-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    font-weight: bold;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.extra-small {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+.text-secondary {
+    color: #6c757d !important;
+}
+
+.bg-success-subtle {
+    background-color: #d1e7dd !important;
+    color: #0f5132 !important;
+    font-weight: 600;
+}
+
+hr {
+    border-top: 1px solid #f1f3f5;
+    opacity: 1;
+}
+
 .animate__fadeInUp {
     animation-duration: 0.8s;
 }
+
 @media (max-width: 576px) {
     .appointment-card {
-        padding: 1.5rem; 
-        border-radius: 12px; 
+        padding: 1.5rem;
+        border-radius: 12px;
     }
 }
+
 @media (max-width: 480px) {
-    .btn-primary-appointment, 
+
+    .btn-primary-appointment,
     .btn-outline-appointment {
-        width: 100%; 
-        padding: 1rem; 
+        width: 100%;
+        padding: 1rem;
         flex-direction: column;
     }
-    
+
     .badge-appointment {
-        display: block; 
+        display: block;
         text-align: center;
-         flex-direction: column;
+        flex-direction: column;
     }
 }
+
 @media (max-width: 576px) {
     .card-header-custom h3 {
-        font-size: 1.25rem; 
+        font-size: 1.25rem;
     }
 }
