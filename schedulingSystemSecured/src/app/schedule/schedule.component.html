@@ -101,6 +101,7 @@
                         <th class="ps-4">Appointment Info</th>
                         <th>Status</th>
                         <th>User name</th>
+                        <th>Age</th>
                         <th>Comments</th>
                         <th class="text-end pe-4">Management Actions</th>
                     </tr>
@@ -124,6 +125,15 @@
                                 [attr.data-status]="appointment.status">{{appointment.status}}</span></td>
                         <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || '
                                 Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
+                        <td>
+                            <span class="text-muted small">
+                                <ng-container
+                                    *ngIf="appointment.age !== undefined && appointment.age !== null; else noData">
+                                    {{ appointment.age }} {{ appointment.age === 1 ? 'year' : 'years' }}
+                                </ng-container>
+                                <ng-template #noData>N/A</ng-template>
+                            </span>
+                        </td>
                         <td><span class="text-muted small">{{ appointment.comment || 'No comments' }}</span></td>
                         <td class="text-end pe-4">
                             <div class="d-flex justify-content-end gap-2">
@@ -186,6 +196,15 @@
                                 || 'Without Company'}}</span></td>
                         <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || '
                                 Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
+                        <!-- <td>
+                            <span class="text-muted small">
+                                <ng-container
+                                    *ngIf="appointment.age !== undefined && appointment.age !== null; else noData">
+                                    {{ appointment.age }} {{ appointment.age === 1 ? 'año' : 'años' }}
+                                </ng-container>
+                                <ng-template #noData>N/A</ng-template>
+                            </span>
+                        </td>-->
                         <td class="text-center">
                             <button (click)="openActionDialog(appointment.id, 'CONFIRMED')"
                                 *ngIf="appointment.status == 'SCHEDULED'"
@@ -195,7 +214,7 @@
                                 *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
                                 class="btn btn-link btn-sm text-decoration-none me-2 text-danger"><i
                                     class="bi bi-x-circle"></i> Cancel</button>
-                            <button (click)="openActionDialog(appointment.id, 'COMPLETED')" 
+                            <button (click)="openActionDialog(appointment.id, 'COMPLETED')"
                                 *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
                                 class="btn btn-link btn-sm text-decoration-none me-2 text-success"><i
                                     class="bi bi-flag"></i> Complete</button>

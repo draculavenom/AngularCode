@@ -70,6 +70,8 @@ export class ScheduleComponent implements OnInit {
     this.getAppointments();
   }
 
+
+
   public getAppointments() {
     this.userService.getUser().subscribe(u => {
       this.user = u;
@@ -90,6 +92,10 @@ export class ScheduleComponent implements OnInit {
                 next: (userData) => {
                   (appointment as any).firstName = userData.firstName;
                   (appointment as any).lastName = userData.lastName;
+
+                  if (userData.dateOfBirth) {
+                    appointment.age = this.calculateAge(userData.dateOfBirth);
+                  }
                 },
                 error: (err) => console.error("No se pudo cargar el nombre del usuario", err)
               });
@@ -102,6 +108,21 @@ export class ScheduleComponent implements OnInit {
           next: (data: AppointmentModel[]) => {
             this.appointments = data;
             this.appointments = this.sortAppointments(data);
+            this.appointments.forEach(appointment => {
+              if (appointment.userId) {
+                this.userService.getUserById(appointment.userId).subscribe({
+                  next: (userData) => {
+                    (appointment as any).firstName = userData.firstName;
+                    (appointment as any).lastName = userData.lastName;
+
+                    /* if (userData.dateOfBirth) {
+                   appointment.age = this.calculateAge(userData.dateOfBirth);
+                 }*/
+                  },
+                  error: (err) => console.error("No se pudo cargar el nombre del usuario", err)
+                });
+              }
+            });
             console.log("Successful quote:", this.appointments);
           },
           error: (err) => {
@@ -192,5 +213,20 @@ export class ScheduleComponent implements OnInit {
   public onSelect(event: Event) {
     console.log(event);
   }
+
+  private calculateAge(birthDate: any): number {
+    if (!birthDate) return 0;
+
+    const birth = new Date(birthDate);
+    const today = new Date();
+
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
 
 }
