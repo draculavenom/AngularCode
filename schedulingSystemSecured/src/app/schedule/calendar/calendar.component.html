@@ -81,6 +81,11 @@
                   </ng-container>
                   <ng-template #noData>N/A</ng-template>
                 </span>
+                <span class="user-name d-block mb-1">
+                  <i class="bi bi-chat-quote-fill me-1"></i>
+                  Comments : {{ appo.comment || 'No comments' }}
+                </span>
+
               </div>
             </div>
 
@@ -195,6 +200,10 @@
                 <span class="user-name d-block mb-1">
                   <i class="bi bi-person me-1"></i>
                   User : {{ appo.firstName || 'Unknown' }} {{ appo.lastName || 'user' }}
+                </span>
+                 <span class="user-name d-block mb-1">
+                  <i class="bi bi-chat-quote-fill me-1"></i>
+                  Comments : {{ appo.comment || 'No comments' }}
                 </span>
               </div>
             </div>
