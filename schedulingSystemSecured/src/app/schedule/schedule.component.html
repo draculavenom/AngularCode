@@ -172,6 +172,7 @@
                         <th>Status</th>
                         <th>Company</th>
                         <th>User name</th>
+                        <th>Comments</th>
                         <th class="text-center">System Actions</th>
                     </tr>
                 </thead>
@@ -196,6 +197,9 @@
                                 || 'Without Company'}}</span></td>
                         <td><span class="text-capitalize small fw-bold text-secondary">{{ appointment.firstName || '
                                 Unknown ' }} {{ appointment.lastName || ' user' }}</span></td>
+                        <td>
+                            <span class="text-muted small">{{ appointment.comment || 'No comments' }}</span>
+                        </td>
                         <!-- <td>
                             <span class="text-muted small">
                                 <ng-container
