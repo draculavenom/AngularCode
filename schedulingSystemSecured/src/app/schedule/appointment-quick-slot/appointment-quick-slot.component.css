@@ -93,6 +93,64 @@
     opacity: 0.8;
 }
 
+.appo-card {
+    border: 1px solid #f0f0f0 !important;
+    border-left: 4px solid #278c0d !important;
+    transition: transform 0.2s ease;
+}
+
+.appo-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.avatar-color-1 {
+    background-color: #cfd9e7;
+    color: #065cde;
+}
+
+.avatar-color-2 {
+    background-color: #bbd9cb;
+    color: #0f5132;
+}
+
+.avatar-color-3 {
+    background-color: #cbbfe3;
+    color: #563d7c;
+}
+
+.avatar-color-4 {
+    background-color: #d4c8a0;
+    color: #856404;
+}
+
+.avatar-color-5 {
+    background-color: #e6c4c6;
+    color: #842029;
+}
+
+.avatar-color-6 {
+    background-color: #b5d6dd;
+    color: #087990;
+}
+
+.avatar-color-7 {
+    background-color: #c8a3d0;
+    color: #5a3f5b;
+}
+
+.avatar-color-8 {
+    background-color: #e3ddc0;
+    color: #de8405;
+}
+
 .content-fade-in {
     animation: fadeIn 0.5s ease forwards;
 }

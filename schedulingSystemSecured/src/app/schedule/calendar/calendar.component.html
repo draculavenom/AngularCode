@@ -74,6 +74,13 @@
                   <i class="bi bi-person me-1"></i>
                   User : {{ appo.firstName || 'Unknown' }} {{ appo.lastName || 'user' }}
                 </span>
+                <span class="user-name d-block mb-1">
+                  <i class="bi bi-cake-fill me-1"></i>
+                  <ng-container *ngIf="appo.age !== undefined && appo.age !== null; else noData">
+                    Age: {{ appo.age }} {{ appo.age === 1 ? 'year' : 'years' }}
+                  </ng-container>
+                  <ng-template #noData>N/A</ng-template>
+                </span>
               </div>
             </div>
 

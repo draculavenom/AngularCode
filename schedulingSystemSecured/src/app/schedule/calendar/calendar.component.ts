@@ -98,6 +98,10 @@ export class CalendarComponent implements OnInit {
             (appo as any).firstName = userData.firstName;
             (appo as any).lastName = userData.lastName;
 
+            if (userData.dateOfBirth) {
+              appo.age = this.calculateAge(userData.dateOfBirth);
+            }
+
             this.cdr.detectChanges();
           },
           error: (err) => console.error("Error al obtener usuario:", err)
@@ -233,6 +237,21 @@ export class CalendarComponent implements OnInit {
   handleEventClick(info: any) {
     const appointmentId = info.event.id;
     console.log('Cita seleccionada:', info.event.extendedProps);
+  }
+  private calculateAge(birthDate: any): number {
+    if (!birthDate) return 0;
+
+    const birth = new Date(birthDate);
+    const today = new Date();
+
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+
+    return age;
   }
 
 }
