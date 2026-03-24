@@ -18,7 +18,7 @@
                                 <span>My Appointments</span>
                             </a>
                             <a *ngIf="user?.role === 'USER'" class="nav-link" routerLink="/promo"
-                            routerLinkActive="active" >
+                                routerLinkActive="active">
                                 <i class="bi bi-calendar-plus-fill me-3"></i>
                                 <span>Have my own calendar</span>
                             </a>
@@ -39,10 +39,11 @@
                                 <span>{{username}}</span>
                             </a>
 
-                              <a *ngIf="user?.role === 'MANAGER'" class="nav-link" routerLinkActive="active" routerLink="/manager-appointment">
-                                    <i class="bi bi-calendar-plus me-3"></i>
-                                    <span>Schedule for User</span>
-                                </a>
+                            <a *ngIf="user?.role === 'MANAGER'" class="nav-link" routerLinkActive="active"
+                                routerLink="/manager-appointment">
+                                <i class="bi bi-calendar-plus me-3"></i>
+                                <span>Schedule for User</span>
+                            </a>
 
 
                             <hr class="my-2 mx-2 opacity-10" *ngIf="user?.role === 'ADMIN' || user?.role === 'MANAGER'">
@@ -65,10 +66,6 @@
                                 <a class="nav-link" routerLinkActive="active" routerLink="/schedule-configuration">
                                     <i class="bi bi-gear me-3"></i>
                                     <span>Schedule Configuration</span>
-                                </a>
-                                <a class="nav-link" routerLinkActive="active" routerLink="/manager-appointment">
-                                    <i class="bi bi-calendar-plus me-3"></i>
-                                    <span>Schedule for User</span>
                                 </a>
                             </ng-container>
                             <a *ngIf="user?.role === 'ADMIN'" class="nav-link" routerLinkActive="active"
