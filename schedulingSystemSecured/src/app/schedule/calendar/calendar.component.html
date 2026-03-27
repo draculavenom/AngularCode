@@ -5,14 +5,14 @@
       <div class="card border-0 shadow-sm rounded-4 calendar-card">
         <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
           <div>
-            <h5 class="fw-bold mb-0 text-dark">Scheduling</h5>
-            <p class="text-muted small mb-0">
+            <h5 class="fw-bold mb-0 text-dark" t>Scheduling</h5>
+            <p class="text-muted small mb-0" t>
               Appointment and availability management
             </p>
           </div>
           <button mat-flat-button [style.background-color]="'#3b702e'" style="color: white;" class="rounded-3"
             (click)="resetFilter()">
-            <i class="bi bi-calendar-check me-2"></i>Today
+            <i class="bi bi-calendar-check me-2"></i><span t>Today</span>
           </button>
         </div>
 
@@ -26,7 +26,7 @@
         <ng-template #loadingTemplate>
           <div class="p-5 text-center text-muted">
             <div class="spinner-border spinner-border-sm me-2 text-primary"></div>
-            <span>Loading schedule...</span>
+            <span t>Loading schedule...</span>
           </div>
         </ng-template>
       </div>
@@ -36,21 +36,21 @@
       <div class="d-flex align-items-center mb-3">
         <div class="calendar-icon-box me-3">
           <span class="text-uppercase small fw-bold text-muted d-block">
-            {{ selectedDate | date: "MMM" }}</span>
+            {{ selectedDate | date: "MMM" : "UTC" : currentLang }}</span>
           <span class="h4 fw-bold d-block mb-0">{{ selectedDate | date: "dd" }}</span>
         </div>
         <div>
-          <h5 class="fw-bold mb-0 text-dark">Today's Activities</h5>
+          <h5 class="fw-bold mb-0 text-dark" t>Today's Activities</h5>
           <span class="badge bg-text-subtle  rounded-pill">
-            {{ appointments.length }} appointments</span>
-
+            {{ appointments.length  }} <span t>appointments</span>
+          </span>
         </div>
       </div>
 
       <div class="scroll-list custom-scrollbar">
         <div *ngIf="appointments.length === 0" class="empty-state shadow-sm">
           <i class="bi bi-calendar-x mb-2 text-muted"></i>
-          <p class="mb-0 fw-medium">No scheduled appointments</p>
+          <p class="mb-0 fw-medium" t>No scheduled appointments</p>
         </div>
         <div *ngFor="let appo of appointments" class="appointment-card border-0 shadow-sm mb-3 bg-white"
           [ngClass]="'status-border-' + appo.status.toLowerCase()">
@@ -61,7 +61,7 @@
                   {{ appo.time.substring(0, 5) }}
                 </div>
                 <div>
-                  <span class="status-pill" [ngClass]="'status-' + appo.status.toLowerCase()">
+                  <span class="status-pill" [ngClass]="'status-' + appo.status.toLowerCase()" t>
                     {{ appo.status }}
                   </span>
                 </div>
@@ -90,27 +90,28 @@
             </div>
 
             <div *ngIf="appo.status === 'CANCELLED'" class="cancel-alert">
-              <i class="bi bi-info-circle me-2"></i>This appointment has been cancelled
+              <i class="bi bi-info-circle me-2"></i>
+              <span t>This appointment has been cancelled</span>
             </div>
 
             <div class="d-flex gap-2 mt-3 pt-3 border-top">
 
               <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'CONFIRMED')"
                 class="btn btn-sm btn-cal-success flex-grow-1">
-                <i class="bi bi-check-square-fill me-1"></i> Confirmed
+
+                <i class="bi bi-check-square-fill me-1"></i> 
+                <span t>Confirm</span>
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'"
-                (click)="openActionDialog(appo.id, 'COMPLETED')" class="btn btn-sm btn-cal-info flex-grow-1"> <i
-                  class="bi bi-check-circle-fill me-1"></i>
-                Completed
+              <button 
+              *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="complete(appo.id)"
+                class="btn btn-sm btn-cal-info flex-grow-1"> <i class="bi bi-check-circle-fill me-1"></i>
+                <span t>Completed</span>
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'"
-                (click)="openActionDialog(appo.id, 'CANCELLED')" class="btn btn-sm btn-cal-outline-danger"> <i
-                  class="bi bi-x-circle me-1"></i>
-
-                Cancel
+              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="openDialog(appo.id)"
+                class="btn btn-sm btn-cal-outline-danger"> <i class="bi bi-x-circle me-1"></i>
+                <span t>Cancel</span>
               </button>
             </div>
           </div>
@@ -127,14 +128,15 @@
       <div class="card border-0 shadow-sm rounded-4 calendar-card">
         <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
           <div>
-            <h5 class="fw-bold mb-0 text-dark">Scheduling</h5>
-            <p class="text-muted small mb-0">
+            <h5 class="fw-bold mb-0 text-dark" t>Scheduling</h5>
+            <p class="text-muted small mb-0" t>
               Appointment and availability management
             </p>
           </div>
           <button mat-flat-button [style.background-color]="'#3b702e'" style="color: white;" class="rounded-3"
             (click)="resetFilter()">
-            <i class="bi bi-calendar-check me-2"></i>Today
+            <i class="bi bi-calendar-check me-2"></i>
+            <span t>Today</span>
           </button>
         </div>
 
@@ -148,7 +150,7 @@
         <ng-template #loadingTemplate>
           <div class="p-5 text-center text-muted">
             <div class="spinner-border spinner-border-sm me-2 text-primary"></div>
-            <span>Loading schedule...</span>
+            <span t>Loading schedule...</span>
           </div>
         </ng-template>
       </div>
@@ -158,20 +160,21 @@
       <div class="d-flex align-items-center mb-3">
         <div class="calendar-icon-box me-3">
           <span class="text-uppercase small fw-bold text-muted d-block">
-            {{ selectedDate | date: "MMM" }}</span>
+            {{ selectedDate | date: "MMM" : "UTC" : currentLang }}</span>
           <span class="h4 fw-bold d-block mb-0">{{ selectedDate | date: "dd" }}</span>
         </div>
         <div>
-          <h5 class="fw-bold mb-0 text-dark">Today's Activities</h5>
+          <h5 class="fw-bold mb-0 text-dark" t>Today's Activities</h5>
           <span class="badge bg-text-subtle  rounded-pill">
-            {{ appointments.length }} appointments</span>
+            {{ appointments.length }} <span t>appointments</span>
+          </span>
         </div>
       </div>
 
       <div class="scroll-list custom-scrollbar">
         <div *ngIf="appointments.length === 0" class="empty-state shadow-sm">
           <i class="bi bi-calendar-x mb-2 text-muted"></i>
-          <p class="mb-0 fw-medium">No scheduled appointments</p>
+          <p class="mb-0 fw-medium" t>No scheduled appointments</p>
         </div>
         <div *ngFor="let appo of appointments" class="appointment-card border-0 shadow-sm mb-3 bg-white"
           [ngClass]="'status-border-' + appo.status.toLowerCase()">
@@ -188,7 +191,7 @@
                     {{ $any(appo).companyName || "Without Company" }}
                   </div>
 
-                  <span class="status-pill" [ngClass]="'status-' + appo.status.toLowerCase()">
+                  <span class="status-pill" [ngClass]="'status-' + appo.status.toLowerCase()" t>
                     {{ appo.status }}
                   </span>
                 </div>
@@ -209,27 +212,27 @@
             </div>
 
             <div *ngIf="appo.status === 'CANCELLED'" class="cancel-alert">
-              <i class="bi bi-info-circle me-2"></i>This appointment has been cancelled
+              <i class="bi bi-info-circle me-2"></i>
+              <span t>This appointment has been cancelled</span>
             </div>
 
             <div class="d-flex gap-2 mt-3 pt-3 border-top">
 
               <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'CONFIRMED')"
                 class="btn btn-sm btn-cal-success flex-grow-1"> <i class="bi bi-check-square-fill me-1"></i>
-                Confirmed
+
+                <span t>Confirm</span>
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'"
-                (click)="openActionDialog(appo.id, 'COMPLETED')" class="btn btn-sm btn-cal-info flex-grow-1"> <i
-                  class="bi bi-check-circle-fill me-1"></i>
-                Completed
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="complete(appo.id)"
+                class="btn btn-sm btn-cal-info flex-grow-1"> <i class="bi bi-check-circle-fill me-1"></i>
+                <span t>Completed</span>
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'"
-                (click)="openActionDialog(appo.id, 'CANCELLED')" class="btn btn-sm btn-cal-outline-danger"> <i
-                  class="bi bi-x-circle me-1"></i>
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openDialog(appo.id)"
+                class="btn btn-sm btn-cal-outline-danger"> <i class="bi bi-x-circle me-1"></i>
+                <span t>Cancel</span>
 
-                Cancel
               </button>
             </div>
           </div>

@@ -8,6 +8,7 @@ import { CancelDialogComponent } from '../layout/cancel-dialog/cancel-dialog.com
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
 import { ManagerOptionsModel } from '../users/manager.options';
 import { CommentDialogComponent } from '../layout/comment-dialog/comment-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -63,12 +64,18 @@ export class ScheduleComponent implements OnInit {
     private appointmentService: AppointmentService,
     private userService: UserService,
     private dialog: MatDialog,
-    private managerService: ManagerService
+    private managerService: ManagerService,
+    private translate: TranslateService,
   ) { }
 
   ngOnInit(): void {
     this.getAppointments();
+    this.translate.onLangChange.subscribe(() => {
+  });
   }
+  get currentLang(): string {
+  return this.translate.currentLang || 'en';
+}
 
 
 
@@ -144,15 +151,32 @@ export class ScheduleComponent implements OnInit {
     const isConfirm = status === 'CONFIRMED';
     const isComplete = status === 'COMPLETED';
 
-    const dialogRef = this.dialog.open(CommentDialogComponent, {
-      width: '400px',
-      data: {
-        title: isCancel ? 'Cancel Appointment' : (isConfirm ? 'Confirm Appointment' : 'Complete Appointment'),
-        message: `Are you sure you want to ${status.toLowerCase()} this appointment?`,
-        isMandatory: isCancel // Solo obligatorio si es cancelación
-      },
-      panelClass: 'custom-dialog-container'
-    });
+
+  const lang = this.currentLang;
+  let title = '';
+  let message = '';
+
+  if (isCancel) {
+    title = lang === 'es' ? 'Cancelar Cita' : 'Cancel Appointment';
+    message = lang === 'es' ? '¿Estás seguro de que deseas cancelar esta cita?' : 'Are you sure you want to cancel this appointment?';
+  } else if (isConfirm) {
+    title = lang === 'es' ? 'Confirmar Cita' : 'Confirm Appointment';
+    message = lang === 'es' ? '¿Estás seguro de que deseas confirmar esta cita?' : 'Are you sure you want to confirm this appointment?';
+  } else {
+    title = lang === 'es' ? 'Completar Cita' : 'Complete Appointment';
+    message = lang === 'es' ? '¿Estás seguro de que deseas marcar esta cita como completada?' : 'Are you sure you want to complete this appointment?';
+  }
+
+  const dialogRef = this.dialog.open(CommentDialogComponent, {
+    width: '400px',
+    data: {
+      title: title,
+      message: message,
+      isMandatory: isCancel 
+    },
+    panelClass: 'custom-dialog-container' 
+  });
+
 
     dialogRef.afterClosed().subscribe(comment => {
       if (comment !== undefined) {

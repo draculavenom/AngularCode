@@ -28,6 +28,14 @@
   margin-bottom: 25px;
   color: #4a5568;
 }
+.instruction-text span, 
+.instruction-text strong {
+    margin-right: 4px; 
+}
+
+.instruction-text span:last-child {
+    margin-right: 0; 
+}
 
 .checkbox-container {
   display: flex;

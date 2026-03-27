@@ -5,8 +5,8 @@
                 <div class="card-header bg-white py-4 px-5">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h1 class="fw-bold h3 mb-1 text-color">Create Manager</h1>
-                            <p class="text-muted mb-0">Fill in the information to set up the new manager account.</p>
+                            <h1 class="fw-bold h3 mb-1 text-color" t>Create Manager</h1>
+                            <p class="text-muted mb-0" t>Fill in the information to set up the new manager account.</p>
                         </div>
                         <div class="icon-badge  text-white p-3 rounded-circle">
                             <i class="bi bi-person-plus-fill fs-5"></i>
@@ -18,21 +18,21 @@
                     <form>
                         <div class="row mb-5 g-4 py-4 px-2 info-panel mx-0">
                             <div class="col-md-4 border-end">
-                                <label class="small text-muted fw-bold mb-1">Id Reference</label>
+                                <label class="small text-muted fw-bold mb-1" t>Id Reference</label>
                                 <div class="d-flex align-items-center gap-2">
                                     <i class="bi bi-hash text-color"></i>
                                     <span class="fw-bold fs-5 text-dark">{{userManager.id}}</span>
                                 </div>
                             </div>
                             <div class="col-md-4 border-end">
-                                <label class="small text-muted fw-bold mb-1">Assigned Role</label>
+                                <label class="small text-muted fw-bold mb-1" t>Assigned Role</label>
                                 <div class="d-flex align-items-center gap-2">
                                     <i class="bi bi-shield-lock text-color fw-bold"></i>
                                     <span class="fw-bold fs-5 text-dark">{{userManager.role}}</span>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="small text-muted fw-bold mb-1">Managed By</label>
+                                <label class="small text-muted fw-bold mb-1" t>Managed By</label>
                                 <div class="d-flex align-items-center gap-2">
                                     <i class="bi bi-person-gear text-color"></i>
                                     <span class="fw-bold fs-5 text-dark">{{userManager.managedBy}}</span>
@@ -43,55 +43,62 @@
                         <div class="row g-4 mb-5">
                             <div class="col-12">
                                 <h5 class="section-title mb-3">
-                                    <i class="bi bi-info-circle text-color"></i> Personal Information
+                                    <i class="bi bi-info-circle text-color"></i>
+                                    <span t>Personal Information</span>
                                 </h5>
                             </div>
-                            
+
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">First Name</label>
+                                <label class="form-label small fw-bold" t>First Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                    <input type="text" class="form-control form-control-lg fs-6" name="firstName" [(ngModel)]="userManager.firstName">
+                                    <input type="text" class="form-control form-control-lg fs-6" name="firstName"
+                                        [(ngModel)]="userManager.firstName" placeholder="Enter the name" t>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Last Name</label>
+                                <label class="form-label small fw-bold" t>Last Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
-                                    <input type="text" class="form-control form-control-lg fs-6" name="lastName" [(ngModel)]="userManager.lastName">
+                                    <input type="text" class="form-control form-control-lg fs-6" name="lastName"
+                                        [(ngModel)]="userManager.lastName" placeholder="Enter the last name" t>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Email Address</label>
+                                <label class="form-label small fw-bold" t>Email Address</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                    <input type="email" class="form-control form-control-lg fs-6" name="email" [(ngModel)]="userManager.email">
+                                    <input type="email" class="form-control form-control-lg fs-6" name="email"
+                                        [(ngModel)]="userManager.email" placeholder="name@example.com" t>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Phone Number</label>
+                                <label class="form-label small fw-bold" t>Phone Number</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                                    <input type="tel" class="form-control form-control-lg fs-6" name="phoneNumber" [(ngModel)]="userManager.phoneNumber">
+                                    <input type="tel" class="form-control form-control-lg fs-6" name="phoneNumber"
+                                        [(ngModel)]="userManager.phoneNumber" placeholder="+1..." t>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Company Name</label>
+                                <label class="form-label small fw-bold" t>Company Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-building"></i></span>
-                                    <input type="text" class="form-control form-control-lg fs-6" name="companyName" [(ngModel)]="companyName">
+                                    <input type="text" class="form-control form-control-lg fs-6" name="companyName"
+                                        [(ngModel)]="companyName" placeholder="Enter the company name" t>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Date of Birth</label>
+                                <label class="form-label small fw-bold" t>Date of Birth</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
-                                    <input type="date" class="form-control form-control-lg fs-6" name="dateOfBirth" [(ngModel)]="userManager.dateOfBirth">
+                                    <input type="date" class="form-control form-control-lg fs-6" name="dateOfBirth"
+                                        [(ngModel)]="userManager.dateOfBirth">
                                 </div>
                             </div>
                         </div>
@@ -99,39 +106,46 @@
                         <div class="row g-4 mb-4">
                             <div class="col-12">
                                 <h5 class="section-title mb-3">
-                                    <i class="bi bi-file-earmark-text text-color"></i> Contract Details
+                                    <i class="bi bi-file-earmark-text text-color"></i>
+                                    <span t>Contract Details</span>
                                 </h5>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Amount Paid</label>
+                                <label class="form-label small fw-bold" t>Amount Paid</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
-                                    <input type="text" class="form-control form-control-lg fs-6" name="ammountPaid" [(ngModel)]="managerOptions.ammountPaid">
+                                    <input type="text" class="form-control form-control-lg fs-6" name="ammountPaid"
+                                        [(ngModel)]="managerOptions.ammountPaid" placeholder="Enter the  amount paid" t>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label small fw-bold">Active Until</label>
+                                <label class="form-label small fw-bold" t>Active Until</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
-                                    <input type="date" class="form-control form-control-lg fs-6" name="activeDate" [ngModel]="managerOptions.activeDate | date:'yyyy-MM-dd'" (ngModelChange)="managerOptions.activeDate = $event">
+                                    <input type="date" class="form-control form-control-lg fs-6" name="activeDate"
+                                        [ngModel]="managerOptions.activeDate | date:'yyyy-MM-dd'"
+                                        (ngModelChange)="managerOptions.activeDate = $event">
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <label class="form-label small fw-bold">Comments</label>
-                                <textarea class="form-control fs-6 p-3" style="border-left: 1px solid #dee2e6;" name="comments" [(ngModel)]="managerOptions.comments" rows="3" placeholder="Add any additional notes here..."></textarea>
+                                <label class="form-label small fw-bold" t>Comments</label>
+                                <textarea class="form-control fs-6 p-3" style="border-left: 1px solid #dee2e6;"
+                                    name="comments" [(ngModel)]="managerOptions.comments" rows="3"
+                                    placeholder="Add any additional notes here..." t></textarea>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
-                            <a href="/users" class="btn-action text-decoration-none  fw-bold">
+                            <a href="/users" class="btn-action text-decoration-none  fw-bold" t>
                                 <i class="bi bi-arrow-left me-2"></i> {{ userManager.id == 0 ? 'Cancel' : 'Return' }}
                             </a>
                             <div class="d-flex gap-3">
-                                <button *ngIf="userManager.id == 0" (click)="createUser()" class=" btn-createManager shadow-sm">
-                                    <i class="bi bi-plus-circle me-2"></i> Create Account
+                                <button *ngIf="userManager.id == 0" (click)="createUser()"
+                                    class=" btn-createManager shadow-sm">
+                                    <i class="bi bi-plus-circle me-2"></i> <span t>Create Account</span>
                                 </button>
                             </div>
                         </div>
@@ -142,7 +156,7 @@
     </div>
     <div class="row" *ngIf="messages.length != 0">
         <div class="col-sm-12">
-            <div *ngFor="let message of messages" class="alert alert-{{messageType}}" role="alert">{{message}}</div>
+            <div *ngFor="let message of messages" class="alert alert-{{messageType}}" role="alert" t>{{message}}</div>
         </div>
     </div>
-</div> 
+</div>

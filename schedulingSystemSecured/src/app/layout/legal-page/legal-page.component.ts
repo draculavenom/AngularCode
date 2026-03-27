@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LegalService } from '../../services/legal.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-legal-page',
   templateUrl: './legal-page.component.html',
@@ -9,18 +10,28 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class LegalPageComponent implements OnInit {
   legalData: any;
+  currentType: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private legalService: LegalService
+    private legalService: LegalService,
+    private translate: TranslateService
   ) {}
 
-  ngOnInit(): void {
+ ngOnInit(): void {
     this.route.data.subscribe(data => {
-      const type = data['type'];
-      this.legalService.getLegalContent(type).subscribe(res => {
-        this.legalData = res;
-      });
+      this.currentType = data['type'];
+      this.loadContent();
+    });
+
+    this.translate.onLangChange.subscribe(() => {
+      this.loadContent();
+    });
+  }
+  private loadContent(): void {
+    if (!this.currentType) return;
+    this.legalService.getLegalContent(this.currentType).subscribe(res => {
+      this.legalData = res;
     });
   }
 }

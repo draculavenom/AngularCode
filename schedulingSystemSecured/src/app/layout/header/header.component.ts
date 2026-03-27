@@ -4,8 +4,9 @@ import { UserService } from 'src/app/users/user.service';
 import { UsersModel } from 'src/app/users/users.model';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
- 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,23 +18,36 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   lastPublicRoute: string = '/onboarding-final';
 
-  constructor(private securityService: SecurityService, private userService: UserService, private location: Location, 
-    private router: Router) {
-      this.router.events.pipe(
+  constructor(private securityService: SecurityService, private userService: UserService, private location: Location,
+    private router: Router, private translate: TranslateService) {
+    const savedLang = localStorage.getItem('preferredLang') || 'en';
+    this.translate.setDefaultLang('en');
+    this.translate.use(savedLang);
+    this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-    const url = event.url;
+      const url = event.url;
       if (url.includes('promo') || url.includes('onboarding-final')) {
         this.lastPublicRoute = url;
       }
+
     });
   }
-handleHomeClick() {
+  handleHomeClick() {
     if (this.isLoggedIn) {
       this.router.navigate(['/dashboard']);
     } else {
       this.router.navigate([this.lastPublicRoute]);
     }
+  }
+  isCurrentLang(lang: string): boolean {
+    return (this.translate.currentLang || this.translate.defaultLang) === lang;
+  }
+  changeLanguage(lang: string) {
+    localStorage.setItem('preferredLang', lang);
+    this.translate.use(lang).subscribe(() => {
+      console.log("Idioma aplicado correctamente");
+    });
   }
 
   ngOnInit(): void {
@@ -41,8 +55,8 @@ handleHomeClick() {
       this.isLoggedIn = loggedIn;
       if (loggedIn) {
         setTimeout(() => {
-        this.checkToken();
-      }, 0);
+          this.checkToken();
+        }, 0);
       } else {
         this.username = "";
         this.user = new UsersModel(0, "", false);
@@ -50,25 +64,27 @@ handleHomeClick() {
     });
   }
 
-  private checkToken(){
+  private checkToken() {
     let token = sessionStorage.getItem('bearerToken');
     let tokenInfo = "";
-    if (token !== null){
+    if (token !== null) {
       tokenInfo = this.securityService.getDecodedAccessToken(token);
       this.userService.getUser().subscribe(u => this.user = u);
       if (tokenInfo && tokenInfo.sub) {
         this.username = tokenInfo.sub.toString();
       }
       this.userService.getUser().subscribe({
-      next: (u) => {
-        this.user = u;
-      },
-      error: (err) => console.error("Error loading user", err)
-    });
+        next: (u) => {
+          this.user = u;
+          const savedLang = localStorage.getItem('preferredLang') || 'en';
+          this.translate.use(savedLang);
+        },
+        error: (err) => console.error("Error loading user", err)
+      });
     }
   }
 
-  logout(){
+  logout() {
     ///api/v1/auth/logout
     this.securityService.logout().subscribe(answer => console.log(answer), error => console.log(error));
     sessionStorage.removeItem("userData");

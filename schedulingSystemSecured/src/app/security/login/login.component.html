@@ -4,29 +4,29 @@
             <div class="brand-logo">
                 <i class="bi bi-person-circle"></i>
             </div>
-            <h2>Login</h2>
+            <h2 t>Login</h2>
 
         </div>
 
         <form #userData="ngForm" (ngSubmit)="onSubmit(userData.value)">
             <div class="input-wrapper">
-                <label>Email</label>
+                <label t>Email</label>
                 <div class="input-field">
                     <i class="bi bi-envelope"></i>
-                    <input type="email" name="email" placeholder="nombre@ejemplo.com" ngModel required />
+                    <input type="email" name="email" placeholder="name@example.com" ngModel required t/>
                 </div>
             </div>
 
             <div class="input-wrapper">
-                <label>Password</label>
+                <label t>Password</label>
                 <div class="input-field">
                     <i class="bi bi-lock"></i>
-                    <input type="password" name="password" placeholder="password" ngModel required />
+                    <input type="password" name="password" placeholder="password" ngModel required t/>
                 </div>
             </div> 
 
             <button type="submit" class="login-btn">
-                Login
+                <span t>Login</span>
             </button>
         </form>
 
@@ -34,7 +34,7 @@
             <div class="alert-content"
             [ngClass]="{'alert-success': !isError, 'alert-error': isError}">
                 <i class="bi" [ngClass]="{'bi-check-circle-fill': !isError, 'bi-x-circle-fill': isError}"></i>
-                <span>{{ responseMessage }}</span>
+                <span t>{{ responseMessage }}</span>
             </div>
         </div>
     </div>

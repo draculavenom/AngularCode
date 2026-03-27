@@ -4,7 +4,7 @@
             <div class="card edit-card ">
                 <div class="bg-white py-4 px-5">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="fw-bold text-color  mb-0">User Settings</h1>
+                        <h1 class="fw-bold text-color  mb-0" t>User Settings</h1>
                         <span class="badge bg-success-subtle text-color px-3 py-2 rounded-pill">
                             <i class="bi bi-shield-check me-1"></i> {{user.role}}
                         </span>
@@ -16,7 +16,7 @@
                         <div class="row readonly-summary p-3 mb-5 g-0 mx-0">
                             <div class="col-md-6 border-end-md py-2">
                                 <div class="info-box">
-                                    <span class="info-box-label">User Reference</span>
+                                    <span class="info-box-label" t>User Reference</span>
                                     <div class="info-box-content">
                                         <div class="icon-circle">
                                             <i class="bi bi-fingerprint"></i>
@@ -27,12 +27,18 @@
                             </div>
                             <div class="col-md-6 py-2">
                                 <div class="info-box">
-                                    <span class="info-box-label">Managed By</span>
+                                    <span class="info-box-label" t>Managed By</span>
                                     <div class="info-box-content">
                                         <div class="icon-circle">
                                             <i class="bi bi-person-badge"></i>
                                         </div>
-                                        <span class="fw-bold fs-5">{{user.managedBy || 'Direct Administration'}}</span>
+                                        <span class="fw-bold fs-5">
+                                            <ng-container *ngIf="user.managedBy">
+                                                {{ user.managedBy }}
+                                            </ng-container>
+
+                                            <span *ngIf="!user.managedBy" t>Direct Administration</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -40,12 +46,13 @@
 
                         <div class="section-header">
                             <h5 class="section-title mb-3">
-                                <i class="bi bi-info-circle text-color"></i> Personal Information
+                                <i class="bi bi-info-circle text-color me-1"></i>
+                                <span t>Personal Information</span>
                             </h5>
                         </div>
                         <div class="row g-4 mb-5">
                             <div class="col-md-6">
-                                <label class="field-label">First Name</label>
+                                <label class="field-label" t>First Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
                                     <input class="form-control" name="firstName" [(ngModel)]="user.firstName"
@@ -53,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="field-label">Last Name</label>
+                                <label class="field-label" t>Last Name</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
                                     <input class="form-control" name="lastName" [(ngModel)]="user.lastName"
@@ -61,23 +68,23 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="field-label">Email Address</label>
+                                <label class="field-label" t>Email Address</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                     <input class="form-control" name="email" [(ngModel)]="user.email"
-                                        placeholder="email@example.com">
+                                        placeholder="email@example.com" t>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="field-label">Phone Number</label>
+                                <label class="field-label" t>Phone Number</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                                     <input class="form-control" name="phoneNumber" [(ngModel)]="user.phoneNumber"
-                                        placeholder="+0 000 000">
+                                        placeholder="+1...">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="field-label">Date of Birth</label>
+                                <label class="field-label" t>Date of Birth</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
                                     <input type="date" class="form-control" name="dateOfBirth"
@@ -85,7 +92,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6" *ngIf="user.role === 'MANAGER' && self.role === 'ADMIN'">
-                                <label class="field-label">Company</label>
+                                <label class="field-label" t>Company</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-building"></i></span>
                                     <input type="text" class="form-control" name="nameCompany"
@@ -98,21 +105,29 @@
                             <div class="d-flex align-items-center justify-content-between mb-3 px-1">
                                 <div class="section-header mb-0 border-0">
                                     <h5 class="section-title mb-3">
-                                        <i class="bi bi-credit-card text-color"></i> Payment Details
+                                        <i class="bi bi-credit-card text-color me-1"></i>
+                                        <span t>Payment Details</span>
                                     </h5>
                                 </div>
                                 <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3"
                                     (click)="showManagerFields = !showManagerFields">
-                                    <i class="bi"
-                                        [ngClass]="showManagerFields ? 'bi-eye-slash' : 'bi-pencil-square'"></i>
-                                    {{ showManagerFields ? 'Hide details' : 'Edit payment' }}
+
+                                    <ng-container *ngIf="showManagerFields">
+                                        <i class="bi bi-eye-slash me-1"></i>
+                                        <span t>Hide details</span>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="!showManagerFields">
+                                        <i class="bi bi-pencil-square me-1"></i>
+                                        <span t>Edit payment</span>
+                                    </ng-container>
                                 </button>
                             </div>
 
                             <div class="payment-container shadow-sm mx-0" *ngIf="showManagerFields">
                                 <div class="row g-4">
                                     <div class="col-md-6">
-                                        <label class="field-label">Amount</label>
+                                        <label class="field-label" t>Amount</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
                                             <input type="number" class="form-control" name="ammountPaid"
@@ -120,7 +135,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="field-label">Active Until</label>
+                                        <label class="field-label" t>Active Until</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
                                             <input type="date" class="form-control" name="activeDate"
@@ -129,11 +144,12 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <label class="field-label">Comments</label>
+                                        <label class="field-label" t>Comments</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-chat-text"></i></span>
                                             <input type="text" class="form-control" name="comments"
-                                                [(ngModel)]="managerOptions.comments" placeholder="Internal notes...">
+                                                [(ngModel)]="managerOptions.comments"
+                                                placeholder="Add any additional notes here..." t>
                                         </div>
                                     </div>
 
@@ -141,7 +157,8 @@
                                         <div class="d-flex justify-content-end border-top pt-3">
                                             <button type="button" class="btn-edit px-4 shadow-sm fw-bold"
                                                 (click)="saveManagerDetails()">
-                                                <i class="bi bi-save me-2"></i> Update payment info only
+                                                <i class="bi bi-save me-2"></i>
+                                                <span t>Update payment info only</span>
                                             </button>
                                         </div>
                                     </div>
@@ -153,28 +170,33 @@
                             class="d-flex flex-wrap gap-3 justify-content-between align-items-center mt-5 pt-4 border-top">
                             <div class="d-flex gap-2">
                                 <a *ngIf="user.id != 0 && user.id != tokenId" href="/users"
-                                    class="btn-cancel px-4 fw-bold border"> <i class="bi bi-x-circle"></i> Cancel</a>
+                                    class="btn-cancel px-4 fw-bold border"> <i class="bi bi-x-circle me-2"></i>
+                                    <span t>Cancel</span> </a>
                                 <a *ngIf="user.id != 0 && user.id == tokenId" href="/schedule"
-                                    class="btn-cancel px-4 fw-bold border"> <i class="bi bi-x-circle"></i> Cancel</a>
+                                    class="btn-cancel px-4 fw-bold border"> <i class="bi bi-x-circle me-2"></i>
+                                    <span t>Cancel</span></a>
                             </div>
 
                             <div class="d-flex gap-2">
                                 <button *ngIf="self.role == 'ADMIN'" (click)="openDialog(user.id)"
                                     class="btn btn-outline-secondary px-4 fw-bold">
-                                    <i class="bi bi-key me-2"></i> Change password
+                                    <i class="bi bi-key me-2"></i>
+                                    <span t>Change password</span>
                                 </button>
 
                                 <button *ngIf="user.id == 0" (click)="createUser()"
-                                    class="btn btn-success px-5 fw-bold shadow-sm">
-                                    Create Account
+                                    class="btn btn-success px-5 fw-bold shadow-sm ">
+                                    <span t>Create Account</span>
                                 </button>
                                 <button *ngIf="user.id != 0 && user.id != tokenId" (click)="editUser()"
-                                    class="btn-edit px-5 fw-bold shadow-sm">
-                                    <i class="bi bi-floppy"></i> Save changes
+                                    class="btn-edit px-5 fw-bold shadow-sm ">
+                                    <i class="bi bi-floppy me-2"></i>
+                                    <span t>Save changes</span>
                                 </button>
                                 <button *ngIf="user.id != 0 && user.id == tokenId" (click)="editSelf()"
-                                    class="btn-edit px-5 fw-bold shadow-sm">
-                                    <i class="bi bi-floppy"></i> Update my profile
+                                    class="btn-edit px-5 fw-bold shadow-sm ">
+                                    <i class="bi bi-floppy me-2"></i>
+                                    <span t>Update my profile</span>
                                 </button>
                             </div>
                         </div>

@@ -4,14 +4,16 @@
       <div class="row g-3">
         <div class="col-12 mb-4">
 
+
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <label class="form-label fw-bold text-success mb-0">
+            <label class="form-label fw-bold text-success mb-0" t>
               {{ showCompanySelection ? 'Select your Company' : 'Selected Company' }}</label>
             <button type="button" class="btn btn-link btn-sm text-decoration-none" (click)="toggleCompanySelection()">
               {{ showCompanySelection ? 'Hide' : 'Change Company' }}
             </button>
           </div>
           <div class="row row-cols-1 row-cols-md-2 g-3" *ngIf="showCompanySelection">
+
             <div class="col" *ngFor="let opt of managerSelect">
               <div class="card h-100 company-selection-card border-2"
                 [class.selected-card]="user.managedBy === opt.managerId" (click)="selectCompany(opt.managerId)">
@@ -27,11 +29,11 @@
                   <div class="manager-info d-flex align-items-center justify-content-center">
                     <span class="dot-online"
                       [style.background-color]="user.managedBy === opt.managerId ? '#149905' : '#cbd5e0'"></span>
-                    <p class="text-muted small mb-0">{{ opt.name || 'No Manager' }}</p>
+                    <p class="text-muted small mb-0" t>{{ opt.name || 'No Manager' }}</p>
                   </div>
 
                   <div class="selection-indicator" *ngIf="user.managedBy === opt.managerId">
-                    <i class="bi bi-check2-all"></i> Active Workspace
+                    <i class="bi bi-check2-all"></i> <span t>Active Workspace</span>
                   </div>
                 </div>
               </div>
@@ -47,52 +49,54 @@
 
         <ng-container *ngIf="user.managedBy && user.managedBy !== 0">
           <div class="col-md-6 register-fade-in">
-            <label class="form-label fw-semibold">Email</label>
+            <label class="form-label fw-semibold" t>Email</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-envelope"></i></span>
               <input type="email" name="email" class="form-control register-input border-start-0"
-                placeholder="name@mail.com" [(ngModel)]="user.email" required email>
+                placeholder="name@example.com" [(ngModel)]="user.email" required email t>
             </div>
           </div>
 
           <div class="col-md-6 register-fade-in">
-            <label class="form-label fw-semibold">Password</label>
+            <label class="form-label fw-semibold" t>Password</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-shield-lock"></i></span>
               <input type="password" name="password" class="form-control register-input border-start-0"
-                placeholder="••••••••" [(ngModel)]="user.password" required>
+                placeholder="password" [(ngModel)]="user.password" required t>
             </div>
           </div>
 
           <div class="col-md-6 register-fade-in">
-            <label class="form-label fw-semibold">First Name</label>
+            <label class="form-label fw-semibold" t>First Name</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
               <input type="text" name="firstName" class="form-control register-input border-start-0"
-                [(ngModel)]="user.firstName" required>
+              placeholder="Enter your first name"
+                [(ngModel)]="user.firstName" required t>
             </div>
           </div>
 
           <div class="col-md-6 register-fade-in">
-            <label class="form-label fw-semibold">Last Name</label>
+            <label class="form-label fw-semibold" t>Last Name</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
               <input type="text" name="lastName" class="form-control register-input border-start-0"
-                [(ngModel)]="user.lastName" required>
+              placeholder="Enter your last name"
+                [(ngModel)]="user.lastName" required t>
             </div>
           </div>
 
           <div class="col-md-6 register-fade-in">
-            <label class="form-label fw-semibold">Phone Number</label>
+            <label class="form-label fw-semibold" t>Phone Number</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-telephone"></i></span>
               <input type="text" name="phone" class="form-control register-input border-start-0" placeholder="+1..."
-                [(ngModel)]="user.phoneNumber" required>
+                [(ngModel)]="user.phoneNumber" required t>
             </div>
           </div>
 
           <div class="col-md-6 register-fade-in">
-            <label class="form-label fw-semibold">Birth Date</label>
+            <label class="form-label fw-semibold" t>Birth Date</label>
             <div class="input-group">
               <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar-event"></i></span>
               <input type="date" name="dob" class="form-control register-input border-start-0"
@@ -102,7 +106,7 @@
 
           <div class="col-12 mt-4">
             <button type="submit" class="btn  register-btn-submit w-100" [disabled]="!userData.valid">
-              Continue <i class="bi bi-arrow-right ms-2"></i>
+              <span t>Continue</span> <i class="bi bi-arrow-right ms-2"></i>
             </button>
           </div>
         </ng-container>

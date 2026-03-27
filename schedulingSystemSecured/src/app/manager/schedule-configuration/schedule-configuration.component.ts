@@ -107,7 +107,7 @@ export class ScheduleConfigurationComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        this.showMessage('Error saving configuration.', 'alert-danger');
+        this.showMessage('Error saving configuration. Please try again.', 'alert-danger');
         this.isLoading = false;
       }
     });

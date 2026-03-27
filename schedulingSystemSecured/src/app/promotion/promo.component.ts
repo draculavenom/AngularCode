@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../users/user.service';
 import { SecurityService } from '../security/security.service';
 import { UsersModel } from '../users/users.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-promo',
@@ -14,10 +15,15 @@ export class PromoComponent implements OnInit {
   isLoggedIn: boolean = false;
   tokenId: number = 0;
 
-  constructor(private router: Router, private userService: UserService, private securityService: SecurityService) {}
+  constructor(private router: Router, private userService: UserService, 
+    private securityService: SecurityService,
+    private translate: TranslateService) {}
+  
+    get currentLang(): string {
+    return this.translate.currentLang || this.translate.defaultLang || 'en';
+  }
 
   ngOnInit() {
-    // Check if the user is logged in
     this.isLoggedIn = this.securityService.isUserLoggedIn();
     if (this.isLoggedIn) {
       this.getTokenId();

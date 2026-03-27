@@ -8,6 +8,14 @@
   color: #3b702e;
   text-align: center;
 }
+.information-text span, 
+.information-text strong {
+    margin-right: 4px; 
+}
+
+.information-text span:last-child {
+    margin-right: 0; 
+}
 .input-group-schedule-config {
   display: flex;
   align-items: center;

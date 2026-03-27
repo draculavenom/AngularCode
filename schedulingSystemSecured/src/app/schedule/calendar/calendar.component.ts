@@ -13,7 +13,8 @@ import { ViewChild } from '@angular/core';
 import { MatCalendar } from '@angular/material/datepicker';
 import { ChangeDetectorRef } from '@angular/core';
 import { CommentDialogComponent } from '../../layout/comment-dialog/comment-dialog.component';
-
+import { TranslateService } from '@ngx-translate/core';
+ import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-calendar',
@@ -36,12 +37,25 @@ export class CalendarComponent implements OnInit {
     private dialog: MatDialog,
     private managerService: ManagerService,
     private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private translate: TranslateService,
+    private dateAdapter: DateAdapter<any>
   ) { }
 
   ngOnInit(): void {
     this.getAppointments();
+    this.updateCalendarLocale(this.translate.currentLang || 'en');
+    this.translate.onLangChange.subscribe(event => {
+      this.updateCalendarLocale(event.lang);
+    });
   }
+  private updateCalendarLocale(lang: string) {
+    this.dateAdapter.setLocale(lang); 
+    this.cdr.detectChanges(); 
+  }
+  get currentLang(): string {
+  return this.translate.currentLang || 'en';
+}
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     if (view === 'month' && this.allAppointments.length > 0) {
       const cellDateStr = this.datePipe.transform(cellDate, 'yyyy-MM-dd');
@@ -174,6 +188,18 @@ export class CalendarComponent implements OnInit {
   
 
 
+<<<<<<< HEAD
+=======
+public confirm(appointmentId: number) {
+  const msg = this.translate.currentLang === 'es' ? 'Confirmado vía Calendario' : 'Confirmed via Calendar';
+  
+  this.appointmentService.confirmAppointment(appointmentId, msg).subscribe(a => {
+    let app = this.appointments.find(ap => ap.id == a.id);
+    if (app !== undefined) app.status = a.status;
+    this.cdr.detectChanges(); 
+  });
+}
+>>>>>>> Multilanguage
 
 
   public confirm(appointmentId: number, comment: string = "Confirmed via Calendar") {

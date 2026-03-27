@@ -11,26 +11,26 @@
     <p class="text-secondary mb-4">{{data.message}}</p>
 
     <div class="form-group custom-form">
-      <label class="form-label small fw-semibold  tracking-wider">
+      <label class="form-label small fw-semibold  tracking-wider" t>
         Comments <span *ngIf="data.isMandatory" class="text-danger">*</span>
       </label>
       <textarea [(ngModel)]="comment" class="form-control comment-input " rows="3"
-        [placeholder]="data.isMandatory ? 'Please explain the reason...' : 'Optional notes...'">
+        [placeholder]="data.isMandatory ? 'Please explain the reason...' : 'Optional notes...'" t>
       </textarea>
-      <div *ngIf="data.isMandatory && (!comment || comment.trim().length === 0)" class="text-danger mt-1 tiny-text">
+      <div *ngIf="data.isMandatory && (!comment || comment.trim().length === 0)" class="text-danger mt-1 tiny-text" t>
         This field is required to proceed.
       </div>
     </div>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end" class="p-4 pt-2 border-0">
-    <button mat-button class="btn-comment-secondary me-2" (click)="onNoClick()">
+    <button mat-button class="btn-comment-secondary me-2" (click)="onNoClick()" t>
       Go Back
     </button>
     <button mat-flat-button
       [color]="data.title.toLowerCase().includes('delete') || data.title.toLowerCase().includes('cancel') ? 'warn' : 'primary'"
       class="btn-comment-primary shadow-sm" [disabled]="data.isMandatory && (!comment || comment.trim().length === 0)"
-      [mat-dialog-close]="comment">
+      [mat-dialog-close]="comment" t>
       {{ data.title.toLowerCase().includes('delete') ? 'Confirm Delete' : 'Confirm Action' }}
     </button>
   </mat-dialog-actions>

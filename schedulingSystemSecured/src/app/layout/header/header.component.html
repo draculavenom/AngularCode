@@ -1,20 +1,34 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg nav-header-custom shadow-sm">
-    <!-- Container wrapper -->
-    <div class="container py-2">
-      <!-- Navbar brand --> 
-     <a class="navbar-brand d-flex align-items-center" style="cursor: pointer;" (click)="handleHomeClick()">
+  <!-- Container wrapper -->
+  <div class="container py-2">
+    <!-- Navbar brand -->
+    <a class="navbar-brand d-flex align-items-center" style="cursor: pointer;" (click)="handleHomeClick()">
       <div class="logo-container me-2">
         <img src="assets/CREAAR_Logo-Vert_color.png" alt="Logo" class="nav-logo">
       </div>
       <i class="bi bi-house-door-fill me-2"></i>
-      <span class="brand-text">Home</span>
+      <span class="brand-text" t>Home</span>
     </a>
 
-  
-      <div class="ms-auto d-flex align-items-center gap-3">
+
+    <div class="ms-auto d-flex align-items-center gap-3">
+
+      <div class="lang-switcher-container p-1 d-flex align-items-center bg-light rounded-pill border shadow-sm">
+        <button (click)="changeLanguage('en')" class="lang-btn d-flex align-items-center gap-2"
+          [class.active]="isCurrentLang('en')">
+          <span class="flag-icon">🇺🇸</span>
+          <span class="lang-label">EN</span>
+        </button>
+        <button (click)="changeLanguage('es')" class="lang-btn d-flex align-items-center gap-2"
+          [class.active]="isCurrentLang('es')">
+          <span class="flag-icon">🇲🇽</span>
+          <span class="lang-label">ES</span>
+        </button>
+      </div>
+
       <div *ngIf="!isLoggedIn" class="d-flex align-items-center gap-2">
-        <a href="login" class="btn btn-header-outline">Log in</a>
+        <a href="login" class="btn btn-header-outline" t>Login</a>
       </div>
 
       <div *ngIf="isLoggedIn" class="d-flex align-items-center gap-3">
@@ -25,12 +39,11 @@
           <span class="ms-2 d-none d-md-inline user-name-text">{{ username || 'Loading...' }}</span>
         </a>
         <button class="btn-logout-header" (click)="logout()">
-          <i class="bi bi-box-arrow-right"> Logout</i>
+          <i class="bi bi-box-arrow-right" t> Logout</i>
         </button>
       </div>
     </div>
-      <!-- Collapsible wrapper -->
-    </div>
-    <!-- Container wrapper -->
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
 </nav>
-  

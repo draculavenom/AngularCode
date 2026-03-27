@@ -3,19 +3,19 @@
         <div class="warning-icon">
             <i class="bi bi-exclamation-triangle"></i>
         </div>
-        <h1 class="dialog-title">Confirm Cancellation</h1>
+        <h1 class="dialog-title" t>Confirm Cancellation</h1>
     </div>
 
     <div class="dialog-body">
-        <p>Are you sure you want to cancel this action? This process might be irreversible.</p>
+        <p t>Are you sure you want to cancel this action? This process might be irreversible.</p>
     </div>
 
     <div class="dialog-footer">
-        <button class="btn btn-cancel-secondary" (click)="onNoClick()">
+        <button class="btn btn-cancel-secondary" (click)="onNoClick()" t>
             No, return
         </button>
         
-        <button class="btn btn-cancel-danger" [mat-dialog-close]="data.id" cdkFocusInitial>
+        <button class="btn btn-cancel-danger" [mat-dialog-close]="data.id" cdkFocusInitial t>
             Yes, cancel
         </button>
     </div>

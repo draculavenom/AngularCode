@@ -7,6 +7,11 @@ import { Router } from '@angular/router';
 import { ManagerOptionsModel } from '../../users/manager.options';
 import { UsersModel } from 'src/app/users/users.model';
 
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
+
 @Component({
   selector: 'app-appointment-quick-slot',
   templateUrl: './appointment-quick-slot.component.html',
@@ -25,7 +30,8 @@ export class AppointmentQuickSlotComponent implements OnInit {
     private managerService: ManagerService,
     private appointmentService: AppointmentService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -50,6 +56,9 @@ export class AppointmentQuickSlotComponent implements OnInit {
       }
     });
   }
+  get currentLang(): string {
+  return this.translate.currentLang || 'en';
+}
 
   private findNextAvailable(managerId: number, date: Date, attempts: number) {
     if (attempts > 14) {
