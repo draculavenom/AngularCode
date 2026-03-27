@@ -42,7 +42,7 @@
                             <a *ngIf="user?.role === 'MANAGER'" class="nav-link" routerLinkActive="active"
                                 routerLink="/manager-appointment">
                                 <i class="bi bi-calendar-plus me-3"></i>
-                                <span>Schedule for User</span>
+                                <span t>Schedule for User</span>
                             </a>
 
 
@@ -67,11 +67,11 @@
                                     <i class="bi bi-gear me-3"></i>
                                     <span t>Schedule Configuration</span>
                                 </a>
-
+                                <!--
                                 <a class="nav-link" routerLinkActive="active" routerLink="/manager-appointment">
                                     <i class="bi bi-calendar-plus me-3"></i>
                                     <span t>Schedule for User</span>
-                                </a>
+                                </a> -->
                             </ng-container>
                             <a *ngIf="user?.role === 'ADMIN'" class="nav-link" routerLinkActive="active"
                                 routerLink="/manager-options">

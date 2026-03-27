@@ -27,10 +27,14 @@
 
                                     <div class="d-flex flex-column">
                                         <div class="d-flex align-items-center gap-1">
-                                            <span class="text-secondary small fw-normal">You'll be attended to
-                                                by:</span>
+                                            <span class="text-secondary small fw-normal" t>You'll be attended to by:</span>
                                             <span class="text-dark fw-semibold fs-6">
-                                                {{ managerOptions.name ? managerOptions.name : 'Cargando...' }}
+                                                <ng-container *ngIf="managerOptions.name; else loadingText">
+                                                    {{ managerOptions.name }}
+                                                </ng-container>
+                                                <ng-template #loadingText>
+                                                    <span t>Loading...</span>
+                                                </ng-template>
                                             </span>
                                         </div>
 
@@ -59,7 +63,8 @@
                                 <div class="col-7 border-end p-3">
 
                                     <span class="ls-1 fw-bold text-muted-xs d-block mb-1" t>Date</span>
-                                    <h4 class="mb-0 fw-bold text-date">{{ quickSlot.date | date:'EEEE, d MMMM' : 'UTC' : currentLang
+                                    <h4 class="mb-0 fw-bold text-date">{{ quickSlot.date | date:'EEEE, d MMMM' : 'UTC' :
+                                        currentLang
                                         }}</h4>
                                 </div>
                                 <div class="col-5 p-3">
@@ -76,7 +81,7 @@
                                 Confirm Appointment <i class="bi bi-arrow-right ms-2"></i>
                             </span>
                             <span *ngIf="isSaving" class="d-flex align-items-center justify-content-center" t>
-                                <span class="spinner-border spinner-border-sm me-2" ></span> Processing...
+                                <span class="spinner-border spinner-border-sm me-2"></span> Processing...
                             </span>
                         </button>
                         <div *ngIf="errorMessage"
@@ -102,7 +107,7 @@
 
                         <a routerLink="/schedule/appointment" class="btn btn-link-appo-quick text-decoration-none"
                             [class.disabled]="isSaving">
-                            <i class="bi bi-calendar3 me-1"></i> 
+                            <i class="bi bi-calendar3 me-1"></i>
                             <span t> Explore other times</span>
                         </a>
                     </div>
@@ -122,7 +127,7 @@
             </div>
 
             <p class="text-center mt-4 text-muted small">
-                <i class="bi bi-shield-check me-1"></i> 
+                <i class="bi bi-shield-check me-1"></i>
                 <span t> Secure and private scheduling. Your data is safe with us.</span>
             </p>
         </div>

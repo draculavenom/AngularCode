@@ -151,20 +151,37 @@ export class CalendarComponent implements OnInit {
   }
 
 
-  openActionDialog(appointmentId: number, status: string): void {
+openActionDialog(appointmentId: number, status: string): void {
     const isCancel = status === 'CANCELLED';
     const isConfirm = status === 'CONFIRMED';
     const isComplete = status === 'COMPLETED';
 
-    const dialogRef = this.dialog.open(CommentDialogComponent, {
-      width: '400px',
-      data: {
-        title: isCancel ? 'Cancel Appointment' : (isConfirm ? 'Confirm Appointment' : 'Complete Appointment'),
-        message: `Are you sure you want to ${status.toLowerCase()} this appointment?`,
-        isMandatory: isCancel // Solo obligatorio si es cancelación
-      },
-      panelClass: 'custom-dialog-container'
-    });
+
+  const lang = this.currentLang;
+  let title = '';
+  let message = '';
+
+  if (isCancel) {
+    title = lang === 'es' ? 'Cancelar Cita' : 'Cancel Appointment';
+    message = lang === 'es' ? '¿Estás seguro de que deseas cancelar esta cita?' : 'Are you sure you want to cancel this appointment?';
+  } else if (isConfirm) {
+    title = lang === 'es' ? 'Confirmar Cita' : 'Confirm Appointment';
+    message = lang === 'es' ? '¿Estás seguro de que deseas confirmar esta cita?' : 'Are you sure you want to confirm this appointment?';
+  } else {
+    title = lang === 'es' ? 'Completar Cita' : 'Complete Appointment';
+    message = lang === 'es' ? '¿Estás seguro de que deseas marcar esta cita como completada?' : 'Are you sure you want to complete this appointment?';
+  }
+
+  const dialogRef = this.dialog.open(CommentDialogComponent, {
+    width: '400px',
+    data: {
+      title: title,
+      message: message,
+      isMandatory: isCancel 
+    },
+    panelClass: 'custom-dialog-container' 
+  });
+
 
     dialogRef.afterClosed().subscribe(comment => {
       if (comment !== undefined) {
@@ -177,44 +194,26 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-
   public cancel(appointmentId: number, comment: string) {
     this.appointmentService.cancelAppointment(appointmentId, comment).subscribe(a => {
+      this.updateLocalList(a);
+    });
+  }
+
+
+  public confirm(appointmentId: number, comment: string) {
+    this.appointmentService.confirmAppointment(appointmentId, comment).subscribe(a => {
       let app = this.appointments.find(ap => ap.id == a.id)
       if (app !== undefined)
         app.status = a.status
     });
   }
-  
 
-
-<<<<<<< HEAD
-=======
-public confirm(appointmentId: number) {
-  const msg = this.translate.currentLang === 'es' ? 'Confirmado vía Calendario' : 'Confirmed via Calendar';
-  
-  this.appointmentService.confirmAppointment(appointmentId, msg).subscribe(a => {
-    let app = this.appointments.find(ap => ap.id == a.id);
-    if (app !== undefined) app.status = a.status;
-    this.cdr.detectChanges(); 
-  });
-}
->>>>>>> Multilanguage
-
-
-  public confirm(appointmentId: number, comment: string = "Confirmed via Calendar") {
-    this.appointmentService.confirmAppointment(appointmentId, comment).subscribe(a => {
-      let app = this.appointments.find(ap => ap.id == a.id);
-      if (app !== undefined) app.status = a.status;
-      this.cdr.detectChanges();
-    });
-  }
-
-  public complete(appointmentId: number, comment: string = "Completed via Calendar") {
+  public complete(appointmentId: number, comment: string) {
     this.appointmentService.completeAppointment(appointmentId, comment).subscribe(a => {
-      let app = this.appointments.find(ap => ap.id == a.id);
-      if (app !== undefined) app.status = a.status;
-      this.cdr.detectChanges();
+      let app = this.appointments.find(ap => ap.id == a.id)
+      if (app !== undefined)
+        app.status = a.status
     });
   }
 

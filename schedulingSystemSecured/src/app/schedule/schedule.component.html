@@ -106,7 +106,7 @@
                         <th class="ps-4" t>Appointment Info</th>
                         <th t>Status</th>
                         <th t>User name</th>
-                        <th>Age</th>
+                        <th t>Age</th>
                         <th t>Comments</th>
                         <th class="text-end pe-4" t>Management Actions</th>
                     </tr>
@@ -144,12 +144,15 @@
                             <span class="text-muted small">
                                 <ng-container
                                     *ngIf="appointment.age !== undefined && appointment.age !== null; else noData">
-                                    {{ appointment.age }} {{ appointment.age === 1 ? 'year' : 'years' }}
+                                    {{ appointment.age }}
+
+                                    <span t>{{ appointment.age === 1 ? 'year' : 'years' }}</span>
                                 </ng-container>
+
                                 <ng-template #noData>N/A</ng-template>
                             </span>
                         </td>
-                        <td><span class="text-muted small">{{ appointment.comment || 'No comments' }}</span></td>
+                        <td><span class="text-muted small" t>{{ appointment.comment || 'No comments' }}</span></td>
                         <td class="text-end pe-4">
                             <div class="d-flex justify-content-end gap-2">
                                 <button (click)="openActionDialog(appointment.id, 'CONFIRMED')"
@@ -164,7 +167,6 @@
                                     *ngIf="appointment.status == 'SCHEDULED' || appointment.status == 'CONFIRMED'"
                                     class="btn btn-link btn-sm text-decoration-none me-2 text-danger">
                                     <i class="bi bi-x-circle"></i> <span t>Cancel </span></button>
-                                >>>>>>> Multilanguage
                             </div>
                         </td>
                     </tr>
@@ -191,7 +193,7 @@
                         <th t>Status</th>
                         <th t>Company</th>
                         <th t>User name</th>
-                        <th>Comments</th>
+                        <th t>Comments</th>
                         <th class="text-center" t>Management Actions</th>
                     </tr>
                 </thead>
@@ -232,7 +234,7 @@
                             </span>
                         </td>
                         <td>
-                            <span class="text-muted small">{{ appointment.comment || 'No comments' }}</span>
+                            <span class="text-muted small" t>{{ appointment.comment || 'No comments' }}</span>
                         </td>
                         <!-- <td>
                             <span class="text-muted small">

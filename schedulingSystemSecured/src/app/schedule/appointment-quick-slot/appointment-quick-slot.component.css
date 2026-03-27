@@ -110,6 +110,24 @@
     flex-shrink: 0;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
+.extra-small {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+}
+.text-secondary {
+    color: #6c757d !important;
+}
+
+.bg-success-subtle {
+    background-color: #d1e7dd !important;
+    color: #0f5132 !important;
+    font-weight: 600;
+}
+
+hr {
+    border-top: 1px solid #f1f3f5;
+    opacity: 1;
+}
 
 .avatar-color-1 {
     background-color: #cfd9e7;

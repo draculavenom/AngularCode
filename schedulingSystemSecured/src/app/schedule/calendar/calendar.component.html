@@ -42,7 +42,7 @@
         <div>
           <h5 class="fw-bold mb-0 text-dark" t>Today's Activities</h5>
           <span class="badge bg-text-subtle  rounded-pill">
-            {{ appointments.length  }} <span t>appointments</span>
+            {{ appointments.length }} <span t>appointments</span>
           </span>
         </div>
       </div>
@@ -72,18 +72,28 @@
               <div class="user-name ms-3">
                 <span class="user-name d-block mb-1">
                   <i class="bi bi-person me-1"></i>
-                  User : {{ appo.firstName || 'Unknown' }} {{ appo.lastName || 'user' }}
+                  <span t>User</span>:
+                  {{ appo.firstName || 'Unknown' }} {{ appo.lastName || 'user' }}
                 </span>
+
                 <span class="user-name d-block mb-1">
                   <i class="bi bi-cake-fill me-1"></i>
                   <ng-container *ngIf="appo.age !== undefined && appo.age !== null; else noData">
-                    Age: {{ appo.age }} {{ appo.age === 1 ? 'year' : 'years' }}
+                    <span t>Age</span>: {{ appo.age }}
+                    <span t>{{ appo.age === 1 ? 'year' : 'years' }}</span>
                   </ng-container>
-                  <ng-template #noData>N/A</ng-template>
+                  <ng-template #noData><span t>N/A</span></ng-template>
                 </span>
+
                 <span class="user-name d-block mb-1">
                   <i class="bi bi-chat-quote-fill me-1"></i>
-                  Comments : {{ appo.comment || 'No comments' }}
+                  <span t>Comments</span>:
+                  <ng-container *ngIf="appo.comment; else noComment">
+                    {{ appo.comment }}
+                  </ng-container>
+                  <ng-template #noComment>
+                    <span t>No comments</span>
+                  </ng-template>
                 </span>
 
               </div>
@@ -99,18 +109,19 @@
               <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'CONFIRMED')"
                 class="btn btn-sm btn-cal-success flex-grow-1">
 
-                <i class="bi bi-check-square-fill me-1"></i> 
+                <i class="bi bi-check-square-fill me-1"></i>
                 <span t>Confirm</span>
               </button>
 
-              <button 
-              *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="complete(appo.id)"
-                class="btn btn-sm btn-cal-info flex-grow-1"> <i class="bi bi-check-circle-fill me-1"></i>
+              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'"
+                (click)="openActionDialog(appo.id, 'COMPLETED')" class="btn btn-sm btn-cal-info flex-grow-1"> <i
+                  class="bi bi-check-circle-fill me-1"></i>
                 <span t>Completed</span>
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'" (click)="openDialog(appo.id)"
-                class="btn btn-sm btn-cal-outline-danger"> <i class="bi bi-x-circle me-1"></i>
+              <button *ngIf="appo.status === 'SCHEDULED' || appo.status === 'CONFIRMED'"
+                (click)="openActionDialog(appo.id, 'CANCELLED')" class="btn btn-sm btn-cal-outline-danger"> <i
+                  class="bi bi-x-circle me-1"></i>
                 <span t>Cancel</span>
               </button>
             </div>
@@ -202,11 +213,14 @@
               <div class="user-name ms-3">
                 <span class="user-name d-block mb-1">
                   <i class="bi bi-person me-1"></i>
-                  User : {{ appo.firstName || 'Unknown' }} {{ appo.lastName || 'user' }}
+                  <span t>User</span>:
+                  {{ appo.firstName || 'Unknown' }} {{ appo.lastName || 'user' }}
                 </span>
-                 <span class="user-name d-block mb-1">
+                <span class="user-name d-block mb-1">
                   <i class="bi bi-chat-quote-fill me-1"></i>
-                  Comments : {{ appo.comment || 'No comments' }}
+                  <span t>Comments</span>:
+
+                  <span t>{{ appo.comment || 'No comments' }}</span>
                 </span>
               </div>
             </div>
@@ -224,12 +238,12 @@
                 <span t>Confirm</span>
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED'" (click)="complete(appo.id)"
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'COMPLETED')"
                 class="btn btn-sm btn-cal-info flex-grow-1"> <i class="bi bi-check-circle-fill me-1"></i>
                 <span t>Completed</span>
               </button>
 
-              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openDialog(appo.id)"
+              <button *ngIf="appo.status === 'SCHEDULED'" (click)="openActionDialog(appo.id, 'CANCELLED')"
                 class="btn btn-sm btn-cal-outline-danger"> <i class="bi bi-x-circle me-1"></i>
                 <span t>Cancel</span>
 

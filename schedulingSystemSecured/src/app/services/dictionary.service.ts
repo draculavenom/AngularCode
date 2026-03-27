@@ -132,6 +132,7 @@ export class DictionaryService {
     'Do you want to manage your own appointments?': '¿Quieres gestionar tus propias citas?',
     'Start with us and professionalize your business.': 'Comienza con nosotros y profesionaliza tu negocio',
     'Get my own calendar': 'Obtener mi propio calendario',
+    "You'll be attended to by:": "Serás atendido por:",
     //Mensajes de appointment.ts
     "You don't have a manager assigned. Please contact support.": 'No tienes un manager asignado. Por favor, contacta con el servicio de assitencia',
     'Please select a schedule.': 'Por favor seleccione un horario',
@@ -195,6 +196,10 @@ export class DictionaryService {
     'Company': 'Compañía',
     'First': 'Primera',
     'Last': 'Última',
+    'Age': 'Edad',
+    'year': 'año',
+    'years': 'años',
+    'System cancelled appointment due to expiration.': 'El sistema canceló la cita debido a su vencimiento.',
     //Mesnajes de schedule.ts
     'Error loading Admin appointments:': 'Error al cragar las citas del administrador',
     //Textos de login
@@ -218,6 +223,11 @@ export class DictionaryService {
     'Enter your first name': 'Ingresa tu nombre',
     'Enter your last name': 'Ingresa tu apellido',
     'Active Workspace': 'Espacio de trabajo activo',
+    'Select your Company': 'Selecciona tu Empresa',
+    'Selected Company': 'Empresa Seleccionada',
+    'Hide': 'Ocultar',
+    'Change Company': 'Cambiar Empresa',
+    'Selected Company ID': 'ID de Empresa Seleccionada',
     //Mensajes de register-userfinal.ts
     'Please, now select the date and time for your first appointment': 'Por favor, ahora seleccione la fecha y la hora para su primera cita.',
     //Textos de manager-user
@@ -282,13 +292,13 @@ export class DictionaryService {
     'Save changes': 'Guardar cambios',
     'Update my profile': 'Actualizar mi perfil',
     //Mensajes de user.ts
-    'User and Company updated successfully':'Usuario y compañía actualizados correctamente',
-    'User saved, but Company failed:':'Usuario guardado, pero compañía fallo',
-    'User updated successfully':'Usuario actualizado correctamente',
-    'created':'creado',
-    'correctly':'correctamente',
-    'Manager details and company updated successfully':'Detalles de manager y compañía actualizados correctamente',
-    'You must create the user first.':'Primero debes de crear al usuario',
+    'User and Company updated successfully': 'Usuario y compañía actualizados correctamente',
+    'User saved, but Company failed:': 'Usuario guardado, pero compañía fallo',
+    'User updated successfully': 'Usuario actualizado correctamente',
+    'created': 'creado',
+    'correctly': 'correctamente',
+    'Manager details and company updated successfully': 'Detalles de manager y compañía actualizados correctamente',
+    'You must create the user first.': 'Primero debes de crear al usuario',
 
     //Textos de users
     'User Info': 'Informacion de usuario',
