@@ -47,8 +47,6 @@ export class ManagerPersonalizationComponent implements OnInit {
           const path = data.logo.startsWith('/') ? data.logo : '/' + data.logo;
 
           this.imagePreview = `${baseUrl}${path}`;
-
-          console.log("🚀 URL FINAL:", this.imagePreview);
         } else {
           this.imagePreview = null;
         }
