@@ -4,8 +4,8 @@
   <div class="container py-2">
     <!-- Navbar brand -->
     <a class="navbar-brand d-flex align-items-center" style="cursor: pointer;" (click)="handleHomeClick()">
-      <div class="logo-container me-2">
-        <img src="assets/CREAAR_Logo-Vert_color.png" alt="Logo" class="nav-logo">
+      <div class="avatar-circle overflow-hidden d-flex align-items-center justify-content-center bg-white border">
+        <img [src]="userLogo" alt="Brand Logo" class="avatar-image">
       </div>
       <i class="bi bi-house-door-fill me-2"></i>
       <span class="brand-text" t>Home</span>
@@ -28,13 +28,14 @@
       </div>
 
       <div *ngIf="!isLoggedIn" class="d-flex align-items-center gap-2">
+
         <a href="login" class="btn btn-header-outline" t>Login</a>
       </div>
 
       <div *ngIf="isLoggedIn" class="d-flex align-items-center gap-3">
         <a class="user-profile-pill d-flex align-items-center" href="/user/{{user.id}}">
-          <div class="avatar-circle">
-            {{ (username && username[0]) || 'U' }}
+          <div class="avatar-circle overflow-hidden">
+            <img [src]="userLogo" alt="User" class="avatar-image">
           </div>
           <span class="ms-2 d-none d-md-inline user-name-text">{{ username || 'Loading...' }}</span>
         </a>

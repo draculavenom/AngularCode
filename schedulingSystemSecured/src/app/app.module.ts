@@ -59,6 +59,8 @@ import { ScheduleConfigurationComponent } from './manager/schedule-configuration
 import { LegalPageComponent } from './layout/legal-page/legal-page.component';import { ManagerAppointmentComponent } from './schedule/manager-appointment/manager-appointment.component';
 import { AppointmentQuickSlotComponent } from './schedule/appointment-quick-slot/appointment-quick-slot.component';
 import { CommentDialogComponent } from './layout/comment-dialog/comment-dialog.component';
+import { ManagerCardComponent} from './manager/manager-card/manager-card.component';
+import { ManagerPersonalizationComponent } from './manager/manager-personalization/manager-personalization.component';
 
 FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
@@ -104,7 +106,9 @@ registerLocaleData(localeEs);
     AppointmentQuickSlotComponent,
     CommentDialogComponent,
     LegalPageComponent,
-    AutoTranslateDirective
+    AutoTranslateDirective,
+    ManagerCardComponent,
+    ManagerPersonalizationComponent
 
   ],
   imports: [

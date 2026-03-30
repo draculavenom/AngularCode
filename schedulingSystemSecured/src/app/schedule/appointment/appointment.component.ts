@@ -3,10 +3,10 @@ import { AppointmentModel } from './appointment.model';
 import { UserService } from 'src/app/users/user.service';
 import { AppointmentService } from './appointment.service';
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
-import { SecurityService } from 'src/app/security/security.service';
 import { ManagerOptionsModel } from '../../users/manager.options';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsersModel } from 'src/app/users/users.model';
+import { ManagerProfile } from 'src/app/manager/manager-personalization/manager-profile.model';
 
 import { error } from '@angular/compiler/src/util';
 
@@ -27,6 +27,8 @@ export class AppointmentComponent implements OnInit {
   managersList: any[] = [];
   resolvedManagerId: number | null = null;
   managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
+  managerProfile: ManagerProfile | null = null;
+  imagePreview: string | null = null;
 
   constructor(
     private userService: UserService,
@@ -34,7 +36,6 @@ export class AppointmentComponent implements OnInit {
     private managerService: ManagerService,
     private router: Router,
     private route: ActivatedRoute,
-    private securityService: SecurityService
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +56,7 @@ export class AppointmentComponent implements OnInit {
                 console.log("Manager identified through appointment:", this.resolvedManagerId);
                 this.loadManagerDetails(this.resolvedManagerId);
                 this.loadSlots();
+
               },
               error: (err: any) => {
                 this.errorMessage = "Error loading appointment.";
@@ -83,6 +85,7 @@ export class AppointmentComponent implements OnInit {
       next: (userFullData: UsersModel) => {
         this.managerOptions = new ManagerOptionsModel(id);
         this.managerOptions.name = `${userFullData.firstName || ''} ${userFullData.lastName || ''}`.trim();
+
         this.userService.getManagerSelect().subscribe({
           next: (managers: any[]) => {
             const foundSelection = managers.find(m => m.managerId === id || m.id === id);
@@ -203,15 +206,14 @@ export class AppointmentComponent implements OnInit {
   }
 
   public getAvatarColorClass(managerId: any): string {
-  const id = Number(managerId);
-  if (!id || isNaN(id)) {
-    return 'avatar-color-0';
+    const id = Number(managerId);
+    if (!id || isNaN(id)) {
+      return 'avatar-color-0';
+    }
+
+    const numberOfColors = 6;
+    const colorIndex = id % numberOfColors;
+
+    return `avatar-color-${colorIndex}`;
   }
-
-  const numberOfColors = 6; 
-  const colorIndex = id % numberOfColors;
-  
-  return `avatar-color-${colorIndex}`;
-}
-
 }

@@ -38,6 +38,11 @@
                                 <i class="bi bi-person-circle me-3"></i>
                                 <span>{{username}}</span>
                             </a>
+                            <a  *ngIf="user?.role === 'MANAGER'"class="nav-link" routerLinkActive="active" 
+                            routerLink="/manager-personalization">
+                                <i class="bi bi-person-circle me-3"></i>
+                                <span>Manager Personalization</span>
+                            </a>
 
                             <a *ngIf="user?.role === 'MANAGER'" class="nav-link" routerLinkActive="active"
                                 routerLink="/manager-appointment">

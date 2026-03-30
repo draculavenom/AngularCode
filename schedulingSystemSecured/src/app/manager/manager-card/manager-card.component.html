@@ -1,0 +1,29 @@
+<div class="card-manager-container" *ngIf="profile">
+  <div class="manager-card-content">
+
+    <div class="avatar-section">
+      <img [src]="profile.logo === 'SYSTEM_DEFAULT_CREAR_LOGO' 
+                  ? 'assets/img/logos/default-avatar.png' 
+                  : profile.logo" alt="Logo" class="avatar-img">
+    </div>
+
+    <div class="info-section">
+      <div class="manager-header-block">
+        <h4 class="manager-name">
+          <i class="bi bi-person-check-fill me-2"></i>
+          {{ profile.managerFullName }}
+        </h4>
+
+        <div class="company-name" *ngIf="companyName">
+          <i class="bi bi-building-fill me-2"></i> {{ companyName }}
+        </div>
+      </div>
+
+      <p class="manager-description">
+        <i class="bi bi-quote me-1"></i>
+        {{ profile.introduction || 'Professional service provider.' }}
+      </p>
+    </div>
+
+  </div>
+</div>

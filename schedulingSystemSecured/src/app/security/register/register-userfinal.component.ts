@@ -4,6 +4,9 @@ import { UsersModel } from 'src/app/users/users.model';
 import { UserService } from 'src/app/users/user.service';
 import { ManagerOptionsModel } from 'src/app/users/manager.options';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ManagerService } from 'src/app/schedule/manager/manager.service';
+import { ConfigService } from 'src/app/services/config.service';
+import { ManagerProfile } from 'src/app/manager/manager-personalization/manager-profile.model';
 
 @Component({
   selector: 'app-register-form',
@@ -14,14 +17,18 @@ export class RegisterUserFinalComponent implements OnInit {
   messages: string[] = [];
   messageType = "";
   user: UsersModel = new UsersModel(0, "", true);
-  managerSelect: ManagerOptionsModel[] = [];
+  managerSelect: any[] = [];
+  profilesMap: { [key: number]: ManagerProfile } = {};
   showCompanySelection: boolean = true;
+  selectedProfile: ManagerProfile | null = null
 
   constructor(
     private securityService: SecurityService,
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private managerService: ManagerService,
+    private configService: ConfigService
   ) { }
 
   ngOnInit(): void {
@@ -30,14 +37,32 @@ export class RegisterUserFinalComponent implements OnInit {
 
     this.userService.getManagerSelect().subscribe((l: any) => {
       this.managerSelect = l;
+      console.log('DATOS DEL MANAGER:', l[0]);
+
+      this.managerSelect.forEach(m => {
+        this.managerService.getPublicManagerProfile(m.managerId).subscribe({
+          next: (profile) => {
+            if (profile.logo && !profile.logo.startsWith('http')) {
+              profile.logo = this.configService.apiUrl + profile.logo;
+            }
+            this.profilesMap[m.managerId] = profile;
+          },
+          error: () => {
+            // Perfil por defecto si el manager no ha configurado su personalización
+            this.profilesMap[m.managerId] = {
+              id: m.managerId,
+              logo: 'assets/img/logos/default-avatar.png',
+              introduction: 'Professional service provider.',
+              managerFullName: m.name
+            };
+          }
+        });
+      });
 
       this.route.queryParams.subscribe(params => {
-
-        const idFromUrl = +params['managerId'] || +params['managerid'];
-        if (idFromUrl) {
-          this.user.managedBy = idFromUrl;
-          this.showCompanySelection = false;
-
+        const id = +params['managerId'] || +params['managerid'];
+        if (id) {
+          setTimeout(() => this.selectCompany(id), 500);
         }
       });
     });
@@ -45,10 +70,14 @@ export class RegisterUserFinalComponent implements OnInit {
   public selectCompany(id: number) {
     this.user.managedBy = id;
     this.showCompanySelection = false;
+    this.selectedProfile = this.profilesMap[id] || null;
   }
   public toggleCompanySelection() {
     this.showCompanySelection = !this.showCompanySelection;
 
+  }
+  public getManagerData(id: number): ManagerProfile | undefined {
+    return this.profilesMap[id];
   }
 
   public onSubmit() {
@@ -67,5 +96,13 @@ export class RegisterUserFinalComponent implements OnInit {
         this.messages = Array.isArray(err.error) ? err.error : [err.error || "Error"];
       }
     });
+  }
+  public getCompanyName(id: number | undefined): string {
+    if (!id) return 'Company';
+    const match = this.managerSelect.find(m => m.managerId === id);
+    if (match) {
+      return match.name || match.companyName || 'Professional Studio';
+    }
+    return 'Company';
   }
 }

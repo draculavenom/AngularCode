@@ -1,0 +1,80 @@
+.card-manager-container {
+  background: #ffffff;
+  border: 1px solid #eef2f6;
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+.card-manager-container:hover {
+  border-color: #3b702e; 
+  box-shadow: 0 4px 12px rgba(59, 112, 46, 0.08);
+}
+
+.manager-card-content {
+  display: flex;
+  align-items: flex-start; 
+  gap: 1.25rem;
+}
+
+.avatar-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px; 
+  object-fit: cover;
+  border: 2px solid #f8fafc;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.manager-header-block {
+  margin-bottom: 8px;
+}
+
+.manager-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f3d03;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.manager-name i {
+  color: #3b702e; 
+}
+
+.company-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #648b6e; 
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.company-name i {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.manager-description {
+  font-size: 0.85rem;
+  color: #739671;
+  margin: 0;
+  line-height: 1.4;
+  font-style: italic; 
+}
+
+@media (max-width: 480px) {
+  .manager-card-content {
+    flex-direction: row; 
+    gap: 1rem;
+  }
+  
+  .avatar-img {
+    width: 50px;
+    height: 50px;
+  }
+}

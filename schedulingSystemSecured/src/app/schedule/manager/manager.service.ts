@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SecurityService } from 'src/app/security/security.service';
 import { ManagerOptionsModel } from 'src/app/users/manager.options';
 import { ConfigService } from '../../services/config.service';
+import { ManagerProfile } from '../../manager/manager-personalization/manager-profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,35 @@ export class ManagerService {
         headers: this.headers,
         params: { date: date }
       }
+    );
+  }
+  public getMyPersonalizationProfile(): Observable<ManagerProfile> {
+    this.updateHeaders();
+    return this.http.get<ManagerProfile>(
+      `${this.configService.apiUrl}/api/v1/personalization/my-profile`, 
+      { headers: this.headers }
+    );
+  }
+  public updatePersonalizationProfile(introduction: string, logoFile: File | null): Observable<any> {
+    this.updateHeaders();
+    const formData = new FormData();
+    formData.append('introduction', introduction);
+    if (logoFile) {
+      formData.append('logoFile', logoFile); 
+    }
+    const uploadHeaders = { ...this.headers };
+    delete (uploadHeaders as any)["content-type"]; 
+
+    return this.http.put(
+      `${this.configService.apiUrl}/api/v1/personalization/my-profile`, 
+      formData, 
+      { headers: uploadHeaders, responseType: 'text' }
+    );
+  }
+  public getPublicManagerProfile(managerId: number): Observable<ManagerProfile> {
+    return this.http.get<ManagerProfile>(
+      `${this.configService.apiUrl}/api/v1/personalization/public/${managerId}`, 
+      { headers: this.headers }
     );
   }
 

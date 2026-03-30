@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
+import { ManagerService } from 'src/app/schedule/manager/manager.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-header',
@@ -17,9 +19,15 @@ export class HeaderComponent implements OnInit {
   user: UsersModel = new UsersModel(0, "", false);
   isLoggedIn: boolean = false;
   lastPublicRoute: string = '/onboarding-final';
+  defaultLogo: string = 'assets/img/logos/default-avatar.png';
+  userLogo: string = this.defaultLogo;
 
-  constructor(private securityService: SecurityService, private userService: UserService, private location: Location,
-    private router: Router, private translate: TranslateService) {
+  constructor(private securityService: SecurityService, private userService: UserService,
+    private location: Location,
+    private router: Router, private translate: TranslateService,
+    private managerService: ManagerService,
+    private configService: ConfigService
+  ) {
     const savedLang = localStorage.getItem('preferredLang') || 'en';
     this.translate.setDefaultLang('en');
     this.translate.use(savedLang);
@@ -56,10 +64,28 @@ export class HeaderComponent implements OnInit {
       if (loggedIn) {
         setTimeout(() => {
           this.checkToken();
+          this.loadManagerLogo();
         }, 0);
       } else {
         this.username = "";
         this.user = new UsersModel(0, "", false);
+        this.userLogo = this.defaultLogo;
+      }
+    });
+  }
+
+  private loadManagerLogo() {
+    this.managerService.getMyPersonalizationProfile().subscribe({
+      next: (profile) => {
+        if (profile.logo && profile.logo !== 'SYSTEM_DEFAULT_CREAR_LOGO') {
+          const baseUrl = this.configService.apiUrl.replace(/\/$/, '');
+          this.userLogo = `${baseUrl}${profile.logo}`.replace(/([^:]\/)\/+/g, "$1");
+        } else {
+          this.userLogo = this.defaultLogo;
+        }
+      },
+      error: (err) => {
+        this.userLogo = this.defaultLogo; 
       }
     });
   }
