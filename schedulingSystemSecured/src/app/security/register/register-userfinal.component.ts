@@ -37,18 +37,20 @@ export class RegisterUserFinalComponent implements OnInit {
 
     this.userService.getManagerSelect().subscribe((l: any) => {
       this.managerSelect = l;
-      console.log('DATOS DEL MANAGER:', l[0]);
-
       this.managerSelect.forEach(m => {
         this.managerService.getPublicManagerProfile(m.managerId).subscribe({
           next: (profile) => {
-            if (profile.logo && !profile.logo.startsWith('http')) {
-              profile.logo = this.configService.apiUrl + profile.logo;
+            if (!profile.logo || profile.logo === 'SYSTEM_DEFAULT_CREAR_LOGO') {
+              profile.logo = 'assets/img/logos/default-avatar.png';
+            }
+            else if (!profile.logo.startsWith('http') && !profile.logo.startsWith('assets')) {
+              const baseUrl = this.configService.apiUrl.replace(/\/$/, '');
+              profile.logo = `${baseUrl}${profile.logo}`;
             }
             this.profilesMap[m.managerId] = profile;
           },
           error: () => {
-            // Perfil por defecto si el manager no ha configurado su personalización
+
             this.profilesMap[m.managerId] = {
               id: m.managerId,
               logo: 'assets/img/logos/default-avatar.png',
@@ -105,4 +107,5 @@ export class RegisterUserFinalComponent implements OnInit {
     }
     return 'Company';
   }
+
 }
