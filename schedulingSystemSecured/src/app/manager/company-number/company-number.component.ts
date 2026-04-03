@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
 import { UserService } from 'src/app/users/user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
     selector: 'app-company-number',
@@ -24,6 +25,10 @@ export class CompanyNumberComponent implements OnInit {
     message: string | null = null;
     messageClass: string = '';
     loading: boolean = false;
+    accessToken: string = '';
+    phoneNumberId: string = ''; 
+    wabaId: string = '';        
+    verifyToken: string = '';   
 
     get selectedCountry() {
         return this.countries.find(c => c.code === this.selectedPrefix);
@@ -54,23 +59,38 @@ export class CompanyNumberComponent implements OnInit {
         });
     }
 
-    onCompanySelected() {
-        if (this.selectedManagerId) {
-            this.loading = true;
-            this.managerService.getCompanyNumber(this.selectedManagerId).subscribe({
-                next: (res) => {
-                    const fullNumber = res.companyNumber || '';
-                    this.splitPhoneNumber(fullNumber);
-                    this.loading = false;
-                },
-                error: (err) => {
-                    console.error("Error loading number:", err);
+  onCompanySelected() {
+    if (this.selectedManagerId) {
+        this.loading = true;
+        forkJoin({
+            telefono: this.managerService.getCompanyNumber(this.selectedManagerId),
+            configWhatsapp: this.managerService.getFullWhatsappConfig(this.selectedManagerId)
+        }).subscribe({
+            next: (res) => {
+                if (res.telefono && res.telefono.companyNumber) {
+                    this.splitPhoneNumber(res.telefono.companyNumber);
+                } else {
                     this.localNumber = '';
+                }
+                if (res.configWhatsapp) {
+                    this.accessToken = res.configWhatsapp.accessToken || '';
+                    this.phoneNumberId = res.configWhatsapp.phoneNumberId || '';
+                    this.wabaId = res.configWhatsapp.wabaId || '';
+                    this.verifyToken = res.configWhatsapp.verifyToken || '';
                     this.loading = false;
                 }
-            });
-        }
+            },
+            error: (err) => {
+                this.loading = false;
+                this.localNumber = '';
+                this.accessToken = '';
+                this.phoneNumberId = '';
+                this.wabaId = '';
+                this.verifyToken = '';
+            }
+        });
     }
+}
 
     private splitPhoneNumber(fullNumber: string) {
         const sortedCountries = [...this.countries].sort((a, b) => b.code.length - a.code.length);
@@ -113,26 +133,30 @@ export class CompanyNumberComponent implements OnInit {
         this.loading = true;
         const cleanLocalNumber = this.localNumber.replace(/\s+/g, '');
         const finalNumber = `${this.selectedPrefix}${cleanLocalNumber}`;
+        const config = {
+            phoneNumberId: this.phoneNumberId, 
+            accessToken: this.accessToken,
+            wabaId: this.wabaId,
+            verifyToken: this.verifyToken,
+        };
 
-        console.log("Enviando a la BD:", finalNumber);
-
-        this.managerService.saveCompanyNumber(this.selectedManagerId, finalNumber).subscribe({
-            next: () => {
-                this.loading = false;
-                this.showMessage('The number has been saved successfully.', 'alert-success');
-                this.onCompanySelected();
-            },
-            error: (err) => {
-                this.loading = false;
-                this.showMessage('The number could not be saved. Please try again.', 'alert-danger');
-            }
-        });
+        forkJoin({
+        number: this.managerService.saveCompanyNumber(this.selectedManagerId, finalNumber),
+        config: this.managerService.saveFullWhatsappConfig(this.selectedManagerId, config)
+    }).subscribe({
+        next: (res) => {
+            this.loading = false;
+            this.showMessage('Number and settings saved successfully!', 'alert-success');
+        },
+        error: (err) => {
+            this.loading = false;
+            this.showMessage('Error saving changes. ', 'alert-danger');
+        }
+    });
     }
     private showMessage(text: string, cssClass: string) {
         this.message = text;
         this.messageClass = cssClass;
         setTimeout(() => this.message = null, 2000);
     }
-
-
 }

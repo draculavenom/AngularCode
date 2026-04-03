@@ -7,7 +7,7 @@
                     style="width: 35px; height: 35px;">
                     <i class="bi bi-whatsapp"></i>
                 </div>
-                <h5 class="numberCompany-title mb-0">Number configuration for companies</h5>
+                <h5 class="numberCompany-title mb-0">WhatsApp configuration for companies</h5>
             </div>
         </div>
 
@@ -27,50 +27,51 @@
 
             <div *ngIf="selectedManagerId" class="animate-in">
                 <hr class="my-4 text-muted opacity-25">
-
-                <label class="numberCompany-label ">Set Phone Number</label>
-
+                <label class="numberCompany-label">Display Phone Number</label>
                 <div class="input-group mb-3">
-                    <select class="form-select flex-grow-0 border-end-0"
-                        style="width: 110px; background-color: #fcfcfc;" [(ngModel)]="selectedPrefix"
+                    <select class="form-select flex-grow-0" style="width: 110px;" [(ngModel)]="selectedPrefix"
                         (change)="onPrefixChange()">
-                        <option *ngFor="let c of countries" [value]="c.code">
-                            {{ c.flag }} +{{ c.code }}
-                        </option>
+                        <option *ngFor="let c of countries" [value]="c.code">{{ c.flag }} +{{ c.code }}</option>
                     </select>
-
                     <input type="text" class="form-control form-control-lg" [(ngModel)]="localNumber"
-                        (input)="formatNumber()" [placeholder]="'Escribe ' + selectedCountry!.len + ' dígitos'"
-                        [maxlength]="selectedCountry!.len"
-                        [class.is-invalid]="localNumber.length > 0 && !isNumberValid()"
-                        [class.is-valid]="isNumberValid()">
+                        (input)="formatNumber()" (keypress)="onlyNumbers($event)"
+                        [maxlength]="selectedCountry?.len || 20"
+                        [placeholder]="'Introduce ' + (selectedCountry?.len || '') + ' dígitos'">
                 </div>
 
-                <div class="mb-4" style="min-height: 20px;">
-                    <small *ngIf="localNumber.length > 0 && !isNumberValid()" class="text-danger fw-medium">
-                        <i class="bi bi-exclamation-diamond-fill"></i>
-                        There are not enough digits for {{ selectedCountry?.name }} ({{ localNumber.length }}/{{
-                        selectedCountry?.len }})
-                    </small>
-                    <small *ngIf="isNumberValid()" class="text-success fw-medium">
-                        <i class="bi bi-check2-circle me-1"></i> Valid number
-                    </small>
+                <div class="p-3 bg-light rounded border mb-4">
+                    <h6 class="numberCompany-title mb-3"><i class="bi bi-code-slash me-2"></i>WhatsApp Cloud API
+                        Credentials
+                    </h6>
+
+                    <div class="mb-3">
+                        <label class="small fw-bold numberCompany-label">Access Token </label>
+                        <textarea class="form-control" [(ngModel)]="accessToken" rows="2"
+                            placeholder="EAAB..."></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="small fw-bold numberCompany-label">Phone Number Identifier</label>
+                            <input type="text" class="form-control" [(ngModel)]="phoneNumberId"
+                                placeholder="Ej: 106554321...">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="small fw-bold numberCompany-label">WhatsApp Business Account ID</label>
+                            <input type="text" class="form-control" [(ngModel)]="wabaId"
+                                placeholder="Ej: 1122334455...">
+                        </div>
+                    </div>
+
+                    <div class="mb-0">
+                        <label class="small fw-bold numberCompany-label">Verification Token (Webhook)</label>
+                        <input type="text" class="form-control" [(ngModel)]="verifyToken"
+                            placeholder="Define a secret string for your webhook">
+                    </div>
                 </div>
 
-                <div class="preview-box mb-4">
-                    <span class="small text-muted fw-bold">Preview</span>
-                    <span class="preview-number h5 mb-0">+{{ selectedPrefix }} {{ localNumber || '----------' }}</span>
-                </div>
-
-
-
-                <button class="btn-numberCompany w-100 py-3 d-flex align-items-center justify-content-center"
-                    (click)="save()" [disabled]="!isNumberValid() || loading">
-
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-                    <i *ngIf="!loading" class="bi bi-cloud-arrow-up-fill me-2"></i>
-
-                    <span>{{ loading ? 'Saving...' : 'Save Changes' }}</span>
+                <button class="btn-numberCompany w-100 py-3" (click)="save()" [disabled]="!isNumberValid() || loading">
+                    <span>{{ loading ? 'Saving...' : 'Save All Changes' }}</span>
                 </button>
             </div>
             <div *ngIf="message"

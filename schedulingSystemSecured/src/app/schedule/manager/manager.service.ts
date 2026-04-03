@@ -100,6 +100,17 @@ export class ManagerService {
     );
   }
 
+
+  public saveFullWhatsappConfig(managerId: number, config: any): Observable<any> {
+    this.updateHeaders();
+    return this.http.post(`${this.configService.apiUrl}/api/v1/whatsapp-config/${managerId}`, config, { headers: this.headers });
+  }
+
+  public getFullWhatsappConfig(managerId: number): Observable<any> {
+    this.updateHeaders();
+    return this.http.get(`${this.configService.apiUrl}/api/v1/whatsapp-config/${managerId}`, { headers: this.headers });
+  }
+
   private updateHeaders() {
     this.headers["Authorization"] = "Bearer " + this.securityService.getBearerToken();
   }
