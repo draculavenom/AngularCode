@@ -7,7 +7,8 @@ import { ManagerOptionsModel } from '../../users/manager.options';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsersModel } from 'src/app/users/users.model';
 import { ManagerProfile } from 'src/app/manager/manager-personalization/manager-profile.model';
-
+import { TranslateService } from '@ngx-translate/core';
+import { DictionaryService } from 'src/app/services/dictionary.service';
 import { error } from '@angular/compiler/src/util';
 
 @Component({
@@ -36,6 +37,8 @@ export class AppointmentComponent implements OnInit {
     private managerService: ManagerService,
     private router: Router,
     private route: ActivatedRoute,
+    private translate: TranslateService,
+    private dict: DictionaryService
   ) { }
 
   ngOnInit(): void {
@@ -185,23 +188,24 @@ export class AppointmentComponent implements OnInit {
   }
 
   public convertTime(a: any) {
-    this.appointment = a;
+    this.appointment.id = Number(a.id);
+    this.appointment.userId = a.userId;
+    this.appointment.status = a.status;
+    this.appointment.comment = a.comment || '';
 
-    if (this.appointment.time) {
-      this.appointment.time = this.appointment.time.substring(0, 5);
+    if (a.time) {
+      this.appointment.time = a.time.substring(0, 5);
     }
+
     if (a.date) {
       let dateObj: Date;
-
       if (typeof a.date === 'string') {
         const parts = a.date.split('T')[0].split('-');
         dateObj = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
       } else {
         dateObj = new Date(a.date);
       }
-
       this.appointment.date = dateObj;
-
     }
   }
 
@@ -215,5 +219,13 @@ export class AppointmentComponent implements OnInit {
     const colorIndex = id % numberOfColors;
 
     return `avatar-color-${colorIndex}`;
+  }
+
+  getTranslatedPlaceholder(): string {
+    const key = this.appointment.id !== 0
+      ? 'Please explain the reason for the change'
+      : 'Any specific requests?';
+    const lang = this.translate.currentLang || 'en';
+    return this.dict.translate(key, lang);
   }
 }

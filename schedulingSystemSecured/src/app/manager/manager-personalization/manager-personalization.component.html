@@ -1,7 +1,8 @@
 <div class="container py-5" *ngIf="!loading">
     <div class="header-section mb-4">
-        <h2 class="fw-bold text-color">Profile Settings</h2>
-        <p class="text-muted" style="text-align: center;">Manage your information so that your customers can see it.</p>
+        <h2 class="fw-bold text-color" t>Personalize your profile</h2>
+        <p class="text-muted" style="text-align: center;" t>Manage your information so that your customers can see it.
+        </p>
     </div>
 
     <div class="card profile-card border-0 shadow-sm">
@@ -22,7 +23,7 @@
                     <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" hidden>
 
                     <div class="upload-info">
-                        <p class="small text-muted mb-1">Formatos: JPG, PNG. </p>
+                        <p class="small text-muted mb-1"> <span t>Formats: JPG, PNG.</span> </p>
                         <div *ngIf="selectedFile" class="badge bg-light text-success border border-success-subtle p-2">
                             <i class="bi bi-check2-circle me-1"></i> {{ selectedFile.name }}
                         </div>
@@ -32,28 +33,28 @@
                 <div class="col-md-8 ps-md-5">
                     <div class="mb-4">
                         <label class="form-label fw-semibold text-secondary">
-                            <i class="bi bi-person me-1"></i> Full Name
+                            <i class="bi bi-person me-1"></i> <span t>Full Name</span>
                         </label>
                         <input type="text" class="form-control form-control-lg bg-light"
                             [value]="profile.managerFullName" disabled>
-                        <div class="form-text">The name is not editable from this panel.</div>
+                        <div class="form-text" t>The name is not editable from this panel.</div>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label fw-semibold text-secondary">
-                            <i class="bi bi-chat-left-text me-1"></i> Professional Introduction
+                            <i class="bi bi-chat-left-text me-1"></i> <span t>Professional Introduction</span>
                         </label>
                         <textarea class="form-control custom-textarea" [(ngModel)]="profile.introduction" rows="6"
-                            placeholder="Cuéntale al mundo sobre tu trayectoria..."></textarea>
+                            placeholder="Tell your customers about your journey..." t></textarea>
                     </div>
 
                     <div class="d-flex justify-content-end">
                         <button class="btn btn-save px-4 py-2" (click)="saveProfile()" [disabled]="isSaving">
                             <span *ngIf="!isSaving">
-                                <i class="bi bi-cloud-arrow-up me-2"></i> Save Changes
+                                <i class="bi bi-cloud-arrow-up me-2"></i> <span t>Save Changes</span>
                             </span>
                             <span *ngIf="isSaving">
-                                <span class="spinner-border spinner-border-sm me-2"></span> Saving...
+                                <span class="spinner-border spinner-border-sm me-2"></span> <span t>Saving...</span>
                             </span>
                         </button>
                     </div>
@@ -68,7 +69,7 @@
             <i
                 [class]="message.type === 'success' ? 'bi bi-check-circle-fill me-2' : 'bi bi-exclamation-triangle-fill me-2'"></i>
             <div>
-                {{ message.text }}
+                <span t>{{ message.text }}</span>
             </div>
         </div>
         <button type="button" class="btn-close" (click)="message = null" aria-label="Close"></button>
@@ -76,6 +77,8 @@
 </div>
 
 <div *ngIf="loading" class="d-flex flex-column align-items-center justify-content-center mt-5 py-5">
-    <div class="spinner-grow text-primary mb-3" role="status"></div>
-    <p class="text-muted fw-medium">Syncing your data...</p>
+    <div class="spinner-grow text-success mb-3" role="status"></div>
+    <p class="text-muted fw-medium">
+        <span t>Syncing your data...</span>
+    </p>
 </div>

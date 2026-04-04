@@ -8,7 +8,7 @@
 
       <div class="appointment-manager mb-4">
         <app-manager-card [managerId]="resolvedManagerId!" [companyName]="managerOptions.nameCompany">
-          </app-manager-card>
+        </app-manager-card>
       </div>
 
       <form class="appointment-form" #f="ngForm">
@@ -44,21 +44,22 @@
           </div>
           <div class="mb-4">
             <label for="comment" class="form-label fw-bold d-flex justify-content-between">
-              <span>Comments</span>
-              <small [ngClass]="appointment.id === 0 ? 'text-muted' : 'text-danger'">
-                {{ appointment.id === 0 ? '(Optional)' : '(Required for changes *)' }}
+              <span t>Comments</span>
+              <small [ngClass]="appointment.id !== 0 ? 'text-danger' : 'text-muted'">
+                <span *ngIf="appointment.id !== 0" t>(Required for changes *)</span>
+                <span *ngIf="appointment.id === 0" t>(Optional)</span>
               </small>
             </label>
 
-            <textarea class="form-control custom-input" name="comment" id="comment" rows="3"
-              [(ngModel)]="appointment.comment" #commentModel="ngModel" [required]="appointment.id !== 0"
-              [placeholder]="appointment.id === 0 ? 'Any specific requests?' : 'Please explain the reason for the change'"
+            <textarea class="form-control custom-input" name="comment" rows="3" [(ngModel)]="appointment.comment"
+              #commentModel="ngModel" [required]="appointment.id !== 0" [placeholder]="getTranslatedPlaceholder()"
               [class.is-invalid]="appointment.id !== 0 && commentModel.invalid && commentModel.touched">
-    </textarea>
+            </textarea>
 
             <div *ngIf="appointment.id !== 0 && commentModel.invalid && commentModel.touched"
               class="text-danger small mt-1">
-              <i class="bi bi-exclamation-triangle"></i> A comment is required to update your appointment.
+              <i class="bi bi-exclamation-triangle"></i> <span t>A comment is required to update your
+                appointment.</span>
             </div>
           </div>
 

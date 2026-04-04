@@ -133,6 +133,11 @@ export class DictionaryService {
     'Start with us and professionalize your business.': 'Comienza con nosotros y profesionaliza tu negocio',
     'Get my own calendar': 'Obtener mi propio calendario',
     "You'll be attended to by:": "Serás atendido por:",
+    '(Optional)':'(Opcional)',
+    '(Required for changes *)':'(Requerido para cambios *)',
+    'Please explain the reason for the change': 'Por favor, explica el motivo del cambio',
+  'Any specific requests?': '¿Alguna petición especial?',
+  'A comment is required to update your appointment.': 'Se requiere un comentario para actualizar tu cita.',
     //Mensajes de appointment.ts
     "You don't have a manager assigned. Please contact support.": 'No tienes un manager asignado. Por favor, contacta con el servicio de assitencia',
     'Please select a schedule.': 'Por favor seleccione un horario',
@@ -181,7 +186,7 @@ export class DictionaryService {
     //Textos de schedule
     'Show': 'Ver',
     'Records': 'Registros',
-    'Appointment': 'Cita',
+    'New Appointment': 'Nueva Cita',
     'Date & Schedule': 'Fecha y Horario',
     'Status': 'Estado',
     'Actions': 'Acciones',
@@ -225,7 +230,7 @@ export class DictionaryService {
     'Active Workspace': 'Espacio de trabajo activo',
     'Select your Company': 'Selecciona tu Empresa',
     'Selected Company': 'Empresa Seleccionada',
-    'Hide': 'Ocultar',
+    'Hide List': 'Ocultar lista',
     'Change Company': 'Cambiar Empresa',
     'Selected Company ID': 'ID de Empresa Seleccionada',
     //Mensajes de register-userfinal.ts
@@ -307,6 +312,18 @@ export class DictionaryService {
     'Edit': 'Editar',
     "You don't have the necessary permissions to view this page.": 'No tienes los permisos necesarios para ver esta página.',
     'Go to Dashboard': 'Ir al panel',
+    //Textos de Manager Personalization
+    'Personalize your profile': 'Personaliza tu perfil',
+    'Manage your information so that your customers can see it.': 'Administra tu información para que tus clientes puedan verla.',
+    'Formats: JPG, PNG.': 'Formatos: JPG, PNG.',
+    'Full Name': 'Nombre completo',
+    'The name is not editable from this panel.': 'El nombre no es editable desde este panel.',
+    'Professional Introduction': 'Introducción profesional',
+    "Tell your customers about your journey...": "Cuéntale a tus clientes sobre tu trayectoria...",
+    'Syncing your data...': 'Sincronizando tus datos...',
+     //Mensajes de manager-personalization.ts
+     'Profile successfully updated!': '¡Perfil actualizado correctamente!',
+     'There was an error saving the changes. Please try again.': 'Se produjo un error al guardar los cambios. Por favor, inténtelo de nuevo.',
   };
 
   translate(text: string, lang: string): string {

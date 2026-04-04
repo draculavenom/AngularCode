@@ -5,12 +5,12 @@
 
         <div class="col-12 mb-2">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <label class="form-label fw-bold text-success mb-0">
+            <label class="form-label fw-bold text-success mb-0" t>
               {{ showCompanySelection ? 'Select your Company' : 'Selected Company' }}
             </label>
             <button type="button" class="btn btn-link btn-sm text-decoration-none" (click)="toggleCompanySelection()">
-              <i class="bi" [ngClass]="showCompanySelection ? 'bi-eye-slash' : 'bi-arrow-left-right'"></i>
-              {{ showCompanySelection ? 'Hide List' : 'Change Company' }}
+              <i class="bi me-2" [ngClass]="showCompanySelection ? 'bi-eye-slash' : 'bi-arrow-left-right' "></i>
+              <span t>{{ showCompanySelection ? 'Hide List' : 'Change Company' }}</span>
             </button>
           </div>
 

@@ -14,10 +14,16 @@
   height: 160px;
   object-fit: cover;
   display: block;
+  transition: transform 0.3s ease;
+  border: 4px solid white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
 }
 .text-color {
     color: #3b702e;
     text-align: center;
+}
+.main-avatar:hover {
+  transform: scale(1.02);
 }
 .btn-edit-avatar {
   position: absolute;
@@ -77,6 +83,15 @@
 
 @media (min-width: 768px) {
   .border-end-md {
-    border-right: 1px solid #f0f0f0 !important;
+    border-right: 2px solid #3b702e !important;
+    box-shadow: 4px 0 8px -4px rgba(59, 112, 46, 0.3);
+  }
+}
+@media (max-width: 767px) {
+  .border-end-md {
+    border-right: none !important;
+    border-bottom: 2px solid #3b702e !important;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
   }
 }

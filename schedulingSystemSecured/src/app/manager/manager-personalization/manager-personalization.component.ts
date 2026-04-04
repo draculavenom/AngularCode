@@ -82,7 +82,6 @@ export class ManagerPersonalizationComponent implements OnInit {
           this.selectedFile = null;
         },
         error: (err) => {
-          console.error("Error al guardar", err);
           this.showMessage("There was an error saving the changes. Please try again.", "danger");
           this.isSaving = false;
         }
