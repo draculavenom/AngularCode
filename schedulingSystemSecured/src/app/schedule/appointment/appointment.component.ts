@@ -9,12 +9,18 @@ import { UsersModel } from 'src/app/users/users.model';
 import { ManagerProfile } from 'src/app/manager/manager-personalization/manager-profile.model';
 import { TranslateService } from '@ngx-translate/core';
 import { DictionaryService } from 'src/app/services/dictionary.service';
+import { NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { CustomDatepickerI18n } from 'src/app/services/datepicker-i18n.service';
 import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
-  styleUrls: ['./appointment.component.css']
+  styleUrls: ['./appointment.component.css'],
+  providers: [NgbDatepickerConfig,
+    { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }
+  ]
 })
 export class AppointmentComponent implements OnInit {
   appointment: AppointmentModel = new AppointmentModel(0, 0, new Date(), "", "SCHEDULED");
@@ -30,6 +36,7 @@ export class AppointmentComponent implements OnInit {
   managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
   managerProfile: ManagerProfile | null = null;
   imagePreview: string | null = null;
+  serviceModelDate!: NgbDateStruct;
 
   constructor(
     private userService: UserService,
@@ -38,8 +45,26 @@ export class AppointmentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
-    private dict: DictionaryService
-  ) { }
+    private dict: DictionaryService,
+    private config: NgbDatepickerConfig
+  ) {
+    const current = new Date();
+    // Configuración para CITAS: No permitir fechas pasadas
+    this.config.minDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate()
+    };
+    this.config.maxDate = { year: current.getFullYear() + 1, month: 12, day: 31 };
+    this.config.navigation = 'select';
+    this.config.outsideDays = 'hidden';
+  }
+  public onDateSelect(date: NgbDateStruct) {
+    if (date) {
+      this.appointment.date = new Date(date.year, date.month - 1, date.day, 12, 0, 0);
+      this.loadSlots(); 
+    }
+  }
 
   ngOnInit(): void {
     this.defineAppointment();
@@ -207,6 +232,12 @@ export class AppointmentComponent implements OnInit {
       }
       this.appointment.date = dateObj;
     }
+    this.serviceModelDate = {
+      year: this.appointment.date.getFullYear(),
+      month: this.appointment.date.getMonth() + 1,
+      day: this.appointment.date.getDate()
+    };
+
   }
 
   public getAvatarColorClass(managerId: any): string {
@@ -227,5 +258,10 @@ export class AppointmentComponent implements OnInit {
       : 'Any specific requests?';
     const lang = this.translate.currentLang || 'en';
     return this.dict.translate(key, lang);
+  }
+  
+  getTranslatedDatePlaceholder(): string {
+    const lang = this.translate.currentLang || 'en';
+    return this.dict.translate('yyyy-mm-dd', lang);
   }
 }

@@ -7,11 +7,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { PasswordDialogComponent } from 'src/app/layout/password-dialog/password-dialog.component';
 import { ManagerOptionsModel } from '../manager.options';
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
+import { NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  providers: [NgbDatepickerConfig]
 })
 export class UserComponent implements OnInit {
   user: UsersModel = new UsersModel(0, "", false);
@@ -20,23 +22,38 @@ export class UserComponent implements OnInit {
   managerOptions: ManagerOptionsModel = new ManagerOptionsModel(0);
   showManagerFields: boolean = false;
 
-  message: string = "";  
+  message: string = "";
   messageType: string = "";
   tokenId: number = 0;
+  modelDate!: NgbDateStruct;
+  activeModelDate!: NgbDateStruct;
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
     private securityService: SecurityService,
     private dialog: MatDialog,
-    private managerService: ManagerService
-  ) { }
+    private managerService: ManagerService,
+    private config: NgbDatepickerConfig
+  ) {
+    const current = new Date();
+    this.config.minDate = { year: 1920, month: 1, day: 1 };
+    this.config.maxDate = { year: current.getFullYear(), month: 12, day: 31 };
+    this.config.navigation = 'select';
+    this.config.outsideDays = 'hidden';
+  }
 
+  onDateChange(date: NgbDateStruct) {
+    if (date) {
+      const month = date.month;
+      const day = date.day;
+      this.user.dateOfBirth = new Date(date.year, month - 1, day);
+    }
+  }
   ngOnInit(): void {
     this.getUser();
     this.getTokenId();
   }
-
   public getTokenId() {
     let token = sessionStorage.getItem('bearerToken');
     let tokenInfo: any = {};
@@ -46,26 +63,41 @@ export class UserComponent implements OnInit {
       this.tokenId = tokenInfo.jti;
     }
   }
-
+  private parseDateToPicker(dateSource: any): NgbDateStruct | null {
+    if (!dateSource) return null;
+    const d = new Date(dateSource);
+    return {
+      year: d.getFullYear(),
+      month: d.getMonth() + 1,
+      day: d.getDate()
+    };
+  }
   public getUser() {
     this.route.params.subscribe(params => {
       if (params['id']) {
         const id = parseInt(params['id']);
         this.userService.getUserById(id).subscribe(u => {
           this.user = u;
+          if (this.user.dateOfBirth) {
+            this.modelDate = this.parseDateToPicker(this.user.dateOfBirth)!;
+          }
           if (this.user.role === 'MANAGER') {
             this.managerService.getManagerFullData(id).subscribe(data => {
               if (data && data.companyName) {
                 this.managerOptions.nameCompany = data.companyName;
               }
+              this.activeModelDate = this.parseDateToPicker(data.activeDate)!;
             });
           }
         });
       }
     });
   }
-
-
+  onActiveDateChange(date: NgbDateStruct) {
+    if (date) {
+      this.managerOptions.activeDate = new Date(date.year, date.month - 1, date.day);
+    }
+  }
   public editSelf() {
     this.userService.updateSelf(this.user).subscribe(u => {
       this.user = u;
@@ -100,7 +132,7 @@ export class UserComponent implements OnInit {
   }
 
   public updateMessage(input: string) {
-    this.message =  input + " correctly";
+    this.message = input + " correctly";
     this.messageType = "success";
   }
 

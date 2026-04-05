@@ -5,11 +5,13 @@ import { ManagerService } from 'src/app/schedule/manager/manager.service';
 import { UserService } from 'src/app/users/user.service';
 import { SecurityService } from 'src/app/security/security.service';
 import { Router } from '@angular/router';
+import { NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-manager-appointment',
   templateUrl: './manager-appointment.component.html',
-  styleUrls: ['./manager-appointment.component.css']
+  styleUrls: ['./manager-appointment.component.css'],
+  providers: [NgbDatepickerConfig]
 })
 export class ManagerAppointmentComponent implements OnInit {
 
@@ -22,16 +24,26 @@ export class ManagerAppointmentComponent implements OnInit {
   minDate = new Date().toISOString().split('T')[0];
   successMessage = "";
   errorMessage = "";
+  serviceModelDate!: NgbDateStruct;
 
   constructor(
     private appointmentService: AppointmentService,
     private managerService: ManagerService,
     private userService: UserService,
     private router: Router,
-    private securityService: SecurityService
-  ) { }
+    private securityService: SecurityService,
+    private config: NgbDatepickerConfig
+  ) {
+    const current = new Date();
+    this.config.minDate = { year: 1920, month: 1, day: 1 };
+    this.config.maxDate = { year: current.getFullYear(), month: 12, day: 31 };
+    this.config.navigation = 'select';
+    this.config.outsideDays = 'hidden';
+  }
 
   ngOnInit(): void {
+    const today = new Date();
+    this.serviceModelDate = { year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate() };
     this.userService.getUser().subscribe(currentUser => {
       this.managerId = currentUser.id;
       this.userService.getPersonsByManager(currentUser.id).subscribe({
@@ -39,6 +51,12 @@ export class ManagerAppointmentComponent implements OnInit {
         error: () => this.errorMessage = "Could not load your managed users."
       });
     });
+  }
+  onServiceDateSelect(date: NgbDateStruct) {
+    if (date) {
+      this.appointment.date = new Date(date.year, date.month - 1, date.day);
+      this.loadSlots();
+    }
   }
 
   onDateChange(newDate: string) {

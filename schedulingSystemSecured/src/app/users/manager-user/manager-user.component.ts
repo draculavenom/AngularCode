@@ -3,11 +3,13 @@ import { UserService } from '../user.service';
 import { UsersModel } from '../users.model';
 import { ManagerOptionsModel } from '../manager.options';
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
+import { NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-manager-user',
   templateUrl: './manager-user.component.html',
-  styleUrls: ['./manager-user.component.css']
+  styleUrls: ['./manager-user.component.css'],
+  providers: [NgbDatepickerConfig]
 })
 export class ManagerUserComponent implements OnInit {
   userManager: UsersModel = new UsersModel(0, "", true);
@@ -15,8 +17,31 @@ export class ManagerUserComponent implements OnInit {
   messages: string[] = [];
   messageType = "";
   companyName: string = "";
+  modelDate!: NgbDateStruct;
+  activeModelDate!: NgbDateStruct;
 
-  constructor(private userService: UserService, private managerService: ManagerService) { }
+  constructor(private userService: UserService, private managerService: ManagerService,
+    private config: NgbDatepickerConfig
+  ) {
+    const current = new Date();
+    this.config.minDate = { year: 1920, month: 1, day: 1 };
+    this.config.maxDate = { year: current.getFullYear(), month: 12, day: 31 };
+    this.config.navigation = 'select';
+    this.config.outsideDays = 'hidden';
+  }
+  onDateChange(date: NgbDateStruct) {
+    if (date) {
+      const month = date.month;
+      const day = date.day;
+      this.userManager.dateOfBirth = new Date(date.year, month - 1, day);
+    }
+  }
+
+  onActiveDateChange(date: NgbDateStruct) {
+    if (date) {
+      this.managerOptions.activeDate = new Date(date.year, date.month - 1, date.day);
+    }
+  }
 
   ngOnInit(): void {
     this.defaultValues();

@@ -18,10 +18,19 @@
         <div class="form-section">
           <div class="mb-4">
             <label for="date" class="form-label fw-bold" t>Service Date</label>
-            <div class="input-group-custom">
-              <input class="form-control custom-input" type="date" name="date" id="date" [min]="minDate"
-                [ngModel]="appointment.date | date : 'yyyy-MM-dd'" (ngModelChange)="onDateChange($event)" required />
+            <div class="input-group">
+              <button class="btn btn-outline-secondary border-end-0 bg-white" (click)="d.toggle()" type="button">
+                <i class="bi bi-calendar-event text-success"></i>
+              </button>
+
+              <input class="form-control date-input  border-start-0" [placeholder]="getTranslatedDatePlaceholder()"
+                name="dp" [(ngModel)]="serviceModelDate" ngbDatepicker #d="ngbDatepicker"
+                (dateSelect)="onDateSelect($event)" readonly required
+                style="cursor: pointer; background-color: #ffffff;">
             </div>
+            <small class="text-muted mt-1 d-block" style="font-size: 0.75rem;">
+              <span t>Click the icon to select your date.</span>
+            </small>
           </div>
 
           <div class="mb-4">

@@ -133,11 +133,11 @@ export class DictionaryService {
     'Start with us and professionalize your business.': 'Comienza con nosotros y profesionaliza tu negocio',
     'Get my own calendar': 'Obtener mi propio calendario',
     "You'll be attended to by:": "Serás atendido por:",
-    '(Optional)':'(Opcional)',
-    '(Required for changes *)':'(Requerido para cambios *)',
+    '(Optional)': '(Opcional)',
+    '(Required for changes *)': '(Requerido para cambios *)',
     'Please explain the reason for the change': 'Por favor, explica el motivo del cambio',
-  'Any specific requests?': '¿Alguna petición especial?',
-  'A comment is required to update your appointment.': 'Se requiere un comentario para actualizar tu cita.',
+    'Any specific requests?': '¿Alguna petición especial?',
+    'A comment is required to update your appointment.': 'Se requiere un comentario para actualizar tu cita.',
     //Mensajes de appointment.ts
     "You don't have a manager assigned. Please contact support.": 'No tienes un manager asignado. Por favor, contacta con el servicio de assitencia',
     'Please select a schedule.': 'Por favor seleccione un horario',
@@ -233,6 +233,13 @@ export class DictionaryService {
     'Hide List': 'Ocultar lista',
     'Change Company': 'Cambiar Empresa',
     'Selected Company ID': 'ID de Empresa Seleccionada',
+    "Search by company or manager name...": "Buscar por nombre de empresa o nombre de manager...",
+    'No matches found': 'No se encontraron coincidencias',
+    "We couldn't find any company matching": 'No pudimos encontrar ninguna empresa que coincida con',
+    'Please try a different name or check your spelling.': 'Por favor, intenta con un nombre diferente o revisa la ortografía.',
+    'Clear search': 'Limpiar búsqueda',
+    'Click the icon to select your date.': 'Haz clic en el icono para seleccionar tu fecha.',
+    'yyyy-mm-dd': 'aaaa-mm-dd',
     //Mensajes de register-userfinal.ts
     'Please, now select the date and time for your first appointment': 'Por favor, ahora seleccione la fecha y la hora para su primera cita.',
     //Textos de manager-user
@@ -321,9 +328,9 @@ export class DictionaryService {
     'Professional Introduction': 'Introducción profesional',
     "Tell your customers about your journey...": "Cuéntale a tus clientes sobre tu trayectoria...",
     'Syncing your data...': 'Sincronizando tus datos...',
-     //Mensajes de manager-personalization.ts
-     'Profile successfully updated!': '¡Perfil actualizado correctamente!',
-     'There was an error saving the changes. Please try again.': 'Se produjo un error al guardar los cambios. Por favor, inténtelo de nuevo.',
+    //Mensajes de manager-personalization.ts
+    'Profile successfully updated!': '¡Perfil actualizado correctamente!',
+    'There was an error saving the changes. Please try again.': 'Se produjo un error al guardar los cambios. Por favor, inténtelo de nuevo.',
   };
 
   translate(text: string, lang: string): string {

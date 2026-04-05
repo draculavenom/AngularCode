@@ -15,7 +15,17 @@
           </div>
 
           <div class="row g-3" *ngIf="showCompanySelection">
-            <div class="col-12 col-lg-6" *ngFor="let opt of managerSelect">
+            <div class="col-12 mb-3">
+              <div class="input-group search-group">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="bi bi-search text-muted"></i>
+                </span>
+                <input type="text" class="form-control register-input border-start-0 ps-0"
+                  placeholder="Search by company or manager name..." [(ngModel)]="searchTerm" name="searchField" t>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-6" *ngFor="let opt of filteredManagers">
               <div class="card h-100 company-selection-card border-2 selection-card"
                 [class.selected-card]="user.managedBy === opt.managerId" (click)="selectCompany(opt.managerId)">
 
@@ -48,7 +58,29 @@
                 </div>
               </div>
             </div>
+            <div class="col-12 register-fade-in" *ngIf="filteredManagers.length === 0">
+              <div class="no-results-container text-center py-5 rounded-4">
+                <div class="icon-wrapper mb-3">
+                  <i class="bi bi-search text-muted opacity-50"></i>
+                  <i class="bi bi-x-circle-fill icon-sub"></i>
+                </div>
+                <h5 class="fw-bold text-dark mb-1" t>No matches found</h5>
+
+                <p class="text-muted small px-4">
+                  <span t>We couldn't find any company matching</span>
+                  <span class="text-success fw-semibold"> "{{ searchTerm }}"</span>.
+                  <br>
+                  <span t>Please try a different name or check your spelling.</span>
+                </p>
+
+                <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 mt-2"
+                  (click)="searchTerm = ''">
+                  <span t>Clear search</span>
+                </button>
+              </div>
+            </div>
           </div>
+
 
           <div class="company-selection-card mt-2" *ngIf="!showCompanySelection && selectedProfile">
             <div class="manager-card-content border rounded-4 p-4 bg-light shadow-sm d-flex align-items-center">
@@ -123,10 +155,18 @@
           <div class="col-md-6 register-fade-in">
             <label class="form-label fw-semibold" t>Birth Date</label>
             <div class="input-group">
-              <span class="input-group-text bg-white border-end-0"><i class="bi bi-calendar-event"></i></span>
-              <input type="date" name="dob" class="form-control register-input border-start-0"
-                [ngModel]="user.dateOfBirth | date:'yyyy-MM-dd'" (ngModelChange)="user.dateOfBirth = $event" required>
+              <button class="input-group-text bg-white border-end-0" (click)="d.toggle()" type="button">
+                <i class="bi bi-calendar-event text-muted"></i>
+              </button>
+
+              <input class="form-control register-input border-start-0" placeholder="yyyy-mm-dd" name="dp"
+                [(ngModel)]="modelDate" ngbDatepicker #d="ngbDatepicker" (dateSelect)="onDateChange($event)"
+                [navigation]="'select'" [minDate]="{year: 1920, month: 1, day: 1}" container="body" readonly
+                style="cursor: pointer;" t>
             </div>
+            <small class="text-muted mt-1 d-block" style="font-size: 0.75rem;">
+              <span t>Click the icon to select your date.</span>
+            </small>
           </div>
 
           <div class="col-12 mt-4">

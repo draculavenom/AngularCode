@@ -80,16 +80,24 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                                     <input class="form-control" name="phoneNumber" [(ngModel)]="user.phoneNumber"
-                                        placeholder="+1...">
+                                        placeholder="+1..." t>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label class="field-label" t>Date of Birth</label>
                                 <div class="input-group">
-                                    <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
-                                    <input type="date" class="form-control" name="dateOfBirth"
-                                        [(ngModel)]="user.dateOfBirth">
+                                    <button class="btn btn-outline-secondary border-end-0 bg-white" (click)="d.toggle()"
+                                        type="button">
+                                        <i class="bi bi-calendar-event text-success"></i>
+                                    </button>
+                                    <input class="form-control border-start-0" placeholder="yyyy-mm-dd"
+                                        name="dateOfBirthPicker" [(ngModel)]="modelDate" ngbDatepicker
+                                        #d="ngbDatepicker" (dateSelect)="onDateChange($event)" readonly
+                                        style="cursor: pointer; background-color: #ffffff;">
                                 </div>
+                                <small class="text-muted mt-1 d-block" style="font-size: 0.75rem;">
+                                    <span t>Click the icon to select your date.</span>
+                                </small>
                             </div>
                             <div class="col-md-6" *ngIf="user.role === 'MANAGER' && self.role === 'ADMIN'">
                                 <label class="field-label" t>Company</label>
@@ -137,11 +145,19 @@
                                     <div class="col-md-6">
                                         <label class="field-label" t>Active Until</label>
                                         <div class="input-group">
-                                            <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
-                                            <input type="date" class="form-control" name="activeDate"
-                                                [ngModel]="managerOptions.activeDate | date:'yyyy-MM-dd'"
-                                                (ngModelChange)="managerOptions.activeDate = $event">
+                                            <button class="btn btn-outline-secondary border-end-0 bg-white"
+                                                (click)="activeDp.toggle()" type="button">
+                                                <i class="bi bi-calendar-check text-success"></i>
+                                            </button>
+
+                                            <input class="form-control border-start-0" placeholder="yyyy-mm-dd"
+                                                name="activeDate" [(ngModel)]="activeModelDate" ngbDatepicker
+                                                #activeDp="ngbDatepicker" (dateSelect)="onActiveDateChange($event)"
+                                                readonly style="cursor: pointer; background-color: #ffffff;">
                                         </div>
+                                        <small class="text-muted mt-1 d-block" style="font-size: 0.75rem;">
+                                            <span t>Click the icon to select your date.</span>
+                                        </small>
                                     </div>
                                     <div class="col-12">
                                         <label class="field-label" t>Comments</label>

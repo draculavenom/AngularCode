@@ -4,14 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { DatePipe } from '@angular/common';
-import dayGridPlugin from '@fullcalendar/daygrid'; 
+import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { AutoTranslateDirective } from './directives/auto-translate.directive';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es'
+import localeEs from '@angular/common/locales/es';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
+import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { CustomDatepickerI18n } from './services/datepicker-i18n.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,13 +60,13 @@ import { ManagerOptionsComponent } from './manager/manager-options/manager-optio
 import { CalendarComponent } from './schedule/calendar/calendar.component';
 import { PromoComponent } from './promotion/promo.component';
 import { ScheduleConfigurationComponent } from './manager/schedule-configuration/schedule-configuration.component';
-import { LegalPageComponent } from './layout/legal-page/legal-page.component';import { ManagerAppointmentComponent } from './schedule/manager-appointment/manager-appointment.component';
+import { LegalPageComponent } from './layout/legal-page/legal-page.component'; import { ManagerAppointmentComponent } from './schedule/manager-appointment/manager-appointment.component';
 import { AppointmentQuickSlotComponent } from './schedule/appointment-quick-slot/appointment-quick-slot.component';
 import { CommentDialogComponent } from './layout/comment-dialog/comment-dialog.component';
-import { ManagerCardComponent} from './manager/manager-card/manager-card.component';
+import { ManagerCardComponent } from './manager/manager-card/manager-card.component';
 import { ManagerPersonalizationComponent } from './manager/manager-personalization/manager-personalization.component';
 
-FullCalendarModule.registerPlugins([ 
+FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
 ]);
@@ -131,6 +135,8 @@ registerLocaleData(localeEs);
     ReactiveFormsModule,
     MatDatepickerModule,
     MatCardModule,
+    NgbModule,
+    CommonModule,
     MatNativeDateModule,
     FullCalendarModule,
     TranslateModule.forRoot({
@@ -155,9 +161,10 @@ registerLocaleData(localeEs);
       provide: LOCALE_ID,
       useFactory: () => {
         // Intenta obtener el idioma del storage, si no, usa inglés por defecto
-        return localStorage.getItem('language') || 'en'; 
+        return localStorage.getItem('language') || 'en';
       }
-    }
+    },
+    { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }
   ],
   bootstrap: [AppComponent]
 })

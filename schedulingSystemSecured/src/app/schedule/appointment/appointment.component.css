@@ -269,3 +269,132 @@ hr {
         font-size: 1.25rem;
     }
 }
+.input-group .btn-outline-secondary {
+    border: 2px solid #eaefe9;
+    border-right: none;
+    border-radius: 0.8rem 0 0 0.8rem !important;
+}
+.date-input {
+    border: 2px solid #eaefe9;
+    border-left: none !important;
+    border-radius: 0 0.8rem 0.8rem 0 !important;
+}
+.input-group:focus-within .btn-outline-secondary {
+    border-color: #149905;
+    color: #149905;
+}
+.input-group:focus-within .date-input {
+    border-color: #149905 !important;
+    box-shadow: 0 0 0 4px rgba(20, 153, 5, 0.1);
+}
+.text-success {
+    color: #149905 !important;
+}
+input-group .btn-outline-secondary {
+    border: 1px solid #dee2e6;
+    border-right: none;
+    color: #149905;
+}
+.input-group .form-control.border-start-0 {
+    border-left: none !important;
+}
+::ng-deep ngb-datepicker {
+    border: 1px solid #eaefe9 !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden;
+    background: white !important;
+    font-family: inherit;
+    width: auto !important;
+    display: inline-block !important;
+}
+::ng-deep .ngb-dp-header {
+    background-color: #f8fff9 !important;
+    border-bottom: 1px solid #eaefe9 !important;
+    padding: 8px 4px !important;
+}
+::ng-deep .ngb-dp-navigation-select {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    padding: 6px !important;
+}
+::ng-deep .ngb-dp-navigation-select select {
+    height: 32px !important;
+    border: 1px solid #eaefe9 !important;
+    border-radius: 0.6rem !important;
+    padding: 0 4px !important;
+    font-size: 0.9rem !important;
+    color: #333 !important;
+    background-color: white !important;
+    cursor: pointer !important;
+    min-width: 85px !important;
+    transition: all 0.2s ease !important;
+}
+::ng-deep .ngb-dp-navigation-select select:focus {
+    border-color: #149905 !important;
+    box-shadow: 0 0 0 3px rgba(20, 153, 5, 0.1) !important;
+    outline: none !important;
+    min-width: 70px !important;
+}
+::ng-deep .ngb-dp-arrow-btn {
+    color: #149905 !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    transition: background 0.2s !important;
+    margin: 0 2px !important;
+}
+::ng-deep .ngb-dp-arrow-btn:hover {
+    background-color: #f0faed !important;
+}
+::ng-deep .ngb-dp-weekday {
+    color: #149905 !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+}
+::ng-deep .ngb-dp-day,
+::ng-deep .btn-light {
+    border-radius: 0.5rem !important;
+}
+::ng-deep .text-primary {
+    color: #149905 !important;
+    font-weight: bold;
+}
+::ng-deep .bg-primary {
+    background-color: #149905 !important;
+    color: white !important;
+}
+::ng-deep .ngb-dp-day [ngbdatepickerdayview]:hover {
+    background-color: #f0faed !important;
+    color: #149905 !important;
+}
+::ng-deep .ngb-dp-day,
+::ng-deep .ngb-dp-weekday {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    line-height: 2.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+::ng-deep .ngb-dp-day .bg-primary {
+  background-color: #149905 !important; 
+  color: white !important;
+  border-radius: 0.5rem !important;
+}
+::ng-deep .ngb-dp-today .btn-light {
+  background-color: #f0faed !important; 
+  border: 2px solid #149905 !important; 
+  color: #149905 !important;
+  font-weight: bold !important;
+  border-radius: 0.5rem !important;
+}
+::ng-deep .ngb-dp-day [ngbday]:hover {
+  background-color: #e9efe8 !important;
+  border-radius: 0.5rem !important;
+}
+::ng-deep .ngb-dp-day {
+  font-weight: 500 !important;
+}

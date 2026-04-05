@@ -18,17 +18,25 @@
                     </div>
                     <div class="mb-4">
                         <label class="form-label fw-bold" t>Service Date</label>
-                        <div class="input-group-custom">
-                            <input class="form-control custom-input" type="date" [min]="minDate"
-                                [ngModel]="appointment.date | date : 'yyyy-MM-dd'"
-                                (ngModelChange)="onDateChange($event)" name="date" required>
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary border-end-0 bg-white" (click)="serviceDp.toggle()"
+                                type="button">
+                                <i class="bi bi-calendar-event text-success"></i>
+                            </button>
+
+                            <input class="form-control border-start-0 register-input" placeholder="yyyy-mm-dd"
+                                name="serviceDate" [(ngModel)]="serviceModelDate" ngbDatepicker
+                                #serviceDp="ngbDatepicker" (dateSelect)="onServiceDateSelect($event)" readonly
+                                style="cursor: pointer; background-color: #ffffff;" t>
                         </div>
+                        <small class="text-muted mt-1 d-block" style="font-size: 0.75rem;">
+                            <span t>Click the icon to select your date.</span>
+                        </small>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label fw-bold" t>Available Time</label>
                         <select class="form-select custom-input" [(ngModel)]="appointment.time" name="time"
-
                             [disabled]="isLoadingSlots || !appointment.userId" required>
                             <option value="" t>{{ isLoadingSlots ? 'Loading...' : 'Select a time' }}</option>
                             <option *ngFor="let t of availableSlots" [value]="t">{{ t }}</option>
@@ -36,7 +44,7 @@
                         <div *ngIf="!isLoadingSlots && availableSlots.length === 0 && appointment.date "
                             class="text-danger small mt-2">
                             <i class="bi bi-info-circle me-1"></i>
-                            <span t>No time slots available for this date. Please try another day.</span> 
+                            <span t>No time slots available for this date. Please try another day.</span>
                         </div>
                         <div *ngIf="!isLoadingSlots && !appointment.userId" class="text-danger small mt-2">
                             <i class="bi bi-info-circle me-1"></i>

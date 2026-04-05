@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { SecurityService } from '../security.service';
 import { UsersModel } from 'src/app/users/users.model';
 import { UserService } from 'src/app/users/user.service';
-import { ManagerOptionsModel } from 'src/app/users/manager.options';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ManagerService } from 'src/app/schedule/manager/manager.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { ManagerProfile } from 'src/app/manager/manager-personalization/manager-profile.model';
+import { NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-userfinal.component.html',
-  styleUrls: ['./register-userfinal.component.css']
+  styleUrls: ['./register-userfinal.component.css'],
+  providers: [NgbDatepickerConfig]
 })
 export class RegisterUserFinalComponent implements OnInit {
   messages: string[] = [];
@@ -20,7 +21,9 @@ export class RegisterUserFinalComponent implements OnInit {
   managerSelect: any[] = [];
   profilesMap: { [key: number]: ManagerProfile } = {};
   showCompanySelection: boolean = true;
-  selectedProfile: ManagerProfile | null = null
+  selectedProfile: ManagerProfile | null = null;
+  modelDate!: NgbDateStruct;
+  searchTerm: string = '';
 
   constructor(
     private securityService: SecurityService,
@@ -28,9 +31,24 @@ export class RegisterUserFinalComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private managerService: ManagerService,
-    private configService: ConfigService
-  ) { }
+    private configService: ConfigService,
+    private config: NgbDatepickerConfig,
+  ) {
+    const current = new Date();
+    this.config.minDate = { year: 1920, month: 1, day: 1 };
+    this.config.maxDate = { year: current.getFullYear(), month: 12, day: 31 };
+    this.config.navigation = 'select';
+    this.config.outsideDays = 'hidden';
+  }
 
+
+  onDateChange(date: NgbDateStruct) {
+    if (date) {
+      const month = date.month;
+      const day = date.day;
+      this.user.dateOfBirth = new Date(date.year, month - 1, day);
+    }
+  }
   ngOnInit(): void {
     this.user.role = "USER";
     this.user.managedBy = 0;
@@ -106,6 +124,22 @@ export class RegisterUserFinalComponent implements OnInit {
       return match.name || match.companyName || 'Professional Studio';
     }
     return 'Company';
+  }
+  get filteredManagers() {
+    if (!this.searchTerm || this.searchTerm.trim() === '') {
+      return this.managerSelect;
+    }
+    const term = this.searchTerm.toLowerCase().trim();
+    return this.managerSelect.filter(opt => {
+      const companyName = (opt.nameCompany || '').toLowerCase();
+      const optName = (opt.name || '').toLowerCase();
+      const profile = this.profilesMap[opt.managerId];
+      const managerFullName = (profile?.managerFullName || '').toLowerCase();
+
+      return companyName.includes(term) ||
+        optName.includes(term) ||
+        managerFullName.includes(term);
+    });
   }
 
 }
